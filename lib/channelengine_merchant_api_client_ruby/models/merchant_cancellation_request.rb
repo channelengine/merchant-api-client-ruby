@@ -15,14 +15,18 @@ require 'date'
 module ChannelEngineMerchantApiClient
 
   class MerchantCancellationRequest
+    # The unique cancellation reference used by the Merchant (sku)
     attr_accessor :merchant_cancellation_no
 
+    # The unique order reference used by the Merchant (sku)
     attr_accessor :merchant_order_no
 
     attr_accessor :lines
 
+    # Reason for cancellation (text)
     attr_accessor :reason
 
+    # Reason code for cancellation
     attr_accessor :reason_code
 
     class EnumAttributeValidator

@@ -14,19 +14,23 @@ require 'date'
 
 module ChannelEngineMerchantApiClient
 
-  class MerchantCancellationLineRequest
+  class MerchantReturnLineUpdateRequest
     # The unique product reference used by the Merchant (sku)
     attr_accessor :merchant_product_no
 
-    # Quantity of the product to cancel
-    attr_accessor :quantity
+    # The amount of items that have been accepted
+    attr_accessor :accepted_quantity
+
+    # The amount of items that have been rejected
+    attr_accessor :rejected_quantity
 
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'merchant_product_no' => :'MerchantProductNo',
-        :'quantity' => :'Quantity'
+        :'accepted_quantity' => :'AcceptedQuantity',
+        :'rejected_quantity' => :'RejectedQuantity'
       }
     end
 
@@ -34,7 +38,8 @@ module ChannelEngineMerchantApiClient
     def self.swagger_types
       {
         :'merchant_product_no' => :'String',
-        :'quantity' => :'Integer'
+        :'accepted_quantity' => :'Integer',
+        :'rejected_quantity' => :'Integer'
       }
     end
 
@@ -50,8 +55,12 @@ module ChannelEngineMerchantApiClient
         self.merchant_product_no = attributes[:'MerchantProductNo']
       end
 
-      if attributes.has_key?(:'Quantity')
-        self.quantity = attributes[:'Quantity']
+      if attributes.has_key?(:'AcceptedQuantity')
+        self.accepted_quantity = attributes[:'AcceptedQuantity']
+      end
+
+      if attributes.has_key?(:'RejectedQuantity')
+        self.rejected_quantity = attributes[:'RejectedQuantity']
       end
 
     end
@@ -64,8 +73,12 @@ module ChannelEngineMerchantApiClient
         invalid_properties.push("invalid value for 'merchant_product_no', merchant_product_no cannot be nil.")
       end
 
-      if @quantity.nil?
-        invalid_properties.push("invalid value for 'quantity', quantity cannot be nil.")
+      if @accepted_quantity.nil?
+        invalid_properties.push("invalid value for 'accepted_quantity', accepted_quantity cannot be nil.")
+      end
+
+      if @rejected_quantity.nil?
+        invalid_properties.push("invalid value for 'rejected_quantity', rejected_quantity cannot be nil.")
       end
 
       return invalid_properties
@@ -75,7 +88,8 @@ module ChannelEngineMerchantApiClient
     # @return true if the model is valid
     def valid?
       return false if @merchant_product_no.nil?
-      return false if @quantity.nil?
+      return false if @accepted_quantity.nil?
+      return false if @rejected_quantity.nil?
       return true
     end
 
@@ -85,7 +99,8 @@ module ChannelEngineMerchantApiClient
       return true if self.equal?(o)
       self.class == o.class &&
           merchant_product_no == o.merchant_product_no &&
-          quantity == o.quantity
+          accepted_quantity == o.accepted_quantity &&
+          rejected_quantity == o.rejected_quantity
     end
 
     # @see the `==` method
@@ -97,7 +112,7 @@ module ChannelEngineMerchantApiClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [merchant_product_no, quantity].hash
+      [merchant_product_no, accepted_quantity, rejected_quantity].hash
     end
 
     # Builds the object from hash

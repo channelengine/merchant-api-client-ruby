@@ -15,29 +15,37 @@ require 'date'
 module ChannelEngineMerchantApiClient
 
   class MerchantProductRequest
-    # A unique identifier of the product.
+    # A unique identifier of the product. (sku)
     attr_accessor :merchant_product_no
 
     # If this product is a different version of another  product (for example, all fields are the same except  size), then this field should contain  the 'MerchantProductNo' of the parent. The parent  should already exist (or be present between the products  in the content of the API call, it does not matter whether   the parent is behind the child in the list).
     attr_accessor :parent_merchant_product_no
 
-    # If this product is a different version of another  product (for example, all fields are the same except  color) and itself is a parent with child products (e.g. of sizes),   then this field should contain the 'MerchantProductNo' of the grandparent. The grandparent  should already exist (or be present between the products  in the content of the API call, it does not matter whether   the grandparent is behind the child in the list).    Use this field in case of three level product hierarchy,   e.g. model - color - size.   This is required for channels like Otto.
+    # If this product is a different version of another  product (for example, all fields are the same except  color) and itself is a parent with child products (e.g. of sizes),   then this field should contain the 'MerchantProductNo' of the grandparent. The grandparent  should already exist (or be present between the products  in the content of the API call, it does not matter whether   the grandparent is behind the child in the list).  When you set this field, the ParentMerchantProductNo should be left empty.    Use this field in case of three level product hierarchy,   e.g. model - color - size.   This is required for channels like Otto.
     attr_accessor :parent_merchant_product_no2
 
+    # The name of the product
     attr_accessor :name
 
+    # A description of the product
     attr_accessor :description
 
+    # The brand of the product
     attr_accessor :brand
 
+    # Optional. The size of the product (variant). E.g. fashion size (S-XL, 46-56, etc), width of the watch, etc..
     attr_accessor :size
 
+    # Optional. The color of the product (variant).
     attr_accessor :color
 
+    # The EAN of GTIN of the product
     attr_accessor :ean
 
+    # The unique product reference used by the manufacturer/vendor of the product
     attr_accessor :manufacturer_product_number
 
+    # The number of items in stock
     attr_accessor :stock
 
     # Price, including VAT.
@@ -46,11 +54,13 @@ module ChannelEngineMerchantApiClient
     # Manufacturer's suggested retail price
     attr_accessor :msrp
 
+    # Optional. The purchase price of the product. Useful for repricing.
     attr_accessor :purchase_price
 
     # The type of VAT which applies to this product.  See: http://ec.europa.eu/taxation_customs/taxation/vat/topics/rates_en.htm
     attr_accessor :vat_rate_type
 
+    # Shipping cost of the product.
     attr_accessor :shipping_cost
 
     # A textual representation of the shippingtime.  For example, in Dutch: 'Op werkdagen voor 22:00 uur besteld, morgen in huis'
@@ -62,22 +72,31 @@ module ChannelEngineMerchantApiClient
     # A URL at which an image of this product  can be found.
     attr_accessor :image_url
 
+    # Url to an additional image of product (1)
     attr_accessor :extra_image_url1
 
+    # Url to an additional image of product (2)
     attr_accessor :extra_image_url2
 
+    # Url to an additional image of product (3)
     attr_accessor :extra_image_url3
 
+    # Url to an additional image of product (4)
     attr_accessor :extra_image_url4
 
+    # Url to an additional image of product (5)
     attr_accessor :extra_image_url5
 
+    # Url to an additional image of product (6)
     attr_accessor :extra_image_url6
 
+    # Url to an additional image of product (7)
     attr_accessor :extra_image_url7
 
+    # Url to an additional image of product (8)
     attr_accessor :extra_image_url8
 
+    # Url to an additional image of product (9)
     attr_accessor :extra_image_url9
 
     # The category to which this product belongs.  Please supply this field in the following format:  'maincategory &gt; category &gt; subcategory'  For example:  'vehicles &gt; bikes &gt; mountainbike'

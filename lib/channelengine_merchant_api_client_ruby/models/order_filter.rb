@@ -15,15 +15,19 @@ require 'date'
 module ChannelEngineMerchantApiClient
 
   class OrderFilter
+    # Order status(es) to filter on
     attr_accessor :statuses
 
+    # Filter on unique order reference used by the merchant
     attr_accessor :merchant_order_nos
 
+    # Exclude order (lines) fulfilled by the marketplace (amazon:FBA, bol:LVB, etc.)
     attr_accessor :exclude_marketplace_fulfilled_orders_and_lines
 
     # Filter orders on fulfillment type. This will include all orders lines, even if they are partially fulfilled by the marketplace.  To exclude orders and lines that are fulfilled by the marketplace from the response, set ExcludeMarketplaceFulfilledOrdersAndLines to true.
     attr_accessor :fulfillment_type
 
+    # The page to filter on. Starts at 1.
     attr_accessor :page
 
     class EnumAttributeValidator

@@ -128,5 +128,60 @@ module ChannelEngineMerchantApiClient
       end
       return data, status_code, headers
     end
+
+    # Mark a return as received
+    # Mark a return as received
+    # @param model 
+    # @param [Hash] opts the optional parameters
+    # @return [ApiResponse]
+    def return_update_for_merchant(model, opts = {})
+      data, _status_code, _headers = return_update_for_merchant_with_http_info(model, opts)
+      return data
+    end
+
+    # Mark a return as received
+    # Mark a return as received
+    # @param model 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ApiResponse, Fixnum, Hash)>] ApiResponse data, response status code and response headers
+    def return_update_for_merchant_with_http_info(model, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "Calling API: ReturnApi.return_update_for_merchant ..."
+      end
+      # verify the required parameter 'model' is set
+      if @api_client.config.client_side_validation && model.nil?
+        fail ArgumentError, "Missing the required parameter 'model' when calling ReturnApi.return_update_for_merchant"
+      end
+      # resource path
+      local_var_path = "/v2/returns"
+
+      # query parameters
+      query_params = {}
+
+      # header parameters
+      header_params = {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json', 'text/json'])
+      # HTTP header 'Content-Type'
+      header_params['Content-Type'] = @api_client.select_header_content_type(['application/json', 'text/json', 'application/xml', 'text/xml', 'application/x-www-form-urlencoded'])
+
+      # form parameters
+      form_params = {}
+
+      # http body (model)
+      post_body = @api_client.object_to_http_body(model)
+      auth_names = ['apikey']
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => 'ApiResponse')
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ReturnApi#return_update_for_merchant\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
   end
 end

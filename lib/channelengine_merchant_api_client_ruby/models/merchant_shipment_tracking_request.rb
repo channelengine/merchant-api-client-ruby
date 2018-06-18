@@ -15,10 +15,13 @@ require 'date'
 module ChannelEngineMerchantApiClient
 
   class MerchantShipmentTrackingRequest
+    # Shipment method (carrier)
     attr_accessor :method
 
+    # The unique shipping reference used by the Shipping carrier (track &amp; trace number)
     attr_accessor :track_trace_no
 
+    # A link to a page of the carrier where the customer can track the shipping of her package.
     attr_accessor :track_trace_url
 
 

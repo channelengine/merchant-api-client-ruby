@@ -15,10 +15,13 @@ require 'date'
 module ChannelEngineMerchantApiClient
 
   class MerchantStockPriceUpdateRequest
+    # The unique product reference used by the Merchant (sku)
     attr_accessor :merchant_product_no
 
+    # The stock of the product. Should not be negative
     attr_accessor :stock
 
+    # The price of the product. Should not be negative
     attr_accessor :price
 
 

@@ -14,27 +14,26 @@ require 'date'
 
 module ChannelEngineMerchantApiClient
 
-  class MerchantCancellationLineRequest
-    # The unique product reference used by the Merchant (sku)
-    attr_accessor :merchant_product_no
+  class MerchantReturnUpdateRequest
+    # The ChannelEngine return ID of the return you would like to update
+    attr_accessor :return_id
 
-    # Quantity of the product to cancel
-    attr_accessor :quantity
+    attr_accessor :lines
 
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'merchant_product_no' => :'MerchantProductNo',
-        :'quantity' => :'Quantity'
+        :'return_id' => :'ReturnId',
+        :'lines' => :'Lines'
       }
     end
 
     # Attribute type mapping.
     def self.swagger_types
       {
-        :'merchant_product_no' => :'String',
-        :'quantity' => :'Integer'
+        :'return_id' => :'Integer',
+        :'lines' => :'Array<MerchantReturnLineUpdateRequest>'
       }
     end
 
@@ -46,12 +45,14 @@ module ChannelEngineMerchantApiClient
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}){|(k,v), h| h[k.to_sym] = v}
 
-      if attributes.has_key?(:'MerchantProductNo')
-        self.merchant_product_no = attributes[:'MerchantProductNo']
+      if attributes.has_key?(:'ReturnId')
+        self.return_id = attributes[:'ReturnId']
       end
 
-      if attributes.has_key?(:'Quantity')
-        self.quantity = attributes[:'Quantity']
+      if attributes.has_key?(:'Lines')
+        if (value = attributes[:'Lines']).is_a?(Array)
+          self.lines = value
+        end
       end
 
     end
@@ -60,12 +61,12 @@ module ChannelEngineMerchantApiClient
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @merchant_product_no.nil?
-        invalid_properties.push("invalid value for 'merchant_product_no', merchant_product_no cannot be nil.")
+      if @return_id.nil?
+        invalid_properties.push("invalid value for 'return_id', return_id cannot be nil.")
       end
 
-      if @quantity.nil?
-        invalid_properties.push("invalid value for 'quantity', quantity cannot be nil.")
+      if @lines.nil?
+        invalid_properties.push("invalid value for 'lines', lines cannot be nil.")
       end
 
       return invalid_properties
@@ -74,8 +75,8 @@ module ChannelEngineMerchantApiClient
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @merchant_product_no.nil?
-      return false if @quantity.nil?
+      return false if @return_id.nil?
+      return false if @lines.nil?
       return true
     end
 
@@ -84,8 +85,8 @@ module ChannelEngineMerchantApiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          merchant_product_no == o.merchant_product_no &&
-          quantity == o.quantity
+          return_id == o.return_id &&
+          lines == o.lines
     end
 
     # @see the `==` method
@@ -97,7 +98,7 @@ module ChannelEngineMerchantApiClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [merchant_product_no, quantity].hash
+      [return_id, lines].hash
     end
 
     # Builds the object from hash

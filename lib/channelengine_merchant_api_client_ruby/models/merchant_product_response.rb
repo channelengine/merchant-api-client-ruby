@@ -15,22 +15,31 @@ require 'date'
 module ChannelEngineMerchantApiClient
 
   class MerchantProductResponse
+    # Is the product active for the Merchant?
     attr_accessor :is_active
 
+    # The name of the product
     attr_accessor :name
 
+    # A description of the product
     attr_accessor :description
 
+    # The brand of the product
     attr_accessor :brand
 
+    # Optional. The size of the product (variant). E.g. fashion size (S-XL, 46-56, etc), width of the watch, etc..
     attr_accessor :size
 
+    # Optional. The color of the product (variant).
     attr_accessor :color
 
+    # The EAN of GTIN of the product
     attr_accessor :ean
 
+    # The unique product reference used by the manufacturer/vendor of the product
     attr_accessor :manufacturer_product_number
 
+    # The number of items in stock
     attr_accessor :stock
 
     # Price, including VAT.
@@ -39,11 +48,13 @@ module ChannelEngineMerchantApiClient
     # Manufacturer's suggested retail price
     attr_accessor :msrp
 
+    # Optional. The purchase price of the product. Useful for repricing.
     attr_accessor :purchase_price
 
     # The type of VAT which applies to this product.  See: http://ec.europa.eu/taxation_customs/taxation/vat/topics/rates_en.htm
     attr_accessor :vat_rate_type
 
+    # Shipping cost of the product.
     attr_accessor :shipping_cost
 
     # A textual representation of the shippingtime.  For example, in Dutch: 'Op werkdagen voor 22:00 uur besteld, morgen in huis'
@@ -55,22 +66,31 @@ module ChannelEngineMerchantApiClient
     # A URL at which an image of this product  can be found.
     attr_accessor :image_url
 
+    # Url to an additional image of product (1)
     attr_accessor :extra_image_url1
 
+    # Url to an additional image of product (2)
     attr_accessor :extra_image_url2
 
+    # Url to an additional image of product (3)
     attr_accessor :extra_image_url3
 
+    # Url to an additional image of product (4)
     attr_accessor :extra_image_url4
 
+    # Url to an additional image of product (5)
     attr_accessor :extra_image_url5
 
+    # Url to an additional image of product (6)
     attr_accessor :extra_image_url6
 
+    # Url to an additional image of product (7)
     attr_accessor :extra_image_url7
 
+    # Url to an additional image of product (8)
     attr_accessor :extra_image_url8
 
+    # Url to an additional image of product (9)
     attr_accessor :extra_image_url9
 
     # The category to which this product belongs.  Please supply this field in the following format:  'maincategory &gt; category &gt; subcategory'  For example:  'vehicles &gt; bikes &gt; mountainbike'

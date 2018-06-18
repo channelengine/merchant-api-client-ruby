@@ -15,8 +15,10 @@ require 'date'
 module ChannelEngineMerchantApiClient
 
   class MerchantShipmentLineRequest
+    # The unique product reference used by the Merchant (sku)
     attr_accessor :merchant_product_no
 
+    # Number of items of the product in the shipment
     attr_accessor :quantity
 
 

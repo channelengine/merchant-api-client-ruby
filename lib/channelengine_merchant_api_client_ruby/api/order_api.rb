@@ -78,11 +78,11 @@ module ChannelEngineMerchantApiClient
     # Get Orders By Filter
     # Fetch orders based on the provided OrderFilter
     # @param [Hash] opts the optional parameters
-    # @option opts [Array<String>] :filter_statuses 
-    # @option opts [Array<String>] :filter_merchant_order_nos 
-    # @option opts [BOOLEAN] :filter_exclude_marketplace_fulfilled_orders_and_lines 
+    # @option opts [Array<String>] :filter_statuses Order status(es) to filter on
+    # @option opts [Array<String>] :filter_merchant_order_nos Filter on unique order reference used by the merchant
+    # @option opts [BOOLEAN] :filter_exclude_marketplace_fulfilled_orders_and_lines Exclude order (lines) fulfilled by the marketplace (amazon:FBA, bol:LVB, etc.)
     # @option opts [String] :filter_fulfillment_type Filter orders on fulfillment type. This will include all orders lines, even if they are partially fulfilled by the marketplace.  To exclude orders and lines that are fulfilled by the marketplace from the response, set ExcludeMarketplaceFulfilledOrdersAndLines to true.
-    # @option opts [Integer] :filter_page 
+    # @option opts [Integer] :filter_page The page to filter on. Starts at 1.
     # @return [CollectionOfMerchantOrderResponse]
     def order_get_by_filter(opts = {})
       data, _status_code, _headers = order_get_by_filter_with_http_info(opts)
@@ -92,11 +92,11 @@ module ChannelEngineMerchantApiClient
     # Get Orders By Filter
     # Fetch orders based on the provided OrderFilter
     # @param [Hash] opts the optional parameters
-    # @option opts [Array<String>] :filter_statuses 
-    # @option opts [Array<String>] :filter_merchant_order_nos 
-    # @option opts [BOOLEAN] :filter_exclude_marketplace_fulfilled_orders_and_lines 
+    # @option opts [Array<String>] :filter_statuses Order status(es) to filter on
+    # @option opts [Array<String>] :filter_merchant_order_nos Filter on unique order reference used by the merchant
+    # @option opts [BOOLEAN] :filter_exclude_marketplace_fulfilled_orders_and_lines Exclude order (lines) fulfilled by the marketplace (amazon:FBA, bol:LVB, etc.)
     # @option opts [String] :filter_fulfillment_type Filter orders on fulfillment type. This will include all orders lines, even if they are partially fulfilled by the marketplace.  To exclude orders and lines that are fulfilled by the marketplace from the response, set ExcludeMarketplaceFulfilledOrdersAndLines to true.
-    # @option opts [Integer] :filter_page 
+    # @option opts [Integer] :filter_page The page to filter on. Starts at 1.
     # @return [Array<(CollectionOfMerchantOrderResponse, Fixnum, Hash)>] CollectionOfMerchantOrderResponse data, response status code and response headers
     def order_get_by_filter_with_http_info(opts = {})
       if @api_client.config.debugging
