@@ -14,73 +14,52 @@ require 'date'
 
 module ChannelEngineMerchantApiClient
 
-  class OrderFilter
-    # Order status(es) to filter on
-    attr_accessor :statuses
+  class CollectionOfMerchantProductResponse
+    attr_accessor :content
 
-    # Filter on unique order reference used by the merchant
-    attr_accessor :merchant_order_nos
+    # The number of items in the current response
+    attr_accessor :count
 
-    # Filter on the order date, starting from this date. This date is inclusive.
-    attr_accessor :from_date
+    # The total number of items
+    attr_accessor :total_count
 
-    # Filter on the order date, until this date. This date is exclusive.
-    attr_accessor :to_date
+    # The number of items per page
+    attr_accessor :items_per_page
 
-    # Exclude order (lines) fulfilled by the marketplace (amazon:FBA, bol:LVB, etc.)
-    attr_accessor :exclude_marketplace_fulfilled_orders_and_lines
+    attr_accessor :status_code
 
-    # Filter orders on fulfillment type. This will include all orders lines, even if they are partially fulfilled by the marketplace.  To exclude orders and lines that are fulfilled by the marketplace from the response, set ExcludeMarketplaceFulfilledOrdersAndLines to true.
-    attr_accessor :fulfillment_type
+    attr_accessor :success
 
-    # The page to filter on. Starts at 1.
-    attr_accessor :page
+    attr_accessor :message
 
-    class EnumAttributeValidator
-      attr_reader :datatype
-      attr_reader :allowable_values
+    attr_accessor :validation_errors
 
-      def initialize(datatype, allowable_values)
-        @allowable_values = allowable_values.map do |value|
-          case datatype.to_s
-          when /Integer/i
-            value.to_i
-          when /Float/i
-            value.to_f
-          else
-            value
-          end
-        end
-      end
-
-      def valid?(value)
-        !value || allowable_values.include?(value)
-      end
-    end
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'statuses' => :'Statuses',
-        :'merchant_order_nos' => :'MerchantOrderNos',
-        :'from_date' => :'FromDate',
-        :'to_date' => :'ToDate',
-        :'exclude_marketplace_fulfilled_orders_and_lines' => :'ExcludeMarketplaceFulfilledOrdersAndLines',
-        :'fulfillment_type' => :'FulfillmentType',
-        :'page' => :'Page'
+        :'content' => :'Content',
+        :'count' => :'Count',
+        :'total_count' => :'TotalCount',
+        :'items_per_page' => :'ItemsPerPage',
+        :'status_code' => :'StatusCode',
+        :'success' => :'Success',
+        :'message' => :'Message',
+        :'validation_errors' => :'ValidationErrors'
       }
     end
 
     # Attribute type mapping.
     def self.swagger_types
       {
-        :'statuses' => :'Array<String>',
-        :'merchant_order_nos' => :'Array<String>',
-        :'from_date' => :'DateTime',
-        :'to_date' => :'DateTime',
-        :'exclude_marketplace_fulfilled_orders_and_lines' => :'BOOLEAN',
-        :'fulfillment_type' => :'String',
-        :'page' => :'Integer'
+        :'content' => :'Array<MerchantProductResponse>',
+        :'count' => :'Integer',
+        :'total_count' => :'Integer',
+        :'items_per_page' => :'Integer',
+        :'status_code' => :'Integer',
+        :'success' => :'BOOLEAN',
+        :'message' => :'String',
+        :'validation_errors' => :'Hash<String, Array<String>>'
       }
     end
 
@@ -92,36 +71,40 @@ module ChannelEngineMerchantApiClient
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}){|(k,v), h| h[k.to_sym] = v}
 
-      if attributes.has_key?(:'Statuses')
-        if (value = attributes[:'Statuses']).is_a?(Array)
-          self.statuses = value
+      if attributes.has_key?(:'Content')
+        if (value = attributes[:'Content']).is_a?(Array)
+          self.content = value
         end
       end
 
-      if attributes.has_key?(:'MerchantOrderNos')
-        if (value = attributes[:'MerchantOrderNos']).is_a?(Array)
-          self.merchant_order_nos = value
+      if attributes.has_key?(:'Count')
+        self.count = attributes[:'Count']
+      end
+
+      if attributes.has_key?(:'TotalCount')
+        self.total_count = attributes[:'TotalCount']
+      end
+
+      if attributes.has_key?(:'ItemsPerPage')
+        self.items_per_page = attributes[:'ItemsPerPage']
+      end
+
+      if attributes.has_key?(:'StatusCode')
+        self.status_code = attributes[:'StatusCode']
+      end
+
+      if attributes.has_key?(:'Success')
+        self.success = attributes[:'Success']
+      end
+
+      if attributes.has_key?(:'Message')
+        self.message = attributes[:'Message']
+      end
+
+      if attributes.has_key?(:'ValidationErrors')
+        if (value = attributes[:'ValidationErrors']).is_a?(Hash)
+          self.validation_errors = value
         end
-      end
-
-      if attributes.has_key?(:'FromDate')
-        self.from_date = attributes[:'FromDate']
-      end
-
-      if attributes.has_key?(:'ToDate')
-        self.to_date = attributes[:'ToDate']
-      end
-
-      if attributes.has_key?(:'ExcludeMarketplaceFulfilledOrdersAndLines')
-        self.exclude_marketplace_fulfilled_orders_and_lines = attributes[:'ExcludeMarketplaceFulfilledOrdersAndLines']
-      end
-
-      if attributes.has_key?(:'FulfillmentType')
-        self.fulfillment_type = attributes[:'FulfillmentType']
-      end
-
-      if attributes.has_key?(:'Page')
-        self.page = attributes[:'Page']
       end
 
     end
@@ -136,19 +119,7 @@ module ChannelEngineMerchantApiClient
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      fulfillment_type_validator = EnumAttributeValidator.new('String', ["ALL", "ONLY_MERCHANT", "ONLY_CHANNEL", "MIXED"])
-      return false unless fulfillment_type_validator.valid?(@fulfillment_type)
       return true
-    end
-
-    # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] fulfillment_type Object to be assigned
-    def fulfillment_type=(fulfillment_type)
-      validator = EnumAttributeValidator.new('String', ["ALL", "ONLY_MERCHANT", "ONLY_CHANNEL", "MIXED"])
-      unless validator.valid?(fulfillment_type)
-        fail ArgumentError, "invalid value for 'fulfillment_type', must be one of #{validator.allowable_values}."
-      end
-      @fulfillment_type = fulfillment_type
     end
 
     # Checks equality by comparing each attribute.
@@ -156,13 +127,14 @@ module ChannelEngineMerchantApiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          statuses == o.statuses &&
-          merchant_order_nos == o.merchant_order_nos &&
-          from_date == o.from_date &&
-          to_date == o.to_date &&
-          exclude_marketplace_fulfilled_orders_and_lines == o.exclude_marketplace_fulfilled_orders_and_lines &&
-          fulfillment_type == o.fulfillment_type &&
-          page == o.page
+          content == o.content &&
+          count == o.count &&
+          total_count == o.total_count &&
+          items_per_page == o.items_per_page &&
+          status_code == o.status_code &&
+          success == o.success &&
+          message == o.message &&
+          validation_errors == o.validation_errors
     end
 
     # @see the `==` method
@@ -174,7 +146,7 @@ module ChannelEngineMerchantApiClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [statuses, merchant_order_nos, from_date, to_date, exclude_marketplace_fulfilled_orders_and_lines, fulfillment_type, page].hash
+      [content, count, total_count, items_per_page, status_code, success, message, validation_errors].hash
     end
 
     # Builds the object from hash

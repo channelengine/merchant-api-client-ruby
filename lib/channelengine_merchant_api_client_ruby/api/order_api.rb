@@ -80,6 +80,8 @@ module ChannelEngineMerchantApiClient
     # @param [Hash] opts the optional parameters
     # @option opts [Array<String>] :filter_statuses Order status(es) to filter on
     # @option opts [Array<String>] :filter_merchant_order_nos Filter on unique order reference used by the merchant
+    # @option opts [DateTime] :filter_from_date Filter on the order date, starting from this date. This date is inclusive.
+    # @option opts [DateTime] :filter_to_date Filter on the order date, until this date. This date is exclusive.
     # @option opts [BOOLEAN] :filter_exclude_marketplace_fulfilled_orders_and_lines Exclude order (lines) fulfilled by the marketplace (amazon:FBA, bol:LVB, etc.)
     # @option opts [String] :filter_fulfillment_type Filter orders on fulfillment type. This will include all orders lines, even if they are partially fulfilled by the marketplace.  To exclude orders and lines that are fulfilled by the marketplace from the response, set ExcludeMarketplaceFulfilledOrdersAndLines to true.
     # @option opts [Integer] :filter_page The page to filter on. Starts at 1.
@@ -94,6 +96,8 @@ module ChannelEngineMerchantApiClient
     # @param [Hash] opts the optional parameters
     # @option opts [Array<String>] :filter_statuses Order status(es) to filter on
     # @option opts [Array<String>] :filter_merchant_order_nos Filter on unique order reference used by the merchant
+    # @option opts [DateTime] :filter_from_date Filter on the order date, starting from this date. This date is inclusive.
+    # @option opts [DateTime] :filter_to_date Filter on the order date, until this date. This date is exclusive.
     # @option opts [BOOLEAN] :filter_exclude_marketplace_fulfilled_orders_and_lines Exclude order (lines) fulfilled by the marketplace (amazon:FBA, bol:LVB, etc.)
     # @option opts [String] :filter_fulfillment_type Filter orders on fulfillment type. This will include all orders lines, even if they are partially fulfilled by the marketplace.  To exclude orders and lines that are fulfilled by the marketplace from the response, set ExcludeMarketplaceFulfilledOrdersAndLines to true.
     # @option opts [Integer] :filter_page The page to filter on. Starts at 1.
@@ -115,6 +119,8 @@ module ChannelEngineMerchantApiClient
       query_params = {}
       query_params[:'filter.statuses'] = @api_client.build_collection_param(opts[:'filter_statuses'], :multi) if !opts[:'filter_statuses'].nil?
       query_params[:'filter.merchantOrderNos'] = @api_client.build_collection_param(opts[:'filter_merchant_order_nos'], :multi) if !opts[:'filter_merchant_order_nos'].nil?
+      query_params[:'filter.fromDate'] = opts[:'filter_from_date'] if !opts[:'filter_from_date'].nil?
+      query_params[:'filter.toDate'] = opts[:'filter_to_date'] if !opts[:'filter_to_date'].nil?
       query_params[:'filter.excludeMarketplaceFulfilledOrdersAndLines'] = opts[:'filter_exclude_marketplace_fulfilled_orders_and_lines'] if !opts[:'filter_exclude_marketplace_fulfilled_orders_and_lines'].nil?
       query_params[:'filter.fulfillmentType'] = opts[:'filter_fulfillment_type'] if !opts[:'filter_fulfillment_type'].nil?
       query_params[:'filter.page'] = opts[:'filter_page'] if !opts[:'filter_page'].nil?

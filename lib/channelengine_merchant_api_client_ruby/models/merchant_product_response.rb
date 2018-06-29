@@ -18,6 +18,9 @@ module ChannelEngineMerchantApiClient
     # Is the product active for the Merchant?
     attr_accessor :is_active
 
+    # A unique identifier of the product. (sku)
+    attr_accessor :merchant_product_no
+
     # The name of the product
     attr_accessor :name
 
@@ -125,6 +128,7 @@ module ChannelEngineMerchantApiClient
     def self.attribute_map
       {
         :'is_active' => :'IsActive',
+        :'merchant_product_no' => :'MerchantProductNo',
         :'name' => :'Name',
         :'description' => :'Description',
         :'brand' => :'Brand',
@@ -159,6 +163,7 @@ module ChannelEngineMerchantApiClient
     def self.swagger_types
       {
         :'is_active' => :'BOOLEAN',
+        :'merchant_product_no' => :'String',
         :'name' => :'String',
         :'description' => :'String',
         :'brand' => :'String',
@@ -199,6 +204,10 @@ module ChannelEngineMerchantApiClient
 
       if attributes.has_key?(:'IsActive')
         self.is_active = attributes[:'IsActive']
+      end
+
+      if attributes.has_key?(:'MerchantProductNo')
+        self.merchant_product_no = attributes[:'MerchantProductNo']
       end
 
       if attributes.has_key?(:'Name')
@@ -344,6 +353,7 @@ module ChannelEngineMerchantApiClient
       return true if self.equal?(o)
       self.class == o.class &&
           is_active == o.is_active &&
+          merchant_product_no == o.merchant_product_no &&
           name == o.name &&
           description == o.description &&
           brand == o.brand &&
@@ -382,7 +392,7 @@ module ChannelEngineMerchantApiClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [is_active, name, description, brand, size, color, ean, manufacturer_product_number, stock, price, msrp, purchase_price, vat_rate_type, shipping_cost, shipping_time, url, image_url, extra_image_url1, extra_image_url2, extra_image_url3, extra_image_url4, extra_image_url5, extra_image_url6, extra_image_url7, extra_image_url8, extra_image_url9, category_trail, extra_data].hash
+      [is_active, merchant_product_no, name, description, brand, size, color, ean, manufacturer_product_number, stock, price, msrp, purchase_price, vat_rate_type, shipping_cost, shipping_time, url, image_url, extra_image_url1, extra_image_url2, extra_image_url3, extra_image_url4, extra_image_url5, extra_image_url6, extra_image_url7, extra_image_url8, extra_image_url9, category_trail, extra_data].hash
     end
 
     # Builds the object from hash

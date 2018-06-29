@@ -128,6 +128,59 @@ module ChannelEngineMerchantApiClient
       return data, status_code, headers
     end
 
+    # Get Products
+    # Retrieve all products
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :filter_search Search products by Name, MerchantProductNo, Ean or Brand
+    # @option opts [Integer] :filter_page The page to filter on. Starts at 1.
+    # @return [CollectionOfMerchantProductResponse]
+    def product_get_by_filter(opts = {})
+      data, _status_code, _headers = product_get_by_filter_with_http_info(opts)
+      return data
+    end
+
+    # Get Products
+    # Retrieve all products
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :filter_search Search products by Name, MerchantProductNo, Ean or Brand
+    # @option opts [Integer] :filter_page The page to filter on. Starts at 1.
+    # @return [Array<(CollectionOfMerchantProductResponse, Fixnum, Hash)>] CollectionOfMerchantProductResponse data, response status code and response headers
+    def product_get_by_filter_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "Calling API: ProductApi.product_get_by_filter ..."
+      end
+      # resource path
+      local_var_path = "/v2/products"
+
+      # query parameters
+      query_params = {}
+      query_params[:'filter.search'] = opts[:'filter_search'] if !opts[:'filter_search'].nil?
+      query_params[:'filter.page'] = opts[:'filter_page'] if !opts[:'filter_page'].nil?
+
+      # header parameters
+      header_params = {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json', 'text/json'])
+
+      # form parameters
+      form_params = {}
+
+      # http body (model)
+      post_body = nil
+      auth_names = ['apikey']
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => 'CollectionOfMerchantProductResponse')
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ProductApi#product_get_by_filter\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Get Product
     # Retrieve a product based on the merchant reference.
     # @param merchant_product_no 
