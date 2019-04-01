@@ -14,8 +14,17 @@ require 'date'
 
 module ChannelEngineMerchantApiClient
 
-  class SingleOfCollectionsDictionary2Generic
+  class CollectionOfMerchantOfferGetStockResponse
     attr_accessor :content
+
+    # The number of items in the current response
+    attr_accessor :count
+
+    # The total number of items
+    attr_accessor :total_count
+
+    # The number of items per page
+    attr_accessor :items_per_page
 
     attr_accessor :status_code
 
@@ -32,6 +41,9 @@ module ChannelEngineMerchantApiClient
     def self.attribute_map
       {
         :'content' => :'Content',
+        :'count' => :'Count',
+        :'total_count' => :'TotalCount',
+        :'items_per_page' => :'ItemsPerPage',
         :'status_code' => :'StatusCode',
         :'log_id' => :'LogId',
         :'success' => :'Success',
@@ -43,7 +55,10 @@ module ChannelEngineMerchantApiClient
     # Attribute type mapping.
     def self.swagger_types
       {
-        :'content' => :'Hash<String, Array<String>>',
+        :'content' => :'Array<MerchantOfferGetStockResponse>',
+        :'count' => :'Integer',
+        :'total_count' => :'Integer',
+        :'items_per_page' => :'Integer',
         :'status_code' => :'Integer',
         :'log_id' => :'Integer',
         :'success' => :'BOOLEAN',
@@ -61,9 +76,21 @@ module ChannelEngineMerchantApiClient
       attributes = attributes.each_with_object({}){|(k,v), h| h[k.to_sym] = v}
 
       if attributes.has_key?(:'Content')
-        if (value = attributes[:'Content']).is_a?(Hash)
+        if (value = attributes[:'Content']).is_a?(Array)
           self.content = value
         end
+      end
+
+      if attributes.has_key?(:'Count')
+        self.count = attributes[:'Count']
+      end
+
+      if attributes.has_key?(:'TotalCount')
+        self.total_count = attributes[:'TotalCount']
+      end
+
+      if attributes.has_key?(:'ItemsPerPage')
+        self.items_per_page = attributes[:'ItemsPerPage']
       end
 
       if attributes.has_key?(:'StatusCode')
@@ -109,6 +136,9 @@ module ChannelEngineMerchantApiClient
       return true if self.equal?(o)
       self.class == o.class &&
           content == o.content &&
+          count == o.count &&
+          total_count == o.total_count &&
+          items_per_page == o.items_per_page &&
           status_code == o.status_code &&
           log_id == o.log_id &&
           success == o.success &&
@@ -125,7 +155,7 @@ module ChannelEngineMerchantApiClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [content, status_code, log_id, success, message, validation_errors].hash
+      [content, count, total_count, items_per_page, status_code, log_id, success, message, validation_errors].hash
     end
 
     # Builds the object from hash

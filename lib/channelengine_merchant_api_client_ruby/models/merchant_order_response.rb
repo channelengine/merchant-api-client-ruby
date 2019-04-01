@@ -383,6 +383,10 @@ module ChannelEngineMerchantApiClient
         invalid_properties.push("invalid value for 'currency_code', currency_code cannot be nil.")
       end
 
+      if @currency_code.to_s.length > 3
+        invalid_properties.push("invalid value for 'currency_code', the character length must be smaller than or equal to 3.")
+      end
+
       if @order_date.nil?
         invalid_properties.push("invalid value for 'order_date', order_date cannot be nil.")
       end
@@ -411,7 +415,7 @@ module ChannelEngineMerchantApiClient
     def valid?
       channel_order_support_validator = EnumAttributeValidator.new('String', ["NONE", "ORDERS", "SPLIT_ORDERS", "SPLIT_ORDER_LINES"])
       return false unless channel_order_support_validator.valid?(@channel_order_support)
-      status_validator = EnumAttributeValidator.new('String', ["IN_PROGRESS", "SHIPPED", "IN_BACKORDER", "CANCELED", "MANCO", "IN_COMBI", "CLOSED", "NEW", "RETURNED", "REQUIRES_CORRECTION"])
+      status_validator = EnumAttributeValidator.new('String', ["IN_PROGRESS", "SHIPPED", "IN_BACKORDER", "MANCO", "IN_COMBI", "CLOSED", "NEW", "RETURNED", "REQUIRES_CORRECTION"])
       return false unless status_validator.valid?(@status)
       return false if !@phone.nil? && @phone.to_s.length > 20
       return false if !@phone.nil? && @phone.to_s.length < 0
@@ -427,6 +431,7 @@ module ChannelEngineMerchantApiClient
       return false if @payment_method.to_s.length < 0
       return false if @shipping_costs_incl_vat.nil?
       return false if @currency_code.nil?
+      return false if @currency_code.to_s.length > 3
       return false if @order_date.nil?
       return false if !@channel_customer_no.nil? && @channel_customer_no.to_s.length > 50
       return false if !@channel_customer_no.nil? && @channel_customer_no.to_s.length < 0
@@ -448,7 +453,7 @@ module ChannelEngineMerchantApiClient
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] status Object to be assigned
     def status=(status)
-      validator = EnumAttributeValidator.new('String', ["IN_PROGRESS", "SHIPPED", "IN_BACKORDER", "CANCELED", "MANCO", "IN_COMBI", "CLOSED", "NEW", "RETURNED", "REQUIRES_CORRECTION"])
+      validator = EnumAttributeValidator.new('String', ["IN_PROGRESS", "SHIPPED", "IN_BACKORDER", "MANCO", "IN_COMBI", "CLOSED", "NEW", "RETURNED", "REQUIRES_CORRECTION"])
       unless validator.valid?(status)
         fail ArgumentError, "invalid value for 'status', must be one of #{validator.allowable_values}."
       end
@@ -534,6 +539,20 @@ module ChannelEngineMerchantApiClient
       end
 
       @payment_method = payment_method
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] currency_code Value to be assigned
+    def currency_code=(currency_code)
+      if currency_code.nil?
+        fail ArgumentError, "currency_code cannot be nil"
+      end
+
+      if currency_code.to_s.length > 3
+        fail ArgumentError, "invalid value for 'currency_code', the character length must be smaller than or equal to 3."
+      end
+
+      @currency_code = currency_code
     end
 
     # Custom attribute writer method with validation

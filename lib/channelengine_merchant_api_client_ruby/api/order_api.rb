@@ -52,9 +52,9 @@ module ChannelEngineMerchantApiClient
       # header parameters
       header_params = {}
       # HTTP header 'Accept' (if needed)
-      header_params['Accept'] = @api_client.select_header_accept(['application/json', 'text/json'])
+      header_params['Accept'] = @api_client.select_header_accept(['text/plain', 'application/json', 'text/json'])
       # HTTP header 'Content-Type'
-      header_params['Content-Type'] = @api_client.select_header_content_type(['application/json', 'text/json', 'application/xml', 'text/xml', 'application/x-www-form-urlencoded'])
+      header_params['Content-Type'] = @api_client.select_header_content_type(['application/json-patch+json', 'application/json', 'text/json', 'application/*+json'])
 
       # form parameters
       form_params = {}
@@ -106,8 +106,8 @@ module ChannelEngineMerchantApiClient
       if @api_client.config.debugging
         @api_client.config.logger.debug "Calling API: OrderApi.order_get_by_filter ..."
       end
-      if @api_client.config.client_side_validation && opts[:'filter_statuses'] && !opts[:'filter_statuses'].all?{|item| ['IN_PROGRESS', 'SHIPPED', 'IN_BACKORDER', 'CANCELED', 'MANCO', 'IN_COMBI', 'CLOSED', 'NEW', 'RETURNED', 'REQUIRES_CORRECTION'].include?(item)}
-        fail ArgumentError, 'invalid value for "filter_statuses", must include one of IN_PROGRESS, SHIPPED, IN_BACKORDER, CANCELED, MANCO, IN_COMBI, CLOSED, NEW, RETURNED, REQUIRES_CORRECTION'
+      if @api_client.config.client_side_validation && opts[:'filter_statuses'] && !opts[:'filter_statuses'].all?{|item| ['IN_PROGRESS', 'SHIPPED', 'IN_BACKORDER', 'MANCO', 'IN_COMBI', 'CLOSED', 'NEW', 'RETURNED', 'REQUIRES_CORRECTION'].include?(item)}
+        fail ArgumentError, 'invalid value for "filter_statuses", must include one of IN_PROGRESS, SHIPPED, IN_BACKORDER, MANCO, IN_COMBI, CLOSED, NEW, RETURNED, REQUIRES_CORRECTION'
       end
       if @api_client.config.client_side_validation && opts[:'filter_fulfillment_type'] && !['ALL', 'ONLY_MERCHANT', 'ONLY_CHANNEL', 'MIXED'].include?(opts[:'filter_fulfillment_type'])
         fail ArgumentError, 'invalid value for "filter_fulfillment_type", must be one of ALL, ONLY_MERCHANT, ONLY_CHANNEL, MIXED'
@@ -128,7 +128,7 @@ module ChannelEngineMerchantApiClient
       # header parameters
       header_params = {}
       # HTTP header 'Accept' (if needed)
-      header_params['Accept'] = @api_client.select_header_accept(['application/json', 'text/json'])
+      header_params['Accept'] = @api_client.select_header_accept(['text/plain', 'application/json', 'text/json'])
 
       # form parameters
       form_params = {}
@@ -175,7 +175,7 @@ module ChannelEngineMerchantApiClient
       # header parameters
       header_params = {}
       # HTTP header 'Accept' (if needed)
-      header_params['Accept'] = @api_client.select_header_accept(['application/json', 'text/json'])
+      header_params['Accept'] = @api_client.select_header_accept(['text/plain', 'application/json', 'text/json'])
 
       # form parameters
       form_params = {}
@@ -200,7 +200,7 @@ module ChannelEngineMerchantApiClient
     # Generates the ChannelEngine VAT invoice for this order in PDF
     # @param merchant_order_no The unique order reference as used by the merchant
     # @param [Hash] opts the optional parameters
-    # @option opts [BOOLEAN] :use_customer_culture Generate the invoice in the billing address&#39; country&#39;s language
+    # @option opts [BOOLEAN] :use_customer_culture Generate the invoice in the billing address&#39; country&#39;s language (default to false)
     # @return [File]
     def order_invoice(merchant_order_no, opts = {})
       data, _status_code, _headers = order_invoice_with_http_info(merchant_order_no, opts)
@@ -256,7 +256,7 @@ module ChannelEngineMerchantApiClient
     # Generates the ChannelEngine packing slip for this order in PDF
     # @param merchant_order_no The unique order reference as used by the merchant
     # @param [Hash] opts the optional parameters
-    # @option opts [BOOLEAN] :use_customer_culture Generate the invoice in the billing address&#39; country&#39;s language
+    # @option opts [BOOLEAN] :use_customer_culture Generate the invoice in the billing address&#39; country&#39;s language (default to false)
     # @return [File]
     def order_packing_slip(merchant_order_no, opts = {})
       data, _status_code, _headers = order_packing_slip_with_http_info(merchant_order_no, opts)

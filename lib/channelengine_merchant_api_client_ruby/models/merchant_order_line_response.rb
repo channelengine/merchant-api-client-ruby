@@ -24,6 +24,9 @@ module ChannelEngineMerchantApiClient
     # The unique product reference used by the Merchant (sku)
     attr_accessor :merchant_product_no
 
+    # Either the GTIN (EAN, ISBN, UPC etc) provided by the channel, or the the GTIN belonging to the MerchantProductNo in ChannelEngine
+    attr_accessor :gtin
+
     # The total amount of VAT charged over the value of a single unit of the ordered product  (in the shop's base currency calculated using the exchange rate at the time of ordering).
     attr_accessor :unit_vat
 
@@ -94,6 +97,7 @@ module ChannelEngineMerchantApiClient
         :'status' => :'Status',
         :'is_fulfillment_by_marketplace' => :'IsFulfillmentByMarketplace',
         :'merchant_product_no' => :'MerchantProductNo',
+        :'gtin' => :'Gtin',
         :'unit_vat' => :'UnitVat',
         :'line_total_incl_vat' => :'LineTotalInclVat',
         :'line_vat' => :'LineVat',
@@ -117,6 +121,7 @@ module ChannelEngineMerchantApiClient
         :'status' => :'String',
         :'is_fulfillment_by_marketplace' => :'BOOLEAN',
         :'merchant_product_no' => :'String',
+        :'gtin' => :'String',
         :'unit_vat' => :'Float',
         :'line_total_incl_vat' => :'Float',
         :'line_vat' => :'Float',
@@ -152,6 +157,10 @@ module ChannelEngineMerchantApiClient
 
       if attributes.has_key?(:'MerchantProductNo')
         self.merchant_product_no = attributes[:'MerchantProductNo']
+      end
+
+      if attributes.has_key?(:'Gtin')
+        self.gtin = attributes[:'Gtin']
       end
 
       if attributes.has_key?(:'UnitVat')
@@ -232,10 +241,6 @@ module ChannelEngineMerchantApiClient
         invalid_properties.push("invalid value for 'quantity', quantity cannot be nil.")
       end
 
-      if @cancellation_requested_quantity.nil?
-        invalid_properties.push("invalid value for 'cancellation_requested_quantity', cancellation_requested_quantity cannot be nil.")
-      end
-
       if @unit_price_incl_vat.nil?
         invalid_properties.push("invalid value for 'unit_price_incl_vat', unit_price_incl_vat cannot be nil.")
       end
@@ -246,15 +251,14 @@ module ChannelEngineMerchantApiClient
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      status_validator = EnumAttributeValidator.new('String', ["IN_PROGRESS", "SHIPPED", "IN_BACKORDER", "CANCELED", "MANCO", "IN_COMBI", "CLOSED", "NEW", "RETURNED", "REQUIRES_CORRECTION"])
+      status_validator = EnumAttributeValidator.new('String', ["IN_PROGRESS", "SHIPPED", "IN_BACKORDER", "MANCO", "IN_COMBI", "CLOSED", "NEW", "RETURNED", "REQUIRES_CORRECTION"])
       return false unless status_validator.valid?(@status)
       return false if @channel_product_no.nil?
       return false if @channel_product_no.to_s.length > 50
       return false if @channel_product_no.to_s.length < 0
       return false if @quantity.nil?
-      return false if @cancellation_requested_quantity.nil?
       return false if @unit_price_incl_vat.nil?
-      condition_validator = EnumAttributeValidator.new('String', ["NEW", "NEW_REFURBISHED", "USED_AS_NEW", "USED_GOOD", "USED_REASONABLE", "USED_MEDIOCRE", "UNKNOWN"])
+      condition_validator = EnumAttributeValidator.new('String', ["NEW", "NEW_REFURBISHED", "USED_AS_NEW", "USED_GOOD", "USED_REASONABLE", "USED_MEDIOCRE", "UNKNOWN", "USED_VERY_GOOD"])
       return false unless condition_validator.valid?(@condition)
       return true
     end
@@ -262,7 +266,7 @@ module ChannelEngineMerchantApiClient
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] status Object to be assigned
     def status=(status)
-      validator = EnumAttributeValidator.new('String', ["IN_PROGRESS", "SHIPPED", "IN_BACKORDER", "CANCELED", "MANCO", "IN_COMBI", "CLOSED", "NEW", "RETURNED", "REQUIRES_CORRECTION"])
+      validator = EnumAttributeValidator.new('String', ["IN_PROGRESS", "SHIPPED", "IN_BACKORDER", "MANCO", "IN_COMBI", "CLOSED", "NEW", "RETURNED", "REQUIRES_CORRECTION"])
       unless validator.valid?(status)
         fail ArgumentError, "invalid value for 'status', must be one of #{validator.allowable_values}."
       end
@@ -290,7 +294,7 @@ module ChannelEngineMerchantApiClient
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] condition Object to be assigned
     def condition=(condition)
-      validator = EnumAttributeValidator.new('String', ["NEW", "NEW_REFURBISHED", "USED_AS_NEW", "USED_GOOD", "USED_REASONABLE", "USED_MEDIOCRE", "UNKNOWN"])
+      validator = EnumAttributeValidator.new('String', ["NEW", "NEW_REFURBISHED", "USED_AS_NEW", "USED_GOOD", "USED_REASONABLE", "USED_MEDIOCRE", "UNKNOWN", "USED_VERY_GOOD"])
       unless validator.valid?(condition)
         fail ArgumentError, "invalid value for 'condition', must be one of #{validator.allowable_values}."
       end
@@ -305,6 +309,7 @@ module ChannelEngineMerchantApiClient
           status == o.status &&
           is_fulfillment_by_marketplace == o.is_fulfillment_by_marketplace &&
           merchant_product_no == o.merchant_product_no &&
+          gtin == o.gtin &&
           unit_vat == o.unit_vat &&
           line_total_incl_vat == o.line_total_incl_vat &&
           line_vat == o.line_vat &&
@@ -330,7 +335,7 @@ module ChannelEngineMerchantApiClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [status, is_fulfillment_by_marketplace, merchant_product_no, unit_vat, line_total_incl_vat, line_vat, original_unit_price_incl_vat, original_unit_vat, original_line_total_incl_vat, original_line_vat, channel_product_no, quantity, cancellation_requested_quantity, unit_price_incl_vat, fee_fixed, fee_rate, condition].hash
+      [status, is_fulfillment_by_marketplace, merchant_product_no, gtin, unit_vat, line_total_incl_vat, line_vat, original_unit_price_incl_vat, original_unit_vat, original_line_total_incl_vat, original_line_vat, channel_product_no, quantity, cancellation_requested_quantity, unit_price_incl_vat, fee_fixed, fee_rate, condition].hash
     end
 
     # Builds the object from hash

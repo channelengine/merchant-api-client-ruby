@@ -14,41 +14,27 @@ require 'date'
 
 module ChannelEngineMerchantApiClient
 
-  class SingleOfCollectionsDictionary2Generic
-    attr_accessor :content
+  class MerchantStockLocationResponse
+    # The ChannelEngine id of the stock location.
+    attr_accessor :id
 
-    attr_accessor :status_code
-
-    attr_accessor :log_id
-
-    attr_accessor :success
-
-    attr_accessor :message
-
-    attr_accessor :validation_errors
+    # The ChannelEngine name of the stock location
+    attr_accessor :name
 
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'content' => :'Content',
-        :'status_code' => :'StatusCode',
-        :'log_id' => :'LogId',
-        :'success' => :'Success',
-        :'message' => :'Message',
-        :'validation_errors' => :'ValidationErrors'
+        :'id' => :'Id',
+        :'name' => :'Name'
       }
     end
 
     # Attribute type mapping.
     def self.swagger_types
       {
-        :'content' => :'Hash<String, Array<String>>',
-        :'status_code' => :'Integer',
-        :'log_id' => :'Integer',
-        :'success' => :'BOOLEAN',
-        :'message' => :'String',
-        :'validation_errors' => :'Hash<String, Array<String>>'
+        :'id' => :'Integer',
+        :'name' => :'String'
       }
     end
 
@@ -60,32 +46,12 @@ module ChannelEngineMerchantApiClient
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}){|(k,v), h| h[k.to_sym] = v}
 
-      if attributes.has_key?(:'Content')
-        if (value = attributes[:'Content']).is_a?(Hash)
-          self.content = value
-        end
+      if attributes.has_key?(:'Id')
+        self.id = attributes[:'Id']
       end
 
-      if attributes.has_key?(:'StatusCode')
-        self.status_code = attributes[:'StatusCode']
-      end
-
-      if attributes.has_key?(:'LogId')
-        self.log_id = attributes[:'LogId']
-      end
-
-      if attributes.has_key?(:'Success')
-        self.success = attributes[:'Success']
-      end
-
-      if attributes.has_key?(:'Message')
-        self.message = attributes[:'Message']
-      end
-
-      if attributes.has_key?(:'ValidationErrors')
-        if (value = attributes[:'ValidationErrors']).is_a?(Hash)
-          self.validation_errors = value
-        end
+      if attributes.has_key?(:'Name')
+        self.name = attributes[:'Name']
       end
 
     end
@@ -108,12 +74,8 @@ module ChannelEngineMerchantApiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          content == o.content &&
-          status_code == o.status_code &&
-          log_id == o.log_id &&
-          success == o.success &&
-          message == o.message &&
-          validation_errors == o.validation_errors
+          id == o.id &&
+          name == o.name
     end
 
     # @see the `==` method
@@ -125,7 +87,7 @@ module ChannelEngineMerchantApiClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [content, status_code, log_id, success, message, validation_errors].hash
+      [id, name].hash
     end
 
     # Builds the object from hash

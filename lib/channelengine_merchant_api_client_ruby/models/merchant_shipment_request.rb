@@ -29,7 +29,7 @@ module ChannelEngineMerchantApiClient
     # A link to a page of the carrier where the customer can track the shipping of her package.
     attr_accessor :track_trace_url
 
-    # Shipment method (carrier)
+    # Shipment method: the carrier used for shipping the package. E.g. DHL, postNL
     attr_accessor :method
 
 

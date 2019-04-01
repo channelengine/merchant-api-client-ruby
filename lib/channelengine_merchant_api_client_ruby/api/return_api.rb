@@ -52,9 +52,9 @@ module ChannelEngineMerchantApiClient
       # header parameters
       header_params = {}
       # HTTP header 'Accept' (if needed)
-      header_params['Accept'] = @api_client.select_header_accept(['application/json', 'text/json'])
+      header_params['Accept'] = @api_client.select_header_accept(['text/plain', 'application/json', 'text/json'])
       # HTTP header 'Content-Type'
-      header_params['Content-Type'] = @api_client.select_header_content_type(['application/json', 'text/json', 'application/x-www-form-urlencoded'])
+      header_params['Content-Type'] = @api_client.select_header_content_type(['application/json-patch+json', 'application/json', 'text/json', 'application/*+json'])
 
       # form parameters
       form_params = {}
@@ -77,38 +77,34 @@ module ChannelEngineMerchantApiClient
 
     # Get Returns
     # Get all returns created by the channel. This call is supposed  to be used by merchants. Channels should use the 'GET /v2/returns/channel'  call.
-    # @param created_since 
     # @param [Hash] opts the optional parameters
+    # @option opts [DateTime] :created_since 
     # @return [CollectionOfMerchantReturnResponse]
-    def return_get_declared_by_channel(created_since, opts = {})
-      data, _status_code, _headers = return_get_declared_by_channel_with_http_info(created_since, opts)
+    def return_get_declared_by_channel(opts = {})
+      data, _status_code, _headers = return_get_declared_by_channel_with_http_info(opts)
       return data
     end
 
     # Get Returns
     # Get all returns created by the channel. This call is supposed  to be used by merchants. Channels should use the &#39;GET /v2/returns/channel&#39;  call.
-    # @param created_since 
     # @param [Hash] opts the optional parameters
+    # @option opts [DateTime] :created_since 
     # @return [Array<(CollectionOfMerchantReturnResponse, Fixnum, Hash)>] CollectionOfMerchantReturnResponse data, response status code and response headers
-    def return_get_declared_by_channel_with_http_info(created_since, opts = {})
+    def return_get_declared_by_channel_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug "Calling API: ReturnApi.return_get_declared_by_channel ..."
-      end
-      # verify the required parameter 'created_since' is set
-      if @api_client.config.client_side_validation && created_since.nil?
-        fail ArgumentError, "Missing the required parameter 'created_since' when calling ReturnApi.return_get_declared_by_channel"
       end
       # resource path
       local_var_path = "/v2/returns/merchant"
 
       # query parameters
       query_params = {}
-      query_params[:'createdSince'] = created_since
+      query_params[:'createdSince'] = opts[:'created_since'] if !opts[:'created_since'].nil?
 
       # header parameters
       header_params = {}
       # HTTP header 'Accept' (if needed)
-      header_params['Accept'] = @api_client.select_header_accept(['application/json', 'text/json'])
+      header_params['Accept'] = @api_client.select_header_accept(['text/plain', 'application/json', 'text/json'])
 
       # form parameters
       form_params = {}
@@ -125,6 +121,53 @@ module ChannelEngineMerchantApiClient
         :return_type => 'CollectionOfMerchantReturnResponse')
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: ReturnApi#return_get_declared_by_channel\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Get Unhandled Returns
+    # Get all new / unhandled returns created by channels. This call is supposed  to be used by merchants. Channels should use the 'GET /v2/returns/channel'  call.
+    # @param [Hash] opts the optional parameters
+    # @return [CollectionOfMerchantReturnResponse]
+    def return_get_unhandled(opts = {})
+      data, _status_code, _headers = return_get_unhandled_with_http_info(opts)
+      return data
+    end
+
+    # Get Unhandled Returns
+    # Get all new / unhandled returns created by channels. This call is supposed  to be used by merchants. Channels should use the &#39;GET /v2/returns/channel&#39;  call.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CollectionOfMerchantReturnResponse, Fixnum, Hash)>] CollectionOfMerchantReturnResponse data, response status code and response headers
+    def return_get_unhandled_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "Calling API: ReturnApi.return_get_unhandled ..."
+      end
+      # resource path
+      local_var_path = "/v2/returns/merchant/new"
+
+      # query parameters
+      query_params = {}
+
+      # header parameters
+      header_params = {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['text/plain', 'application/json', 'text/json'])
+
+      # form parameters
+      form_params = {}
+
+      # http body (model)
+      post_body = nil
+      auth_names = ['apikey']
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => 'CollectionOfMerchantReturnResponse')
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ReturnApi#return_get_unhandled\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -161,9 +204,9 @@ module ChannelEngineMerchantApiClient
       # header parameters
       header_params = {}
       # HTTP header 'Accept' (if needed)
-      header_params['Accept'] = @api_client.select_header_accept(['application/json', 'text/json'])
+      header_params['Accept'] = @api_client.select_header_accept(['text/plain', 'application/json', 'text/json'])
       # HTTP header 'Content-Type'
-      header_params['Content-Type'] = @api_client.select_header_content_type(['application/json', 'text/json', 'application/xml', 'text/xml', 'application/x-www-form-urlencoded'])
+      header_params['Content-Type'] = @api_client.select_header_content_type(['application/json-patch+json', 'application/json', 'text/json', 'application/*+json'])
 
       # form parameters
       form_params = {}
