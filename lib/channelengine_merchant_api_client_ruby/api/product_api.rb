@@ -131,10 +131,10 @@ module ChannelEngineMerchantApiClient
     # Get Products
     # Retrieve all products
     # @param [Hash] opts the optional parameters
-    # @option opts [String] :filter_search Search product(s) by Name, MerchantProductNo, Ean or Brand      This search is applied to the result after applying the other filters.
-    # @option opts [Array<String>] :filter_ean_list Search products by submitting a list of EAN&#39;s
-    # @option opts [Array<String>] :filter_merchant_product_no_list Search products by submitting a list of MerchantProductNo&#39;s
-    # @option opts [Integer] :filter_page The page to filter on. Starts at 1.
+    # @option opts [String] :search Search product(s) by Name, MerchantProductNo, Ean or Brand      This search is applied to the result after applying the other filters.
+    # @option opts [Array<String>] :ean_list Search products by submitting a list of EAN&#39;s
+    # @option opts [Array<String>] :merchant_product_no_list Search products by submitting a list of MerchantProductNo&#39;s
+    # @option opts [Integer] :page The page to filter on. Starts at 1.
     # @return [CollectionOfMerchantProductResponse]
     def product_get_by_filter(opts = {})
       data, _status_code, _headers = product_get_by_filter_with_http_info(opts)
@@ -144,10 +144,10 @@ module ChannelEngineMerchantApiClient
     # Get Products
     # Retrieve all products
     # @param [Hash] opts the optional parameters
-    # @option opts [String] :filter_search Search product(s) by Name, MerchantProductNo, Ean or Brand      This search is applied to the result after applying the other filters.
-    # @option opts [Array<String>] :filter_ean_list Search products by submitting a list of EAN&#39;s
-    # @option opts [Array<String>] :filter_merchant_product_no_list Search products by submitting a list of MerchantProductNo&#39;s
-    # @option opts [Integer] :filter_page The page to filter on. Starts at 1.
+    # @option opts [String] :search Search product(s) by Name, MerchantProductNo, Ean or Brand      This search is applied to the result after applying the other filters.
+    # @option opts [Array<String>] :ean_list Search products by submitting a list of EAN&#39;s
+    # @option opts [Array<String>] :merchant_product_no_list Search products by submitting a list of MerchantProductNo&#39;s
+    # @option opts [Integer] :page The page to filter on. Starts at 1.
     # @return [Array<(CollectionOfMerchantProductResponse, Fixnum, Hash)>] CollectionOfMerchantProductResponse data, response status code and response headers
     def product_get_by_filter_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -158,10 +158,10 @@ module ChannelEngineMerchantApiClient
 
       # query parameters
       query_params = {}
-      query_params[:'filter.search'] = opts[:'filter_search'] if !opts[:'filter_search'].nil?
-      query_params[:'filter.eanList'] = @api_client.build_collection_param(opts[:'filter_ean_list'], :multi) if !opts[:'filter_ean_list'].nil?
-      query_params[:'filter.merchantProductNoList'] = @api_client.build_collection_param(opts[:'filter_merchant_product_no_list'], :multi) if !opts[:'filter_merchant_product_no_list'].nil?
-      query_params[:'filter.page'] = opts[:'filter_page'] if !opts[:'filter_page'].nil?
+      query_params[:'search'] = opts[:'search'] if !opts[:'search'].nil?
+      query_params[:'eanList'] = @api_client.build_collection_param(opts[:'ean_list'], :multi) if !opts[:'ean_list'].nil?
+      query_params[:'merchantProductNoList'] = @api_client.build_collection_param(opts[:'merchant_product_no_list'], :multi) if !opts[:'merchant_product_no_list'].nil?
+      query_params[:'page'] = opts[:'page'] if !opts[:'page'].nil?
 
       # header parameters
       header_params = {}
