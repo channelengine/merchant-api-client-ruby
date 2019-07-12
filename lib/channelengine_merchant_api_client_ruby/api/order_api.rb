@@ -80,10 +80,12 @@ module ChannelEngineMerchantApiClient
     # @param [Hash] opts the optional parameters
     # @option opts [Array<String>] :statuses Order status(es) to filter on
     # @option opts [Array<String>] :merchant_order_nos Filter on unique order reference used by the merchant
+    # @option opts [Array<String>] :channel_order_nos Filter on unique order reference used by the channel
     # @option opts [DateTime] :from_date Filter on the order date, starting from this date. This date is inclusive.
     # @option opts [DateTime] :to_date Filter on the order date, until this date. This date is exclusive.
     # @option opts [BOOLEAN] :exclude_marketplace_fulfilled_orders_and_lines Exclude order (lines) fulfilled by the marketplace (amazon:FBA, bol:LVB, etc.)
     # @option opts [String] :fulfillment_type Filter orders on fulfillment type. This will include all orders lines, even if they are partially fulfilled by the marketplace.  To exclude orders and lines that are fulfilled by the marketplace from the response, set ExcludeMarketplaceFulfilledOrdersAndLines to true.
+    # @option opts [BOOLEAN] :only_with_cancellation_requests Filter on orders containing cancellation requests.  Some channels allow a customer to cancel an order until it has been shipped.  When an order has already been acknowledged in ChannelEngine, it can only be cancelled by creating a cancellation.
     # @option opts [Integer] :page The page to filter on. Starts at 1.
     # @return [CollectionOfMerchantOrderResponse]
     def order_get_by_filter(opts = {})
@@ -96,10 +98,12 @@ module ChannelEngineMerchantApiClient
     # @param [Hash] opts the optional parameters
     # @option opts [Array<String>] :statuses Order status(es) to filter on
     # @option opts [Array<String>] :merchant_order_nos Filter on unique order reference used by the merchant
+    # @option opts [Array<String>] :channel_order_nos Filter on unique order reference used by the channel
     # @option opts [DateTime] :from_date Filter on the order date, starting from this date. This date is inclusive.
     # @option opts [DateTime] :to_date Filter on the order date, until this date. This date is exclusive.
     # @option opts [BOOLEAN] :exclude_marketplace_fulfilled_orders_and_lines Exclude order (lines) fulfilled by the marketplace (amazon:FBA, bol:LVB, etc.)
     # @option opts [String] :fulfillment_type Filter orders on fulfillment type. This will include all orders lines, even if they are partially fulfilled by the marketplace.  To exclude orders and lines that are fulfilled by the marketplace from the response, set ExcludeMarketplaceFulfilledOrdersAndLines to true.
+    # @option opts [BOOLEAN] :only_with_cancellation_requests Filter on orders containing cancellation requests.  Some channels allow a customer to cancel an order until it has been shipped.  When an order has already been acknowledged in ChannelEngine, it can only be cancelled by creating a cancellation.
     # @option opts [Integer] :page The page to filter on. Starts at 1.
     # @return [Array<(CollectionOfMerchantOrderResponse, Fixnum, Hash)>] CollectionOfMerchantOrderResponse data, response status code and response headers
     def order_get_by_filter_with_http_info(opts = {})
@@ -119,10 +123,12 @@ module ChannelEngineMerchantApiClient
       query_params = {}
       query_params[:'statuses'] = @api_client.build_collection_param(opts[:'statuses'], :multi) if !opts[:'statuses'].nil?
       query_params[:'merchantOrderNos'] = @api_client.build_collection_param(opts[:'merchant_order_nos'], :multi) if !opts[:'merchant_order_nos'].nil?
+      query_params[:'channelOrderNos'] = @api_client.build_collection_param(opts[:'channel_order_nos'], :multi) if !opts[:'channel_order_nos'].nil?
       query_params[:'fromDate'] = opts[:'from_date'] if !opts[:'from_date'].nil?
       query_params[:'toDate'] = opts[:'to_date'] if !opts[:'to_date'].nil?
       query_params[:'excludeMarketplaceFulfilledOrdersAndLines'] = opts[:'exclude_marketplace_fulfilled_orders_and_lines'] if !opts[:'exclude_marketplace_fulfilled_orders_and_lines'].nil?
       query_params[:'fulfillmentType'] = opts[:'fulfillment_type'] if !opts[:'fulfillment_type'].nil?
+      query_params[:'onlyWithCancellationRequests'] = opts[:'only_with_cancellation_requests'] if !opts[:'only_with_cancellation_requests'].nil?
       query_params[:'page'] = opts[:'page'] if !opts[:'page'].nil?
 
       # header parameters

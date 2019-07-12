@@ -30,6 +30,15 @@ module ChannelEngineMerchantApiClient
     # The status of the order
     attr_accessor :status
 
+    # Indicating whether the order is a business order
+    attr_accessor :is_business_order
+
+    # The billing or invoice address
+    attr_accessor :billing_address
+
+    # The shipping address
+    attr_accessor :shipping_address
+
     # The total value of the order lines including VAT  (in the shop's base currency calculated using the exchange rate at the time of ordering).
     attr_accessor :sub_total_incl_vat
 
@@ -92,12 +101,6 @@ module ChannelEngineMerchantApiClient
     # The unique customer reference used by the channel
     attr_accessor :channel_customer_no
 
-    # The billing or invoice address
-    attr_accessor :billing_address
-
-    # The shipping address
-    attr_accessor :shipping_address
-
     # Extra data on the order
     attr_accessor :extra_data
 
@@ -131,6 +134,9 @@ module ChannelEngineMerchantApiClient
         :'channel_order_support' => :'ChannelOrderSupport',
         :'channel_order_no' => :'ChannelOrderNo',
         :'status' => :'Status',
+        :'is_business_order' => :'IsBusinessOrder',
+        :'billing_address' => :'BillingAddress',
+        :'shipping_address' => :'ShippingAddress',
         :'sub_total_incl_vat' => :'SubTotalInclVat',
         :'sub_total_vat' => :'SubTotalVat',
         :'shipping_costs_vat' => :'ShippingCostsVat',
@@ -152,8 +158,6 @@ module ChannelEngineMerchantApiClient
         :'currency_code' => :'CurrencyCode',
         :'order_date' => :'OrderDate',
         :'channel_customer_no' => :'ChannelCustomerNo',
-        :'billing_address' => :'BillingAddress',
-        :'shipping_address' => :'ShippingAddress',
         :'extra_data' => :'ExtraData'
       }
     end
@@ -166,6 +170,9 @@ module ChannelEngineMerchantApiClient
         :'channel_order_support' => :'String',
         :'channel_order_no' => :'String',
         :'status' => :'String',
+        :'is_business_order' => :'BOOLEAN',
+        :'billing_address' => :'MerchantAddressResponse',
+        :'shipping_address' => :'MerchantAddressResponse',
         :'sub_total_incl_vat' => :'Float',
         :'sub_total_vat' => :'Float',
         :'shipping_costs_vat' => :'Float',
@@ -187,8 +194,6 @@ module ChannelEngineMerchantApiClient
         :'currency_code' => :'String',
         :'order_date' => :'DateTime',
         :'channel_customer_no' => :'String',
-        :'billing_address' => :'Address',
-        :'shipping_address' => :'Address',
         :'extra_data' => :'Hash<String, String>'
       }
     end
@@ -219,6 +224,18 @@ module ChannelEngineMerchantApiClient
 
       if attributes.has_key?(:'Status')
         self.status = attributes[:'Status']
+      end
+
+      if attributes.has_key?(:'IsBusinessOrder')
+        self.is_business_order = attributes[:'IsBusinessOrder']
+      end
+
+      if attributes.has_key?(:'BillingAddress')
+        self.billing_address = attributes[:'BillingAddress']
+      end
+
+      if attributes.has_key?(:'ShippingAddress')
+        self.shipping_address = attributes[:'ShippingAddress']
       end
 
       if attributes.has_key?(:'SubTotalInclVat')
@@ -307,14 +324,6 @@ module ChannelEngineMerchantApiClient
         self.channel_customer_no = attributes[:'ChannelCustomerNo']
       end
 
-      if attributes.has_key?(:'BillingAddress')
-        self.billing_address = attributes[:'BillingAddress']
-      end
-
-      if attributes.has_key?(:'ShippingAddress')
-        self.shipping_address = attributes[:'ShippingAddress']
-      end
-
       if attributes.has_key?(:'ExtraData')
         if (value = attributes[:'ExtraData']).is_a?(Hash)
           self.extra_data = value
@@ -395,14 +404,6 @@ module ChannelEngineMerchantApiClient
         invalid_properties.push("invalid value for 'channel_customer_no', the character length must be great than or equal to 0.")
       end
 
-      if @billing_address.nil?
-        invalid_properties.push("invalid value for 'billing_address', billing_address cannot be nil.")
-      end
-
-      if @shipping_address.nil?
-        invalid_properties.push("invalid value for 'shipping_address', shipping_address cannot be nil.")
-      end
-
       return invalid_properties
     end
 
@@ -430,8 +431,6 @@ module ChannelEngineMerchantApiClient
       return false if @order_date.nil?
       return false if !@channel_customer_no.nil? && @channel_customer_no.to_s.length > 50
       return false if !@channel_customer_no.nil? && @channel_customer_no.to_s.length < 0
-      return false if @billing_address.nil?
-      return false if @shipping_address.nil?
       return true
     end
 
@@ -572,6 +571,9 @@ module ChannelEngineMerchantApiClient
           channel_order_support == o.channel_order_support &&
           channel_order_no == o.channel_order_no &&
           status == o.status &&
+          is_business_order == o.is_business_order &&
+          billing_address == o.billing_address &&
+          shipping_address == o.shipping_address &&
           sub_total_incl_vat == o.sub_total_incl_vat &&
           sub_total_vat == o.sub_total_vat &&
           shipping_costs_vat == o.shipping_costs_vat &&
@@ -593,8 +595,6 @@ module ChannelEngineMerchantApiClient
           currency_code == o.currency_code &&
           order_date == o.order_date &&
           channel_customer_no == o.channel_customer_no &&
-          billing_address == o.billing_address &&
-          shipping_address == o.shipping_address &&
           extra_data == o.extra_data
     end
 
@@ -607,7 +607,7 @@ module ChannelEngineMerchantApiClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, channel_name, channel_order_support, channel_order_no, status, sub_total_incl_vat, sub_total_vat, shipping_costs_vat, total_incl_vat, total_vat, original_sub_total_incl_vat, original_sub_total_vat, original_shipping_costs_incl_vat, original_shipping_costs_vat, original_total_incl_vat, original_total_vat, lines, phone, email, company_registration_no, vat_no, payment_method, shipping_costs_incl_vat, currency_code, order_date, channel_customer_no, billing_address, shipping_address, extra_data].hash
+      [id, channel_name, channel_order_support, channel_order_no, status, is_business_order, billing_address, shipping_address, sub_total_incl_vat, sub_total_vat, shipping_costs_vat, total_incl_vat, total_vat, original_sub_total_incl_vat, original_sub_total_vat, original_shipping_costs_incl_vat, original_shipping_costs_vat, original_total_incl_vat, original_total_vat, lines, phone, email, company_registration_no, vat_no, payment_method, shipping_costs_incl_vat, currency_code, order_date, channel_customer_no, extra_data].hash
     end
 
     # Builds the object from hash

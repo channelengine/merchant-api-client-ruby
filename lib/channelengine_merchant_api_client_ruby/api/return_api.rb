@@ -75,6 +75,59 @@ module ChannelEngineMerchantApiClient
       return data, status_code, headers
     end
 
+    # Get Return
+    # Retrieve a return based on the supplied merchant order number. This call is supposed  to be used by merchants. Channels should use the 'GET /v2/returns/channel'  call.
+    # @param merchant_order_no 
+    # @param [Hash] opts the optional parameters
+    # @return [CollectionOfMerchantReturnResponse]
+    def return_get_by_merchant_order_no(merchant_order_no, opts = {})
+      data, _status_code, _headers = return_get_by_merchant_order_no_with_http_info(merchant_order_no, opts)
+      return data
+    end
+
+    # Get Return
+    # Retrieve a return based on the supplied merchant order number. This call is supposed  to be used by merchants. Channels should use the &#39;GET /v2/returns/channel&#39;  call.
+    # @param merchant_order_no 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CollectionOfMerchantReturnResponse, Fixnum, Hash)>] CollectionOfMerchantReturnResponse data, response status code and response headers
+    def return_get_by_merchant_order_no_with_http_info(merchant_order_no, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "Calling API: ReturnApi.return_get_by_merchant_order_no ..."
+      end
+      # verify the required parameter 'merchant_order_no' is set
+      if @api_client.config.client_side_validation && merchant_order_no.nil?
+        fail ArgumentError, "Missing the required parameter 'merchant_order_no' when calling ReturnApi.return_get_by_merchant_order_no"
+      end
+      # resource path
+      local_var_path = "/v2/returns/merchant/{merchantOrderNo}".sub('{' + 'merchantOrderNo' + '}', merchant_order_no.to_s)
+
+      # query parameters
+      query_params = {}
+
+      # header parameters
+      header_params = {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['text/plain', 'application/json', 'text/json'])
+
+      # form parameters
+      form_params = {}
+
+      # http body (model)
+      post_body = nil
+      auth_names = ['apikey']
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => 'CollectionOfMerchantReturnResponse')
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ReturnApi#return_get_by_merchant_order_no\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Get Returns
     # Get all returns created by the channel. This call is supposed  to be used by merchants. Channels should use the 'GET /v2/returns/channel'  call.
     # @param [Hash] opts the optional parameters

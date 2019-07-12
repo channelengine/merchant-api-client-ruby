@@ -24,6 +24,9 @@ module ChannelEngineMerchantApiClient
     # If this product is a different version of another  product (for example, all fields are the same except  color) and itself is a parent with child products (e.g. of sizes),   then this field should contain the 'MerchantProductNo' of the grandparent. The grandparent  should already exist (or be present between the products  in the content of the API call, it does not matter whether   the grandparent is behind the child in the list).  When you set this field, the ParentMerchantProductNo should be left empty.    Use this field in case of three level product hierarchy,   e.g. model - color - size.   This is required for channels like Otto.
     attr_accessor :parent_merchant_product_no2
 
+    # An optional list of key-value pairs containing  extra data about this product. This data can be  sent to channels or used for filtering products.
+    attr_accessor :extra_data
+
     # The name of the product
     attr_accessor :name
 
@@ -102,9 +105,6 @@ module ChannelEngineMerchantApiClient
     # The category to which this product belongs.  Please supply this field in the following format:  'maincategory &gt; category &gt; subcategory'  For example:  'vehicles &gt; bikes &gt; mountainbike'
     attr_accessor :category_trail
 
-    # An optional list of key-value pairs containing  extra data about this product. This data can be  sent to channels or used for filtering products.
-    attr_accessor :extra_data
-
     class EnumAttributeValidator
       attr_reader :datatype
       attr_reader :allowable_values
@@ -133,6 +133,7 @@ module ChannelEngineMerchantApiClient
         :'merchant_product_no' => :'MerchantProductNo',
         :'parent_merchant_product_no' => :'ParentMerchantProductNo',
         :'parent_merchant_product_no2' => :'ParentMerchantProductNo2',
+        :'extra_data' => :'ExtraData',
         :'name' => :'Name',
         :'description' => :'Description',
         :'brand' => :'Brand',
@@ -158,8 +159,7 @@ module ChannelEngineMerchantApiClient
         :'extra_image_url7' => :'ExtraImageUrl7',
         :'extra_image_url8' => :'ExtraImageUrl8',
         :'extra_image_url9' => :'ExtraImageUrl9',
-        :'category_trail' => :'CategoryTrail',
-        :'extra_data' => :'ExtraData'
+        :'category_trail' => :'CategoryTrail'
       }
     end
 
@@ -169,6 +169,7 @@ module ChannelEngineMerchantApiClient
         :'merchant_product_no' => :'String',
         :'parent_merchant_product_no' => :'String',
         :'parent_merchant_product_no2' => :'String',
+        :'extra_data' => :'Array<MerchantProductExtraDataItemRequest>',
         :'name' => :'String',
         :'description' => :'String',
         :'brand' => :'String',
@@ -194,8 +195,7 @@ module ChannelEngineMerchantApiClient
         :'extra_image_url7' => :'String',
         :'extra_image_url8' => :'String',
         :'extra_image_url9' => :'String',
-        :'category_trail' => :'String',
-        :'extra_data' => :'Array<ExtraDataItem>'
+        :'category_trail' => :'String'
       }
     end
 
@@ -217,6 +217,12 @@ module ChannelEngineMerchantApiClient
 
       if attributes.has_key?(:'ParentMerchantProductNo2')
         self.parent_merchant_product_no2 = attributes[:'ParentMerchantProductNo2']
+      end
+
+      if attributes.has_key?(:'ExtraData')
+        if (value = attributes[:'ExtraData']).is_a?(Array)
+          self.extra_data = value
+        end
       end
 
       if attributes.has_key?(:'Name')
@@ -323,12 +329,6 @@ module ChannelEngineMerchantApiClient
         self.category_trail = attributes[:'CategoryTrail']
       end
 
-      if attributes.has_key?(:'ExtraData')
-        if (value = attributes[:'ExtraData']).is_a?(Array)
-          self.extra_data = value
-        end
-      end
-
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -364,6 +364,7 @@ module ChannelEngineMerchantApiClient
           merchant_product_no == o.merchant_product_no &&
           parent_merchant_product_no == o.parent_merchant_product_no &&
           parent_merchant_product_no2 == o.parent_merchant_product_no2 &&
+          extra_data == o.extra_data &&
           name == o.name &&
           description == o.description &&
           brand == o.brand &&
@@ -389,8 +390,7 @@ module ChannelEngineMerchantApiClient
           extra_image_url7 == o.extra_image_url7 &&
           extra_image_url8 == o.extra_image_url8 &&
           extra_image_url9 == o.extra_image_url9 &&
-          category_trail == o.category_trail &&
-          extra_data == o.extra_data
+          category_trail == o.category_trail
     end
 
     # @see the `==` method
@@ -402,7 +402,7 @@ module ChannelEngineMerchantApiClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [merchant_product_no, parent_merchant_product_no, parent_merchant_product_no2, name, description, brand, size, color, ean, manufacturer_product_number, stock, price, msrp, purchase_price, vat_rate_type, shipping_cost, shipping_time, url, image_url, extra_image_url1, extra_image_url2, extra_image_url3, extra_image_url4, extra_image_url5, extra_image_url6, extra_image_url7, extra_image_url8, extra_image_url9, category_trail, extra_data].hash
+      [merchant_product_no, parent_merchant_product_no, parent_merchant_product_no2, extra_data, name, description, brand, size, color, ean, manufacturer_product_number, stock, price, msrp, purchase_price, vat_rate_type, shipping_cost, shipping_time, url, image_url, extra_image_url1, extra_image_url2, extra_image_url3, extra_image_url4, extra_image_url5, extra_image_url6, extra_image_url7, extra_image_url8, extra_image_url9, category_trail].hash
     end
 
     # Builds the object from hash

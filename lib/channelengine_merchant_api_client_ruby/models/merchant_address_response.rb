@@ -14,7 +14,16 @@ require 'date'
 
 module ChannelEngineMerchantApiClient
 
-  class Address
+  class MerchantAddressResponse
+    # The first address line, use this field if address validation is disabled in ChannelEngine.
+    attr_accessor :line1
+
+    # The second address line, use this field if address validation is disabled in ChannelEngine.
+    attr_accessor :line2
+
+    # The third address line, use this field if address validation is disabled in ChannelEngine.
+    attr_accessor :line3
+
     # Optional. The customer's gender
     attr_accessor :gender
 
@@ -76,6 +85,9 @@ module ChannelEngineMerchantApiClient
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'line1' => :'Line1',
+        :'line2' => :'Line2',
+        :'line3' => :'Line3',
         :'gender' => :'Gender',
         :'company_name' => :'CompanyName',
         :'first_name' => :'FirstName',
@@ -94,6 +106,9 @@ module ChannelEngineMerchantApiClient
     # Attribute type mapping.
     def self.swagger_types
       {
+        :'line1' => :'String',
+        :'line2' => :'String',
+        :'line3' => :'String',
         :'gender' => :'String',
         :'company_name' => :'String',
         :'first_name' => :'String',
@@ -116,6 +131,18 @@ module ChannelEngineMerchantApiClient
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}){|(k,v), h| h[k.to_sym] = v}
+
+      if attributes.has_key?(:'Line1')
+        self.line1 = attributes[:'Line1']
+      end
+
+      if attributes.has_key?(:'Line2')
+        self.line2 = attributes[:'Line2']
+      end
+
+      if attributes.has_key?(:'Line3')
+        self.line3 = attributes[:'Line3']
+      end
 
       if attributes.has_key?(:'Gender')
         self.gender = attributes[:'Gender']
@@ -447,6 +474,9 @@ module ChannelEngineMerchantApiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          line1 == o.line1 &&
+          line2 == o.line2 &&
+          line3 == o.line3 &&
           gender == o.gender &&
           company_name == o.company_name &&
           first_name == o.first_name &&
@@ -470,7 +500,7 @@ module ChannelEngineMerchantApiClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [gender, company_name, first_name, last_name, street_name, house_nr, house_nr_addition, zip_code, city, region, country_iso, original].hash
+      [line1, line2, line3, gender, company_name, first_name, last_name, street_name, house_nr, house_nr_addition, zip_code, city, region, country_iso, original].hash
     end
 
     # Builds the object from hash

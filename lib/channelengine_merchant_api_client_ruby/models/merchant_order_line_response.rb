@@ -48,6 +48,9 @@ module ChannelEngineMerchantApiClient
     # The total amount of VAT charged over the total value of the order line (quantity * unit price)  (in the currency in which the order was paid for, see CurrencyCode).
     attr_accessor :original_line_vat
 
+    # If the product is ordered part of a bundle, this field contains the MerchantProductNo of  the product bundle.
+    attr_accessor :bundle_product_merchant_product_no
+
     # The unique order reference used by the channel
     attr_accessor :channel_product_no
 
@@ -105,6 +108,7 @@ module ChannelEngineMerchantApiClient
         :'original_unit_vat' => :'OriginalUnitVat',
         :'original_line_total_incl_vat' => :'OriginalLineTotalInclVat',
         :'original_line_vat' => :'OriginalLineVat',
+        :'bundle_product_merchant_product_no' => :'BundleProductMerchantProductNo',
         :'channel_product_no' => :'ChannelProductNo',
         :'quantity' => :'Quantity',
         :'cancellation_requested_quantity' => :'CancellationRequestedQuantity',
@@ -129,6 +133,7 @@ module ChannelEngineMerchantApiClient
         :'original_unit_vat' => :'Float',
         :'original_line_total_incl_vat' => :'Float',
         :'original_line_vat' => :'Float',
+        :'bundle_product_merchant_product_no' => :'String',
         :'channel_product_no' => :'String',
         :'quantity' => :'Integer',
         :'cancellation_requested_quantity' => :'Integer',
@@ -189,6 +194,10 @@ module ChannelEngineMerchantApiClient
 
       if attributes.has_key?(:'OriginalLineVat')
         self.original_line_vat = attributes[:'OriginalLineVat']
+      end
+
+      if attributes.has_key?(:'BundleProductMerchantProductNo')
+        self.bundle_product_merchant_product_no = attributes[:'BundleProductMerchantProductNo']
       end
 
       if attributes.has_key?(:'ChannelProductNo')
@@ -317,6 +326,7 @@ module ChannelEngineMerchantApiClient
           original_unit_vat == o.original_unit_vat &&
           original_line_total_incl_vat == o.original_line_total_incl_vat &&
           original_line_vat == o.original_line_vat &&
+          bundle_product_merchant_product_no == o.bundle_product_merchant_product_no &&
           channel_product_no == o.channel_product_no &&
           quantity == o.quantity &&
           cancellation_requested_quantity == o.cancellation_requested_quantity &&
@@ -335,7 +345,7 @@ module ChannelEngineMerchantApiClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [status, is_fulfillment_by_marketplace, merchant_product_no, gtin, unit_vat, line_total_incl_vat, line_vat, original_unit_price_incl_vat, original_unit_vat, original_line_total_incl_vat, original_line_vat, channel_product_no, quantity, cancellation_requested_quantity, unit_price_incl_vat, fee_fixed, fee_rate, condition].hash
+      [status, is_fulfillment_by_marketplace, merchant_product_no, gtin, unit_vat, line_total_incl_vat, line_vat, original_unit_price_incl_vat, original_unit_vat, original_line_total_incl_vat, original_line_vat, bundle_product_merchant_product_no, channel_product_no, quantity, cancellation_requested_quantity, unit_price_incl_vat, fee_fixed, fee_rate, condition].hash
     end
 
     # Builds the object from hash

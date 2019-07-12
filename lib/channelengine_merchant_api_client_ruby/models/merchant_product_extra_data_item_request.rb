@@ -14,41 +14,58 @@ require 'date'
 
 module ChannelEngineMerchantApiClient
 
-  class SingleOfCollectionsDictionary2Generic
-    attr_accessor :content
+  class MerchantProductExtraDataItemRequest
+    # Name of the extra data field
+    attr_accessor :key
 
-    attr_accessor :status_code
+    # Value of the extra data field
+    attr_accessor :value
 
-    attr_accessor :log_id
+    # Type of the extra data field
+    attr_accessor :type
 
-    attr_accessor :success
+    # Add this field to the export of the product feed to the channel
+    attr_accessor :is_public
 
-    attr_accessor :message
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
 
-    attr_accessor :validation_errors
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
 
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'content' => :'Content',
-        :'status_code' => :'StatusCode',
-        :'log_id' => :'LogId',
-        :'success' => :'Success',
-        :'message' => :'Message',
-        :'validation_errors' => :'ValidationErrors'
+        :'key' => :'Key',
+        :'value' => :'Value',
+        :'type' => :'Type',
+        :'is_public' => :'IsPublic'
       }
     end
 
     # Attribute type mapping.
     def self.swagger_types
       {
-        :'content' => :'Hash<String, Array<String>>',
-        :'status_code' => :'Integer',
-        :'log_id' => :'Integer',
-        :'success' => :'BOOLEAN',
-        :'message' => :'String',
-        :'validation_errors' => :'Hash<String, Array<String>>'
+        :'key' => :'String',
+        :'value' => :'String',
+        :'type' => :'String',
+        :'is_public' => :'BOOLEAN'
       }
     end
 
@@ -60,32 +77,20 @@ module ChannelEngineMerchantApiClient
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}){|(k,v), h| h[k.to_sym] = v}
 
-      if attributes.has_key?(:'Content')
-        if (value = attributes[:'Content']).is_a?(Hash)
-          self.content = value
-        end
+      if attributes.has_key?(:'Key')
+        self.key = attributes[:'Key']
       end
 
-      if attributes.has_key?(:'StatusCode')
-        self.status_code = attributes[:'StatusCode']
+      if attributes.has_key?(:'Value')
+        self.value = attributes[:'Value']
       end
 
-      if attributes.has_key?(:'LogId')
-        self.log_id = attributes[:'LogId']
+      if attributes.has_key?(:'Type')
+        self.type = attributes[:'Type']
       end
 
-      if attributes.has_key?(:'Success')
-        self.success = attributes[:'Success']
-      end
-
-      if attributes.has_key?(:'Message')
-        self.message = attributes[:'Message']
-      end
-
-      if attributes.has_key?(:'ValidationErrors')
-        if (value = attributes[:'ValidationErrors']).is_a?(Hash)
-          self.validation_errors = value
-        end
+      if attributes.has_key?(:'IsPublic')
+        self.is_public = attributes[:'IsPublic']
       end
 
     end
@@ -100,7 +105,19 @@ module ChannelEngineMerchantApiClient
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      type_validator = EnumAttributeValidator.new('String', ["TEXT", "NUMBER", "URL", "IMAGEURL"])
+      return false unless type_validator.valid?(@type)
       return true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] type Object to be assigned
+    def type=(type)
+      validator = EnumAttributeValidator.new('String', ["TEXT", "NUMBER", "URL", "IMAGEURL"])
+      unless validator.valid?(type)
+        fail ArgumentError, "invalid value for 'type', must be one of #{validator.allowable_values}."
+      end
+      @type = type
     end
 
     # Checks equality by comparing each attribute.
@@ -108,12 +125,10 @@ module ChannelEngineMerchantApiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          content == o.content &&
-          status_code == o.status_code &&
-          log_id == o.log_id &&
-          success == o.success &&
-          message == o.message &&
-          validation_errors == o.validation_errors
+          key == o.key &&
+          value == o.value &&
+          type == o.type &&
+          is_public == o.is_public
     end
 
     # @see the `==` method
@@ -125,7 +140,7 @@ module ChannelEngineMerchantApiClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [content, status_code, log_id, success, message, validation_errors].hash
+      [key, value, type, is_public].hash
     end
 
     # Builds the object from hash

@@ -85,7 +85,7 @@ module ChannelEngineMerchantApiClient
     # 
     # @param updates References to the products that should be updated, and the new values  for the stock or price fields. It is possible to supply only one of the two fields  or both.
     # @param [Hash] opts the optional parameters
-    # @return [SingleOfCollectionsDictionary2Generic]
+    # @return [SingleOfDictionary2]
     def offer_stock_price_update(updates, opts = {})
       data, _status_code, _headers = offer_stock_price_update_with_http_info(updates, opts)
       return data
@@ -95,7 +95,7 @@ module ChannelEngineMerchantApiClient
     # 
     # @param updates References to the products that should be updated, and the new values  for the stock or price fields. It is possible to supply only one of the two fields  or both.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(SingleOfCollectionsDictionary2Generic, Fixnum, Hash)>] SingleOfCollectionsDictionary2Generic data, response status code and response headers
+    # @return [Array<(SingleOfDictionary2, Fixnum, Hash)>] SingleOfDictionary2 data, response status code and response headers
     def offer_stock_price_update_with_http_info(updates, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug "Calling API: OfferApi.offer_stock_price_update ..."
@@ -129,7 +129,7 @@ module ChannelEngineMerchantApiClient
         :form_params => form_params,
         :body => post_body,
         :auth_names => auth_names,
-        :return_type => 'SingleOfCollectionsDictionary2Generic')
+        :return_type => 'SingleOfDictionary2')
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: OfferApi#offer_stock_price_update\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end

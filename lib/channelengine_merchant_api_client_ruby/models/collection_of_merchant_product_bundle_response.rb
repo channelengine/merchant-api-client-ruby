@@ -14,27 +14,56 @@ require 'date'
 
 module ChannelEngineMerchantApiClient
 
-  class OrderAcknowledgement
-    # Your own order reference, this will be used in consecutive order processing API calls
-    attr_accessor :merchant_order_no
+  class CollectionOfMerchantProductBundleResponse
+    attr_accessor :content
 
-    # The ChannelEngine order ID of the order you would like to acknowledge
-    attr_accessor :order_id
+    # The number of items in the current response
+    attr_accessor :count
+
+    # The total number of items
+    attr_accessor :total_count
+
+    # The number of items per page
+    attr_accessor :items_per_page
+
+    attr_accessor :status_code
+
+    attr_accessor :log_id
+
+    attr_accessor :success
+
+    attr_accessor :message
+
+    attr_accessor :validation_errors
 
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'merchant_order_no' => :'MerchantOrderNo',
-        :'order_id' => :'OrderId'
+        :'content' => :'Content',
+        :'count' => :'Count',
+        :'total_count' => :'TotalCount',
+        :'items_per_page' => :'ItemsPerPage',
+        :'status_code' => :'StatusCode',
+        :'log_id' => :'LogId',
+        :'success' => :'Success',
+        :'message' => :'Message',
+        :'validation_errors' => :'ValidationErrors'
       }
     end
 
     # Attribute type mapping.
     def self.swagger_types
       {
-        :'merchant_order_no' => :'String',
-        :'order_id' => :'Integer'
+        :'content' => :'Array<MerchantProductBundleResponse>',
+        :'count' => :'Integer',
+        :'total_count' => :'Integer',
+        :'items_per_page' => :'Integer',
+        :'status_code' => :'Integer',
+        :'log_id' => :'Integer',
+        :'success' => :'BOOLEAN',
+        :'message' => :'String',
+        :'validation_errors' => :'Hash<String, Array<String>>'
       }
     end
 
@@ -46,12 +75,44 @@ module ChannelEngineMerchantApiClient
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}){|(k,v), h| h[k.to_sym] = v}
 
-      if attributes.has_key?(:'MerchantOrderNo')
-        self.merchant_order_no = attributes[:'MerchantOrderNo']
+      if attributes.has_key?(:'Content')
+        if (value = attributes[:'Content']).is_a?(Array)
+          self.content = value
+        end
       end
 
-      if attributes.has_key?(:'OrderId')
-        self.order_id = attributes[:'OrderId']
+      if attributes.has_key?(:'Count')
+        self.count = attributes[:'Count']
+      end
+
+      if attributes.has_key?(:'TotalCount')
+        self.total_count = attributes[:'TotalCount']
+      end
+
+      if attributes.has_key?(:'ItemsPerPage')
+        self.items_per_page = attributes[:'ItemsPerPage']
+      end
+
+      if attributes.has_key?(:'StatusCode')
+        self.status_code = attributes[:'StatusCode']
+      end
+
+      if attributes.has_key?(:'LogId')
+        self.log_id = attributes[:'LogId']
+      end
+
+      if attributes.has_key?(:'Success')
+        self.success = attributes[:'Success']
+      end
+
+      if attributes.has_key?(:'Message')
+        self.message = attributes[:'Message']
+      end
+
+      if attributes.has_key?(:'ValidationErrors')
+        if (value = attributes[:'ValidationErrors']).is_a?(Hash)
+          self.validation_errors = value
+        end
       end
 
     end
@@ -60,51 +121,13 @@ module ChannelEngineMerchantApiClient
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @merchant_order_no.nil?
-        invalid_properties.push("invalid value for 'merchant_order_no', merchant_order_no cannot be nil.")
-      end
-
-      if @merchant_order_no.to_s.length > 50
-        invalid_properties.push("invalid value for 'merchant_order_no', the character length must be smaller than or equal to 50.")
-      end
-
-      if @merchant_order_no.to_s.length < 0
-        invalid_properties.push("invalid value for 'merchant_order_no', the character length must be great than or equal to 0.")
-      end
-
-      if @order_id.nil?
-        invalid_properties.push("invalid value for 'order_id', order_id cannot be nil.")
-      end
-
       return invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @merchant_order_no.nil?
-      return false if @merchant_order_no.to_s.length > 50
-      return false if @merchant_order_no.to_s.length < 0
-      return false if @order_id.nil?
       return true
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] merchant_order_no Value to be assigned
-    def merchant_order_no=(merchant_order_no)
-      if merchant_order_no.nil?
-        fail ArgumentError, "merchant_order_no cannot be nil"
-      end
-
-      if merchant_order_no.to_s.length > 50
-        fail ArgumentError, "invalid value for 'merchant_order_no', the character length must be smaller than or equal to 50."
-      end
-
-      if merchant_order_no.to_s.length < 0
-        fail ArgumentError, "invalid value for 'merchant_order_no', the character length must be great than or equal to 0."
-      end
-
-      @merchant_order_no = merchant_order_no
     end
 
     # Checks equality by comparing each attribute.
@@ -112,8 +135,15 @@ module ChannelEngineMerchantApiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          merchant_order_no == o.merchant_order_no &&
-          order_id == o.order_id
+          content == o.content &&
+          count == o.count &&
+          total_count == o.total_count &&
+          items_per_page == o.items_per_page &&
+          status_code == o.status_code &&
+          log_id == o.log_id &&
+          success == o.success &&
+          message == o.message &&
+          validation_errors == o.validation_errors
     end
 
     # @see the `==` method
@@ -125,7 +155,7 @@ module ChannelEngineMerchantApiClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [merchant_order_no, order_id].hash
+      [content, count, total_count, items_per_page, status_code, log_id, success, message, validation_errors].hash
     end
 
     # Builds the object from hash

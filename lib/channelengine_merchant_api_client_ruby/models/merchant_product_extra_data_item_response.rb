@@ -14,7 +14,7 @@ require 'date'
 
 module ChannelEngineMerchantApiClient
 
-  class ExtraDataItem
+  class MerchantProductExtraDataItemResponse
     # Name of the extra data field
     attr_accessor :key
 

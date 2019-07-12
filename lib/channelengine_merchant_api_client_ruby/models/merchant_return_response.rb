@@ -26,6 +26,12 @@ module ChannelEngineMerchantApiClient
     # The date at which the return was last modified in ChannelEngine
     attr_accessor :updated_at
 
+    # The unique return reference used by the Merchant, will be empty in case of a channel or unacknowledged return
+    attr_accessor :merchant_return_no
+
+    # The unique return reference used by the Channel, will be empty in case of a merchant return
+    attr_accessor :channel_return_no
+
     # The unique return reference used by ChannelEngine
     attr_accessor :id
 
@@ -73,6 +79,8 @@ module ChannelEngineMerchantApiClient
         :'lines' => :'Lines',
         :'created_at' => :'CreatedAt',
         :'updated_at' => :'UpdatedAt',
+        :'merchant_return_no' => :'MerchantReturnNo',
+        :'channel_return_no' => :'ChannelReturnNo',
         :'id' => :'Id',
         :'reason' => :'Reason',
         :'customer_comment' => :'CustomerComment',
@@ -89,6 +97,8 @@ module ChannelEngineMerchantApiClient
         :'lines' => :'Array<MerchantReturnLineResponse>',
         :'created_at' => :'DateTime',
         :'updated_at' => :'DateTime',
+        :'merchant_return_no' => :'String',
+        :'channel_return_no' => :'String',
         :'id' => :'Integer',
         :'reason' => :'String',
         :'customer_comment' => :'String',
@@ -122,6 +132,14 @@ module ChannelEngineMerchantApiClient
 
       if attributes.has_key?(:'UpdatedAt')
         self.updated_at = attributes[:'UpdatedAt']
+      end
+
+      if attributes.has_key?(:'MerchantReturnNo')
+        self.merchant_return_no = attributes[:'MerchantReturnNo']
+      end
+
+      if attributes.has_key?(:'ChannelReturnNo')
+        self.channel_return_no = attributes[:'ChannelReturnNo']
       end
 
       if attributes.has_key?(:'Id')
@@ -234,6 +252,8 @@ module ChannelEngineMerchantApiClient
           lines == o.lines &&
           created_at == o.created_at &&
           updated_at == o.updated_at &&
+          merchant_return_no == o.merchant_return_no &&
+          channel_return_no == o.channel_return_no &&
           id == o.id &&
           reason == o.reason &&
           customer_comment == o.customer_comment &&
@@ -251,7 +271,7 @@ module ChannelEngineMerchantApiClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [merchant_order_no, lines, created_at, updated_at, id, reason, customer_comment, merchant_comment, refund_incl_vat, refund_excl_vat].hash
+      [merchant_order_no, lines, created_at, updated_at, merchant_return_no, channel_return_no, id, reason, customer_comment, merchant_comment, refund_incl_vat, refund_excl_vat].hash
     end
 
     # Builds the object from hash
