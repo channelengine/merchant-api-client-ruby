@@ -13,55 +13,36 @@ Swagger Codegen version: 2.4.8-SNAPSHOT
 require 'date'
 
 module ChannelEngineMerchantApiClient
-  class CollectionOfMerchantStockLocationResponse
-    attr_accessor :content
+  class MerchantSingleOrderReturnLineResponse
+    # The unique product reference used by the Merchant (sku)
+    attr_accessor :merchant_product_no
 
-    # The number of items in the current response
-    attr_accessor :count
+    # The accepted quantity of returned products in this orderline
+    attr_accessor :accepted_quantity
 
-    # The total number of items
-    attr_accessor :total_count
+    # The rejected quantity of returned products in this orderline
+    attr_accessor :rejected_quantity
 
-    # The number of items per page
-    attr_accessor :items_per_page
-
-    attr_accessor :status_code
-
-    attr_accessor :log_id
-
-    attr_accessor :success
-
-    attr_accessor :message
-
-    attr_accessor :validation_errors
+    # Number of items of the product in this return
+    attr_accessor :quantity
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'content' => :'Content',
-        :'count' => :'Count',
-        :'total_count' => :'TotalCount',
-        :'items_per_page' => :'ItemsPerPage',
-        :'status_code' => :'StatusCode',
-        :'log_id' => :'LogId',
-        :'success' => :'Success',
-        :'message' => :'Message',
-        :'validation_errors' => :'ValidationErrors'
+        :'merchant_product_no' => :'MerchantProductNo',
+        :'accepted_quantity' => :'AcceptedQuantity',
+        :'rejected_quantity' => :'RejectedQuantity',
+        :'quantity' => :'Quantity'
       }
     end
 
     # Attribute type mapping.
     def self.swagger_types
       {
-        :'content' => :'Array<MerchantStockLocationResponse>',
-        :'count' => :'Integer',
-        :'total_count' => :'Integer',
-        :'items_per_page' => :'Integer',
-        :'status_code' => :'Integer',
-        :'log_id' => :'Integer',
-        :'success' => :'BOOLEAN',
-        :'message' => :'String',
-        :'validation_errors' => :'Hash<String, Array<String>>'
+        :'merchant_product_no' => :'String',
+        :'accepted_quantity' => :'Integer',
+        :'rejected_quantity' => :'Integer',
+        :'quantity' => :'Integer'
       }
     end
 
@@ -73,44 +54,20 @@ module ChannelEngineMerchantApiClient
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      if attributes.has_key?(:'Content')
-        if (value = attributes[:'Content']).is_a?(Array)
-          self.content = value
-        end
+      if attributes.has_key?(:'MerchantProductNo')
+        self.merchant_product_no = attributes[:'MerchantProductNo']
       end
 
-      if attributes.has_key?(:'Count')
-        self.count = attributes[:'Count']
+      if attributes.has_key?(:'AcceptedQuantity')
+        self.accepted_quantity = attributes[:'AcceptedQuantity']
       end
 
-      if attributes.has_key?(:'TotalCount')
-        self.total_count = attributes[:'TotalCount']
+      if attributes.has_key?(:'RejectedQuantity')
+        self.rejected_quantity = attributes[:'RejectedQuantity']
       end
 
-      if attributes.has_key?(:'ItemsPerPage')
-        self.items_per_page = attributes[:'ItemsPerPage']
-      end
-
-      if attributes.has_key?(:'StatusCode')
-        self.status_code = attributes[:'StatusCode']
-      end
-
-      if attributes.has_key?(:'LogId')
-        self.log_id = attributes[:'LogId']
-      end
-
-      if attributes.has_key?(:'Success')
-        self.success = attributes[:'Success']
-      end
-
-      if attributes.has_key?(:'Message')
-        self.message = attributes[:'Message']
-      end
-
-      if attributes.has_key?(:'ValidationErrors')
-        if (value = attributes[:'ValidationErrors']).is_a?(Hash)
-          self.validation_errors = value
-        end
+      if attributes.has_key?(:'Quantity')
+        self.quantity = attributes[:'Quantity']
       end
     end
 
@@ -118,12 +75,17 @@ module ChannelEngineMerchantApiClient
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
+      if @quantity.nil?
+        invalid_properties.push('invalid value for "quantity", quantity cannot be nil.')
+      end
+
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      return false if @quantity.nil?
       true
     end
 
@@ -132,15 +94,10 @@ module ChannelEngineMerchantApiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          content == o.content &&
-          count == o.count &&
-          total_count == o.total_count &&
-          items_per_page == o.items_per_page &&
-          status_code == o.status_code &&
-          log_id == o.log_id &&
-          success == o.success &&
-          message == o.message &&
-          validation_errors == o.validation_errors
+          merchant_product_no == o.merchant_product_no &&
+          accepted_quantity == o.accepted_quantity &&
+          rejected_quantity == o.rejected_quantity &&
+          quantity == o.quantity
     end
 
     # @see the `==` method
@@ -152,7 +109,7 @@ module ChannelEngineMerchantApiClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [content, count, total_count, items_per_page, status_code, log_id, success, message, validation_errors].hash
+      [merchant_product_no, accepted_quantity, rejected_quantity, quantity].hash
     end
 
     # Builds the object from hash

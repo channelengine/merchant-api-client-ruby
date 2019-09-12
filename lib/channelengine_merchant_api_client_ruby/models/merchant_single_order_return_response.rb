@@ -13,14 +13,26 @@ Swagger Codegen version: 2.4.8-SNAPSHOT
 require 'date'
 
 module ChannelEngineMerchantApiClient
-  class MerchantReturnRequest
-    # The unique order reference used by the Merchant (sku)
+  class MerchantSingleOrderReturnResponse
+    # The unique order reference used by the Merchant
     attr_accessor :merchant_order_no
 
-    # The unique return reference used by the Merchant (sku)
+    attr_accessor :lines
+
+    # The date at which the return was created in ChannelEngine
+    attr_accessor :created_at
+
+    # The date at which the return was last modified in ChannelEngine
+    attr_accessor :updated_at
+
+    # The unique return reference used by the Merchant, will be empty in case of a channel or unacknowledged return
     attr_accessor :merchant_return_no
 
-    attr_accessor :lines
+    # The unique return reference used by the Channel, will be empty in case of a merchant return
+    attr_accessor :channel_return_no
+
+    # The current status of the return
+    attr_accessor :status
 
     # The unique return reference used by ChannelEngine
     attr_accessor :id
@@ -66,8 +78,12 @@ module ChannelEngineMerchantApiClient
     def self.attribute_map
       {
         :'merchant_order_no' => :'MerchantOrderNo',
-        :'merchant_return_no' => :'MerchantReturnNo',
         :'lines' => :'Lines',
+        :'created_at' => :'CreatedAt',
+        :'updated_at' => :'UpdatedAt',
+        :'merchant_return_no' => :'MerchantReturnNo',
+        :'channel_return_no' => :'ChannelReturnNo',
+        :'status' => :'Status',
         :'id' => :'Id',
         :'reason' => :'Reason',
         :'customer_comment' => :'CustomerComment',
@@ -81,8 +97,12 @@ module ChannelEngineMerchantApiClient
     def self.swagger_types
       {
         :'merchant_order_no' => :'String',
+        :'lines' => :'Array<MerchantSingleOrderReturnLineResponse>',
+        :'created_at' => :'DateTime',
+        :'updated_at' => :'DateTime',
         :'merchant_return_no' => :'String',
-        :'lines' => :'Array<MerchantReturnLineRequest>',
+        :'channel_return_no' => :'String',
+        :'status' => :'String',
         :'id' => :'Integer',
         :'reason' => :'String',
         :'customer_comment' => :'String',
@@ -104,14 +124,30 @@ module ChannelEngineMerchantApiClient
         self.merchant_order_no = attributes[:'MerchantOrderNo']
       end
 
-      if attributes.has_key?(:'MerchantReturnNo')
-        self.merchant_return_no = attributes[:'MerchantReturnNo']
-      end
-
       if attributes.has_key?(:'Lines')
         if (value = attributes[:'Lines']).is_a?(Array)
           self.lines = value
         end
+      end
+
+      if attributes.has_key?(:'CreatedAt')
+        self.created_at = attributes[:'CreatedAt']
+      end
+
+      if attributes.has_key?(:'UpdatedAt')
+        self.updated_at = attributes[:'UpdatedAt']
+      end
+
+      if attributes.has_key?(:'MerchantReturnNo')
+        self.merchant_return_no = attributes[:'MerchantReturnNo']
+      end
+
+      if attributes.has_key?(:'ChannelReturnNo')
+        self.channel_return_no = attributes[:'ChannelReturnNo']
+      end
+
+      if attributes.has_key?(:'Status')
+        self.status = attributes[:'Status']
       end
 
       if attributes.has_key?(:'Id')
@@ -143,18 +179,6 @@ module ChannelEngineMerchantApiClient
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @merchant_order_no.nil?
-        invalid_properties.push('invalid value for "merchant_order_no", merchant_order_no cannot be nil.')
-      end
-
-      if @merchant_return_no.nil?
-        invalid_properties.push('invalid value for "merchant_return_no", merchant_return_no cannot be nil.')
-      end
-
-      if @lines.nil?
-        invalid_properties.push('invalid value for "lines", lines cannot be nil.')
-      end
-
       if !@customer_comment.nil? && @customer_comment.to_s.length > 4001
         invalid_properties.push('invalid value for "customer_comment", the character length must be smaller than or equal to 4001.')
       end
@@ -177,9 +201,8 @@ module ChannelEngineMerchantApiClient
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @merchant_order_no.nil?
-      return false if @merchant_return_no.nil?
-      return false if @lines.nil?
+      status_validator = EnumAttributeValidator.new('String', ['IN_PROGRESS', 'RECEIVED', 'CANCELLED'])
+      return false unless status_validator.valid?(@status)
       reason_validator = EnumAttributeValidator.new('String', ['PRODUCT_DEFECT', 'PRODUCT_UNSATISFACTORY', 'WRONG_PRODUCT', 'TOO_MANY_PRODUCTS', 'REFUSED', 'REFUSED_DAMAGED', 'WRONG_ADDRESS', 'NOT_COLLECTED', 'WRONG_SIZE', 'OTHER'])
       return false unless reason_validator.valid?(@reason)
       return false if !@customer_comment.nil? && @customer_comment.to_s.length > 4001
@@ -187,6 +210,16 @@ module ChannelEngineMerchantApiClient
       return false if !@merchant_comment.nil? && @merchant_comment.to_s.length > 4001
       return false if !@merchant_comment.nil? && @merchant_comment.to_s.length < 0
       true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] status Object to be assigned
+    def status=(status)
+      validator = EnumAttributeValidator.new('String', ['IN_PROGRESS', 'RECEIVED', 'CANCELLED'])
+      unless validator.valid?(status)
+        fail ArgumentError, 'invalid value for "status", must be one of #{validator.allowable_values}.'
+      end
+      @status = status
     end
 
     # Custom attribute writer method checking allowed values (enum).
@@ -233,8 +266,12 @@ module ChannelEngineMerchantApiClient
       return true if self.equal?(o)
       self.class == o.class &&
           merchant_order_no == o.merchant_order_no &&
-          merchant_return_no == o.merchant_return_no &&
           lines == o.lines &&
+          created_at == o.created_at &&
+          updated_at == o.updated_at &&
+          merchant_return_no == o.merchant_return_no &&
+          channel_return_no == o.channel_return_no &&
+          status == o.status &&
           id == o.id &&
           reason == o.reason &&
           customer_comment == o.customer_comment &&
@@ -252,7 +289,7 @@ module ChannelEngineMerchantApiClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [merchant_order_no, merchant_return_no, lines, id, reason, customer_comment, merchant_comment, refund_incl_vat, refund_excl_vat].hash
+      [merchant_order_no, lines, created_at, updated_at, merchant_return_no, channel_return_no, status, id, reason, customer_comment, merchant_comment, refund_incl_vat, refund_excl_vat].hash
     end
 
     # Builds the object from hash

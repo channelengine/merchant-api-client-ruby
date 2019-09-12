@@ -13,7 +13,7 @@ Swagger Codegen version: 2.4.8-SNAPSHOT
 require 'date'
 
 module ChannelEngineMerchantApiClient
-  class CollectionOfMerchantStockLocationResponse
+  class CollectionOfMerchantNotificationResponse
     attr_accessor :content
 
     # The number of items in the current response
@@ -53,7 +53,7 @@ module ChannelEngineMerchantApiClient
     # Attribute type mapping.
     def self.swagger_types
       {
-        :'content' => :'Array<MerchantStockLocationResponse>',
+        :'content' => :'Array<MerchantNotificationResponse>',
         :'count' => :'Integer',
         :'total_count' => :'Integer',
         :'items_per_page' => :'Integer',
