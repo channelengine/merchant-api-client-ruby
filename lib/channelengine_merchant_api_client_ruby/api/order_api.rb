@@ -77,6 +77,7 @@ module ChannelEngineMerchantApiClient
     # Fetch orders based on the provided OrderFilter
     # @param [Hash] opts the optional parameters
     # @option opts [Array<String>] :statuses Order status(es) to filter on
+    # @option opts [Array<String>] :email_addresses Client emailaddresses to filter on
     # @option opts [Array<String>] :merchant_order_nos Filter on unique order reference used by the merchant
     # @option opts [Array<String>] :channel_order_nos Filter on unique order reference used by the channel
     # @option opts [DateTime] :from_date Filter on the order date, starting from this date. This date is inclusive.
@@ -95,6 +96,7 @@ module ChannelEngineMerchantApiClient
     # Fetch orders based on the provided OrderFilter
     # @param [Hash] opts the optional parameters
     # @option opts [Array<String>] :statuses Order status(es) to filter on
+    # @option opts [Array<String>] :email_addresses Client emailaddresses to filter on
     # @option opts [Array<String>] :merchant_order_nos Filter on unique order reference used by the merchant
     # @option opts [Array<String>] :channel_order_nos Filter on unique order reference used by the channel
     # @option opts [DateTime] :from_date Filter on the order date, starting from this date. This date is inclusive.
@@ -120,6 +122,7 @@ module ChannelEngineMerchantApiClient
       # query parameters
       query_params = {}
       query_params[:'statuses'] = @api_client.build_collection_param(opts[:'statuses'], :multi) if !opts[:'statuses'].nil?
+      query_params[:'emailAddresses'] = @api_client.build_collection_param(opts[:'email_addresses'], :multi) if !opts[:'email_addresses'].nil?
       query_params[:'merchantOrderNos'] = @api_client.build_collection_param(opts[:'merchant_order_nos'], :multi) if !opts[:'merchant_order_nos'].nil?
       query_params[:'channelOrderNos'] = @api_client.build_collection_param(opts[:'channel_order_nos'], :multi) if !opts[:'channel_order_nos'].nil?
       query_params[:'fromDate'] = opts[:'from_date'] if !opts[:'from_date'].nil?
@@ -305,6 +308,60 @@ module ChannelEngineMerchantApiClient
         :return_type => 'File')
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: OrderApi#order_packing_slip\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+    # Update Comment
+    # Update the merchant comment for an order. Both the ChannelEngine order id as the   merchant order number can be used for updating a comment.
+    # @param model 
+    # @param [Hash] opts the optional parameters
+    # @return [ApiResponse]
+    def order_update(model, opts = {})
+      data, _status_code, _headers = order_update_with_http_info(model, opts)
+      data
+    end
+
+    # Update Comment
+    # Update the merchant comment for an order. Both the ChannelEngine order id as the   merchant order number can be used for updating a comment.
+    # @param model 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ApiResponse, Fixnum, Hash)>] ApiResponse data, response status code and response headers
+    def order_update_with_http_info(model, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OrderApi.order_update ...'
+      end
+      # verify the required parameter 'model' is set
+      if @api_client.config.client_side_validation && model.nil?
+        fail ArgumentError, "Missing the required parameter 'model' when calling OrderApi.order_update"
+      end
+      # resource path
+      local_var_path = '/v2/orders/comment'
+
+      # query parameters
+      query_params = {}
+
+      # header parameters
+      header_params = {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['text/plain', 'application/json', 'text/json'])
+      # HTTP header 'Content-Type'
+      header_params['Content-Type'] = @api_client.select_header_content_type(['application/json-patch+json', 'application/json', 'text/json', 'application/*+json'])
+
+      # form parameters
+      form_params = {}
+
+      # http body (model)
+      post_body = @api_client.object_to_http_body(model)
+      auth_names = ['apikey']
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => 'ApiResponse')
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OrderApi#order_update\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

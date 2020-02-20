@@ -17,13 +17,22 @@ module ChannelEngineMerchantApiClient
     # The unique identifier used by ChannelEngine. This identifier does  not have to be saved. It should only be used in a call to acknowledge the order.
     attr_accessor :id
 
-    # The name of the channel
+    # The name of the channel for this specific environment/account
     attr_accessor :channel_name
+
+    # The unique ID of the channel for this specific environment/account
+    attr_accessor :channel_id
+
+    # The name of the channel across all of ChannelEngine
+    attr_accessor :global_channel_name
+
+    # The unique ID of the channel across all of ChannelEngine
+    attr_accessor :global_channel_id
 
     # The type of orders the channel support.
     attr_accessor :channel_order_support
 
-    # The unique order reference used by the channel
+    # The order reference used by the channel.   This number is not guaranteed to be unique accross all orders,  because different channels can use the same order number format.
     attr_accessor :channel_order_no
 
     # The status of the order
@@ -31,6 +40,15 @@ module ChannelEngineMerchantApiClient
 
     # Indicating whether the order is a business order
     attr_accessor :is_business_order
+
+    # The date the order was created in ChannelEngine
+    attr_accessor :created_at
+
+    # The date the order was last updated in ChannelEngine
+    attr_accessor :updated_at
+
+    # The optional comment a merchant can add to an order
+    attr_accessor :merchant_comment
 
     # The billing or invoice address
     attr_accessor :billing_address
@@ -94,7 +112,7 @@ module ChannelEngineMerchantApiClient
     # The currency code for the amounts of the order
     attr_accessor :currency_code
 
-    # The date the order was done
+    # The date the order was created at the channel
     attr_accessor :order_date
 
     # The unique customer reference used by the channel
@@ -130,10 +148,16 @@ module ChannelEngineMerchantApiClient
       {
         :'id' => :'Id',
         :'channel_name' => :'ChannelName',
+        :'channel_id' => :'ChannelId',
+        :'global_channel_name' => :'GlobalChannelName',
+        :'global_channel_id' => :'GlobalChannelId',
         :'channel_order_support' => :'ChannelOrderSupport',
         :'channel_order_no' => :'ChannelOrderNo',
         :'status' => :'Status',
         :'is_business_order' => :'IsBusinessOrder',
+        :'created_at' => :'CreatedAt',
+        :'updated_at' => :'UpdatedAt',
+        :'merchant_comment' => :'MerchantComment',
         :'billing_address' => :'BillingAddress',
         :'shipping_address' => :'ShippingAddress',
         :'sub_total_incl_vat' => :'SubTotalInclVat',
@@ -166,10 +190,16 @@ module ChannelEngineMerchantApiClient
       {
         :'id' => :'Integer',
         :'channel_name' => :'String',
+        :'channel_id' => :'Integer',
+        :'global_channel_name' => :'String',
+        :'global_channel_id' => :'Integer',
         :'channel_order_support' => :'String',
         :'channel_order_no' => :'String',
         :'status' => :'String',
         :'is_business_order' => :'BOOLEAN',
+        :'created_at' => :'DateTime',
+        :'updated_at' => :'DateTime',
+        :'merchant_comment' => :'String',
         :'billing_address' => :'MerchantAddressResponse',
         :'shipping_address' => :'MerchantAddressResponse',
         :'sub_total_incl_vat' => :'Float',
@@ -213,6 +243,18 @@ module ChannelEngineMerchantApiClient
         self.channel_name = attributes[:'ChannelName']
       end
 
+      if attributes.has_key?(:'ChannelId')
+        self.channel_id = attributes[:'ChannelId']
+      end
+
+      if attributes.has_key?(:'GlobalChannelName')
+        self.global_channel_name = attributes[:'GlobalChannelName']
+      end
+
+      if attributes.has_key?(:'GlobalChannelId')
+        self.global_channel_id = attributes[:'GlobalChannelId']
+      end
+
       if attributes.has_key?(:'ChannelOrderSupport')
         self.channel_order_support = attributes[:'ChannelOrderSupport']
       end
@@ -227,6 +269,18 @@ module ChannelEngineMerchantApiClient
 
       if attributes.has_key?(:'IsBusinessOrder')
         self.is_business_order = attributes[:'IsBusinessOrder']
+      end
+
+      if attributes.has_key?(:'CreatedAt')
+        self.created_at = attributes[:'CreatedAt']
+      end
+
+      if attributes.has_key?(:'UpdatedAt')
+        self.updated_at = attributes[:'UpdatedAt']
+      end
+
+      if attributes.has_key?(:'MerchantComment')
+        self.merchant_comment = attributes[:'MerchantComment']
       end
 
       if attributes.has_key?(:'BillingAddress')
@@ -561,10 +615,16 @@ module ChannelEngineMerchantApiClient
       self.class == o.class &&
           id == o.id &&
           channel_name == o.channel_name &&
+          channel_id == o.channel_id &&
+          global_channel_name == o.global_channel_name &&
+          global_channel_id == o.global_channel_id &&
           channel_order_support == o.channel_order_support &&
           channel_order_no == o.channel_order_no &&
           status == o.status &&
           is_business_order == o.is_business_order &&
+          created_at == o.created_at &&
+          updated_at == o.updated_at &&
+          merchant_comment == o.merchant_comment &&
           billing_address == o.billing_address &&
           shipping_address == o.shipping_address &&
           sub_total_incl_vat == o.sub_total_incl_vat &&
@@ -600,7 +660,7 @@ module ChannelEngineMerchantApiClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, channel_name, channel_order_support, channel_order_no, status, is_business_order, billing_address, shipping_address, sub_total_incl_vat, sub_total_vat, shipping_costs_vat, total_incl_vat, total_vat, original_sub_total_incl_vat, original_sub_total_vat, original_shipping_costs_incl_vat, original_shipping_costs_vat, original_total_incl_vat, original_total_vat, lines, phone, email, company_registration_no, vat_no, payment_method, shipping_costs_incl_vat, currency_code, order_date, channel_customer_no, extra_data].hash
+      [id, channel_name, channel_id, global_channel_name, global_channel_id, channel_order_support, channel_order_no, status, is_business_order, created_at, updated_at, merchant_comment, billing_address, shipping_address, sub_total_incl_vat, sub_total_vat, shipping_costs_vat, total_incl_vat, total_vat, original_sub_total_incl_vat, original_sub_total_vat, original_shipping_costs_incl_vat, original_shipping_costs_vat, original_total_incl_vat, original_total_vat, lines, phone, email, company_registration_no, vat_no, payment_method, shipping_costs_incl_vat, currency_code, order_date, channel_customer_no, extra_data].hash
     end
 
     # Builds the object from hash
