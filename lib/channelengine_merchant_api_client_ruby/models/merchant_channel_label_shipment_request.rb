@@ -13,52 +13,48 @@ OpenAPI Generator version: 5.0.0-SNAPSHOT
 require 'date'
 
 module ChannelEngineMerchantApiClient
-  class ChannelGlobalChannelResponse
-    # The country code of the Global Channel.
-    attr_accessor :country_code
+  class MerchantChannelLabelShipmentRequest
+    attr_accessor :dimensions
 
-    # The ID of the Global Channel.
-    attr_accessor :global_channel_id
+    attr_accessor :weight
 
-    # The status of the instances.
-    attr_accessor :channels
+    attr_accessor :channel_method_code
 
-    # The language code of the Global Channel.
-    attr_accessor :language_code
+    # The unique shipment reference used by the Merchant.
+    attr_accessor :merchant_shipment_no
 
-    # The name of the Global Channel.
-    attr_accessor :global_channel_name
+    # The unique order reference used by the Merchant.
+    attr_accessor :merchant_order_no
+
+    attr_accessor :lines
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'country_code' => :'CountryCode',
-        :'global_channel_id' => :'GlobalChannelId',
-        :'channels' => :'Channels',
-        :'language_code' => :'LanguageCode',
-        :'global_channel_name' => :'GlobalChannelName'
+        :'dimensions' => :'Dimensions',
+        :'weight' => :'Weight',
+        :'channel_method_code' => :'ChannelMethodCode',
+        :'merchant_shipment_no' => :'MerchantShipmentNo',
+        :'merchant_order_no' => :'MerchantOrderNo',
+        :'lines' => :'Lines'
       }
     end
 
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'country_code' => :'String',
-        :'global_channel_id' => :'Integer',
-        :'channels' => :'Array<ChannelChannelResponse>',
-        :'language_code' => :'String',
-        :'global_channel_name' => :'String'
+        :'dimensions' => :'MerchantShipmentPackageDimensionsRequest',
+        :'weight' => :'MerchantShipmentPackageWeightRequest',
+        :'channel_method_code' => :'String',
+        :'merchant_shipment_no' => :'String',
+        :'merchant_order_no' => :'String',
+        :'lines' => :'Array<MerchantShipmentLineRequest>'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'country_code',
-        :'global_channel_id',
-        :'channels',
-        :'language_code',
-        :'global_channel_name'
       ])
     end
 
@@ -66,37 +62,41 @@ module ChannelEngineMerchantApiClient
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `ChannelEngineMerchantApiClient::ChannelGlobalChannelResponse` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `ChannelEngineMerchantApiClient::MerchantChannelLabelShipmentRequest` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `ChannelEngineMerchantApiClient::ChannelGlobalChannelResponse`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `ChannelEngineMerchantApiClient::MerchantChannelLabelShipmentRequest`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'country_code')
-        self.country_code = attributes[:'country_code']
+      if attributes.key?(:'dimensions')
+        self.dimensions = attributes[:'dimensions']
       end
 
-      if attributes.key?(:'global_channel_id')
-        self.global_channel_id = attributes[:'global_channel_id']
+      if attributes.key?(:'weight')
+        self.weight = attributes[:'weight']
       end
 
-      if attributes.key?(:'channels')
-        if (value = attributes[:'channels']).is_a?(Array)
-          self.channels = value
+      if attributes.key?(:'channel_method_code')
+        self.channel_method_code = attributes[:'channel_method_code']
+      end
+
+      if attributes.key?(:'merchant_shipment_no')
+        self.merchant_shipment_no = attributes[:'merchant_shipment_no']
+      end
+
+      if attributes.key?(:'merchant_order_no')
+        self.merchant_order_no = attributes[:'merchant_order_no']
+      end
+
+      if attributes.key?(:'lines')
+        if (value = attributes[:'lines']).is_a?(Array)
+          self.lines = value
         end
-      end
-
-      if attributes.key?(:'language_code')
-        self.language_code = attributes[:'language_code']
-      end
-
-      if attributes.key?(:'global_channel_name')
-        self.global_channel_name = attributes[:'global_channel_name']
       end
     end
 
@@ -104,12 +104,42 @@ module ChannelEngineMerchantApiClient
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
+      if @dimensions.nil?
+        invalid_properties.push('invalid value for "dimensions", dimensions cannot be nil.')
+      end
+
+      if @weight.nil?
+        invalid_properties.push('invalid value for "weight", weight cannot be nil.')
+      end
+
+      if @channel_method_code.nil?
+        invalid_properties.push('invalid value for "channel_method_code", channel_method_code cannot be nil.')
+      end
+
+      if @merchant_shipment_no.nil?
+        invalid_properties.push('invalid value for "merchant_shipment_no", merchant_shipment_no cannot be nil.')
+      end
+
+      if @merchant_order_no.nil?
+        invalid_properties.push('invalid value for "merchant_order_no", merchant_order_no cannot be nil.')
+      end
+
+      if @lines.nil?
+        invalid_properties.push('invalid value for "lines", lines cannot be nil.')
+      end
+
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      return false if @dimensions.nil?
+      return false if @weight.nil?
+      return false if @channel_method_code.nil?
+      return false if @merchant_shipment_no.nil?
+      return false if @merchant_order_no.nil?
+      return false if @lines.nil?
       true
     end
 
@@ -118,11 +148,12 @@ module ChannelEngineMerchantApiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          country_code == o.country_code &&
-          global_channel_id == o.global_channel_id &&
-          channels == o.channels &&
-          language_code == o.language_code &&
-          global_channel_name == o.global_channel_name
+          dimensions == o.dimensions &&
+          weight == o.weight &&
+          channel_method_code == o.channel_method_code &&
+          merchant_shipment_no == o.merchant_shipment_no &&
+          merchant_order_no == o.merchant_order_no &&
+          lines == o.lines
     end
 
     # @see the `==` method
@@ -134,7 +165,7 @@ module ChannelEngineMerchantApiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [country_code, global_channel_id, channels, language_code, global_channel_name].hash
+      [dimensions, weight, channel_method_code, merchant_shipment_no, merchant_order_no, lines].hash
     end
 
     # Builds the object from hash

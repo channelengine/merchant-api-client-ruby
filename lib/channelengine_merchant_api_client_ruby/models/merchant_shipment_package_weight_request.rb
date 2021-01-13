@@ -13,52 +13,30 @@ OpenAPI Generator version: 5.0.0-SNAPSHOT
 require 'date'
 
 module ChannelEngineMerchantApiClient
-  class ChannelGlobalChannelResponse
-    # The country code of the Global Channel.
-    attr_accessor :country_code
+  class MerchantShipmentPackageWeightRequest
+    attr_accessor :value
 
-    # The ID of the Global Channel.
-    attr_accessor :global_channel_id
-
-    # The status of the instances.
-    attr_accessor :channels
-
-    # The language code of the Global Channel.
-    attr_accessor :language_code
-
-    # The name of the Global Channel.
-    attr_accessor :global_channel_name
+    attr_accessor :unit
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'country_code' => :'CountryCode',
-        :'global_channel_id' => :'GlobalChannelId',
-        :'channels' => :'Channels',
-        :'language_code' => :'LanguageCode',
-        :'global_channel_name' => :'GlobalChannelName'
+        :'value' => :'Value',
+        :'unit' => :'Unit'
       }
     end
 
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'country_code' => :'String',
-        :'global_channel_id' => :'Integer',
-        :'channels' => :'Array<ChannelChannelResponse>',
-        :'language_code' => :'String',
-        :'global_channel_name' => :'String'
+        :'value' => :'Float',
+        :'unit' => :'PackageWeightUnit'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'country_code',
-        :'global_channel_id',
-        :'channels',
-        :'language_code',
-        :'global_channel_name'
       ])
     end
 
@@ -66,37 +44,23 @@ module ChannelEngineMerchantApiClient
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `ChannelEngineMerchantApiClient::ChannelGlobalChannelResponse` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `ChannelEngineMerchantApiClient::MerchantShipmentPackageWeightRequest` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `ChannelEngineMerchantApiClient::ChannelGlobalChannelResponse`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `ChannelEngineMerchantApiClient::MerchantShipmentPackageWeightRequest`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'country_code')
-        self.country_code = attributes[:'country_code']
+      if attributes.key?(:'value')
+        self.value = attributes[:'value']
       end
 
-      if attributes.key?(:'global_channel_id')
-        self.global_channel_id = attributes[:'global_channel_id']
-      end
-
-      if attributes.key?(:'channels')
-        if (value = attributes[:'channels']).is_a?(Array)
-          self.channels = value
-        end
-      end
-
-      if attributes.key?(:'language_code')
-        self.language_code = attributes[:'language_code']
-      end
-
-      if attributes.key?(:'global_channel_name')
-        self.global_channel_name = attributes[:'global_channel_name']
+      if attributes.key?(:'unit')
+        self.unit = attributes[:'unit']
       end
     end
 
@@ -118,11 +82,8 @@ module ChannelEngineMerchantApiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          country_code == o.country_code &&
-          global_channel_id == o.global_channel_id &&
-          channels == o.channels &&
-          language_code == o.language_code &&
-          global_channel_name == o.global_channel_name
+          value == o.value &&
+          unit == o.unit
     end
 
     # @see the `==` method
@@ -134,7 +95,7 @@ module ChannelEngineMerchantApiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [country_code, global_channel_id, channels, language_code, global_channel_name].hash
+      [value, unit].hash
     end
 
     # Builds the object from hash

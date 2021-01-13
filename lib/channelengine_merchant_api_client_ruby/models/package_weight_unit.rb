@@ -13,12 +13,9 @@ OpenAPI Generator version: 5.0.0-SNAPSHOT
 require 'date'
 
 module ChannelEngineMerchantApiClient
-  class FulfillmentType
-    ALL = "ALL".freeze
-    ONLY_MERCHANT = "ONLY_MERCHANT".freeze
-    ONLY_CHANNEL = "ONLY_CHANNEL".freeze
-    MIXED = "MIXED".freeze
-    INCLUDES_MERCHANT = "INCLUDES_MERCHANT".freeze
+  class PackageWeightUnit
+    GRAM = "GRAM".freeze
+    OUNCE = "OUNCE".freeze
 
     # Builds the enum from string
     # @param [String] The enum value in the form of the string
@@ -31,8 +28,8 @@ module ChannelEngineMerchantApiClient
     # @param [String] The enum value in the form of the string
     # @return [String] The enum value
     def build_from_hash(value)
-      constantValues = FulfillmentType.constants.select { |c| FulfillmentType::const_get(c) == value }
-      raise "Invalid ENUM value #{value} for class #FulfillmentType" if constantValues.empty?
+      constantValues = PackageWeightUnit.constants.select { |c| PackageWeightUnit::const_get(c) == value }
+      raise "Invalid ENUM value #{value} for class #PackageWeightUnit" if constantValues.empty?
       value
     end
   end
