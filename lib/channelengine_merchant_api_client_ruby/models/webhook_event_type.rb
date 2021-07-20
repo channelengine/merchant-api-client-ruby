@@ -14,11 +14,13 @@ require 'date'
 require 'time'
 
 module ChannelEngineMerchantApiClient
-  class ListedProductExportStatus
-    CREATED = "CREATED".freeze
-    UPDATED = "UPDATED".freeze
-    DELETED = "DELETED".freeze
-    CREATE_FAILED = "CREATE_FAILED".freeze
+  class WebhookEventType
+    ORDERS_CHANGE = "ORDERS_CHANGE".freeze
+    PRODUCTS_CHANGE = "PRODUCTS_CHANGE".freeze
+    RETURNS_CHANGE = "RETURNS_CHANGE".freeze
+    SHIPMENTS_CHANGE = "SHIPMENTS_CHANGE".freeze
+    NOTIFICATIONS_CHANGE = "NOTIFICATIONS_CHANGE".freeze
+    BUNDLE_PRODUCTS_CHANGE = "BUNDLE_PRODUCTS_CHANGE".freeze
 
     # Builds the enum from string
     # @param [String] The enum value in the form of the string
@@ -31,8 +33,8 @@ module ChannelEngineMerchantApiClient
     # @param [String] The enum value in the form of the string
     # @return [String] The enum value
     def build_from_hash(value)
-      constantValues = ListedProductExportStatus.constants.select { |c| ListedProductExportStatus::const_get(c) == value }
-      raise "Invalid ENUM value #{value} for class #ListedProductExportStatus" if constantValues.empty?
+      constantValues = WebhookEventType.constants.select { |c| WebhookEventType::const_get(c) == value }
+      raise "Invalid ENUM value #{value} for class #WebhookEventType" if constantValues.empty?
       value
     end
   end
