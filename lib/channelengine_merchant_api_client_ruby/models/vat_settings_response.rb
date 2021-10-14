@@ -14,22 +14,25 @@ require 'date'
 require 'time'
 
 module ChannelEngineMerchantApiClient
-  class ChannelChannelResponse
-    # The ID of the Channel.
-    attr_accessor :channel_id
+  class VatSettingsResponse
+    attr_accessor :country_iso
 
-    # A boolean value indicating whether the Channel is enabled.
-    attr_accessor :is_enabled
+    attr_accessor :no
 
-    # The name of the Channel.
-    attr_accessor :channel_name
+    attr_accessor :standard_rate
+
+    attr_accessor :reduced_rate
+
+    attr_accessor :super_reduced_rate
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'channel_id' => :'ChannelId',
-        :'is_enabled' => :'IsEnabled',
-        :'channel_name' => :'ChannelName'
+        :'country_iso' => :'CountryIso',
+        :'no' => :'No',
+        :'standard_rate' => :'StandardRate',
+        :'reduced_rate' => :'ReducedRate',
+        :'super_reduced_rate' => :'SuperReducedRate'
       }
     end
 
@@ -41,17 +44,21 @@ module ChannelEngineMerchantApiClient
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'channel_id' => :'Integer',
-        :'is_enabled' => :'Boolean',
-        :'channel_name' => :'String'
+        :'country_iso' => :'String',
+        :'no' => :'String',
+        :'standard_rate' => :'Float',
+        :'reduced_rate' => :'Float',
+        :'super_reduced_rate' => :'Float'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'channel_id',
-        :'channel_name'
+        :'country_iso',
+        :'no',
+        :'reduced_rate',
+        :'super_reduced_rate'
       ])
     end
 
@@ -59,27 +66,35 @@ module ChannelEngineMerchantApiClient
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `ChannelEngineMerchantApiClient::ChannelChannelResponse` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `ChannelEngineMerchantApiClient::VatSettingsResponse` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `ChannelEngineMerchantApiClient::ChannelChannelResponse`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `ChannelEngineMerchantApiClient::VatSettingsResponse`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'channel_id')
-        self.channel_id = attributes[:'channel_id']
+      if attributes.key?(:'country_iso')
+        self.country_iso = attributes[:'country_iso']
       end
 
-      if attributes.key?(:'is_enabled')
-        self.is_enabled = attributes[:'is_enabled']
+      if attributes.key?(:'no')
+        self.no = attributes[:'no']
       end
 
-      if attributes.key?(:'channel_name')
-        self.channel_name = attributes[:'channel_name']
+      if attributes.key?(:'standard_rate')
+        self.standard_rate = attributes[:'standard_rate']
+      end
+
+      if attributes.key?(:'reduced_rate')
+        self.reduced_rate = attributes[:'reduced_rate']
+      end
+
+      if attributes.key?(:'super_reduced_rate')
+        self.super_reduced_rate = attributes[:'super_reduced_rate']
       end
     end
 
@@ -101,9 +116,11 @@ module ChannelEngineMerchantApiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          channel_id == o.channel_id &&
-          is_enabled == o.is_enabled &&
-          channel_name == o.channel_name
+          country_iso == o.country_iso &&
+          no == o.no &&
+          standard_rate == o.standard_rate &&
+          reduced_rate == o.reduced_rate &&
+          super_reduced_rate == o.super_reduced_rate
     end
 
     # @see the `==` method
@@ -115,7 +132,7 @@ module ChannelEngineMerchantApiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [channel_id, is_enabled, channel_name].hash
+      [country_iso, no, standard_rate, reduced_rate, super_reduced_rate].hash
     end
 
     # Builds the object from hash

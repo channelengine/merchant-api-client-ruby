@@ -14,22 +14,40 @@ require 'date'
 require 'time'
 
 module ChannelEngineMerchantApiClient
-  class ChannelChannelResponse
-    # The ID of the Channel.
-    attr_accessor :channel_id
+  class AdvanceSettingsResponse
+    attr_accessor :manage_stock
 
-    # A boolean value indicating whether the Channel is enabled.
-    attr_accessor :is_enabled
+    attr_accessor :disable_address_validation
 
-    # The name of the Channel.
-    attr_accessor :channel_name
+    attr_accessor :skip_house_number_validation
+
+    attr_accessor :skip_house_number_validation_for_country_codes
+
+    attr_accessor :set_orders_to_closed_on_import
+
+    attr_accessor :disable_stock_reservation
+
+    attr_accessor :disable_auto_order_cancellation
+
+    attr_accessor :automatically_set_phone_number_if_empty
+
+    attr_accessor :default_vat_rate
+
+    attr_accessor :order_too_long_on_new_hours_offset
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'channel_id' => :'ChannelId',
-        :'is_enabled' => :'IsEnabled',
-        :'channel_name' => :'ChannelName'
+        :'manage_stock' => :'ManageStock',
+        :'disable_address_validation' => :'DisableAddressValidation',
+        :'skip_house_number_validation' => :'SkipHouseNumberValidation',
+        :'skip_house_number_validation_for_country_codes' => :'SkipHouseNumberValidationForCountryCodes',
+        :'set_orders_to_closed_on_import' => :'SetOrdersToClosedOnImport',
+        :'disable_stock_reservation' => :'DisableStockReservation',
+        :'disable_auto_order_cancellation' => :'DisableAutoOrderCancellation',
+        :'automatically_set_phone_number_if_empty' => :'AutomaticallySetPhoneNumberIfEmpty',
+        :'default_vat_rate' => :'DefaultVatRate',
+        :'order_too_long_on_new_hours_offset' => :'OrderTooLongOnNewHoursOffset'
       }
     end
 
@@ -41,17 +59,24 @@ module ChannelEngineMerchantApiClient
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'channel_id' => :'Integer',
-        :'is_enabled' => :'Boolean',
-        :'channel_name' => :'String'
+        :'manage_stock' => :'Boolean',
+        :'disable_address_validation' => :'Boolean',
+        :'skip_house_number_validation' => :'Boolean',
+        :'skip_house_number_validation_for_country_codes' => :'Array<String>',
+        :'set_orders_to_closed_on_import' => :'Boolean',
+        :'disable_stock_reservation' => :'Boolean',
+        :'disable_auto_order_cancellation' => :'Boolean',
+        :'automatically_set_phone_number_if_empty' => :'String',
+        :'default_vat_rate' => :'Float',
+        :'order_too_long_on_new_hours_offset' => :'Integer'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'channel_id',
-        :'channel_name'
+        :'skip_house_number_validation_for_country_codes',
+        :'automatically_set_phone_number_if_empty',
       ])
     end
 
@@ -59,27 +84,57 @@ module ChannelEngineMerchantApiClient
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `ChannelEngineMerchantApiClient::ChannelChannelResponse` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `ChannelEngineMerchantApiClient::AdvanceSettingsResponse` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `ChannelEngineMerchantApiClient::ChannelChannelResponse`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `ChannelEngineMerchantApiClient::AdvanceSettingsResponse`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'channel_id')
-        self.channel_id = attributes[:'channel_id']
+      if attributes.key?(:'manage_stock')
+        self.manage_stock = attributes[:'manage_stock']
       end
 
-      if attributes.key?(:'is_enabled')
-        self.is_enabled = attributes[:'is_enabled']
+      if attributes.key?(:'disable_address_validation')
+        self.disable_address_validation = attributes[:'disable_address_validation']
       end
 
-      if attributes.key?(:'channel_name')
-        self.channel_name = attributes[:'channel_name']
+      if attributes.key?(:'skip_house_number_validation')
+        self.skip_house_number_validation = attributes[:'skip_house_number_validation']
+      end
+
+      if attributes.key?(:'skip_house_number_validation_for_country_codes')
+        if (value = attributes[:'skip_house_number_validation_for_country_codes']).is_a?(Array)
+          self.skip_house_number_validation_for_country_codes = value
+        end
+      end
+
+      if attributes.key?(:'set_orders_to_closed_on_import')
+        self.set_orders_to_closed_on_import = attributes[:'set_orders_to_closed_on_import']
+      end
+
+      if attributes.key?(:'disable_stock_reservation')
+        self.disable_stock_reservation = attributes[:'disable_stock_reservation']
+      end
+
+      if attributes.key?(:'disable_auto_order_cancellation')
+        self.disable_auto_order_cancellation = attributes[:'disable_auto_order_cancellation']
+      end
+
+      if attributes.key?(:'automatically_set_phone_number_if_empty')
+        self.automatically_set_phone_number_if_empty = attributes[:'automatically_set_phone_number_if_empty']
+      end
+
+      if attributes.key?(:'default_vat_rate')
+        self.default_vat_rate = attributes[:'default_vat_rate']
+      end
+
+      if attributes.key?(:'order_too_long_on_new_hours_offset')
+        self.order_too_long_on_new_hours_offset = attributes[:'order_too_long_on_new_hours_offset']
       end
     end
 
@@ -101,9 +156,16 @@ module ChannelEngineMerchantApiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          channel_id == o.channel_id &&
-          is_enabled == o.is_enabled &&
-          channel_name == o.channel_name
+          manage_stock == o.manage_stock &&
+          disable_address_validation == o.disable_address_validation &&
+          skip_house_number_validation == o.skip_house_number_validation &&
+          skip_house_number_validation_for_country_codes == o.skip_house_number_validation_for_country_codes &&
+          set_orders_to_closed_on_import == o.set_orders_to_closed_on_import &&
+          disable_stock_reservation == o.disable_stock_reservation &&
+          disable_auto_order_cancellation == o.disable_auto_order_cancellation &&
+          automatically_set_phone_number_if_empty == o.automatically_set_phone_number_if_empty &&
+          default_vat_rate == o.default_vat_rate &&
+          order_too_long_on_new_hours_offset == o.order_too_long_on_new_hours_offset
     end
 
     # @see the `==` method
@@ -115,7 +177,7 @@ module ChannelEngineMerchantApiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [channel_id, is_enabled, channel_name].hash
+      [manage_stock, disable_address_validation, skip_house_number_validation, skip_house_number_validation_for_country_codes, set_orders_to_closed_on_import, disable_stock_reservation, disable_auto_order_cancellation, automatically_set_phone_number_if_empty, default_vat_rate, order_too_long_on_new_hours_offset].hash
     end
 
     # Builds the object from hash

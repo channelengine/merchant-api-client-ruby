@@ -14,22 +14,28 @@ require 'date'
 require 'time'
 
 module ChannelEngineMerchantApiClient
-  class ChannelChannelResponse
-    # The ID of the Channel.
-    attr_accessor :channel_id
+  class SingleOfMerchantSettingsResponse
+    attr_accessor :content
 
-    # A boolean value indicating whether the Channel is enabled.
-    attr_accessor :is_enabled
+    attr_accessor :status_code
 
-    # The name of the Channel.
-    attr_accessor :channel_name
+    attr_accessor :log_id
+
+    attr_accessor :success
+
+    attr_accessor :message
+
+    attr_accessor :validation_errors
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'channel_id' => :'ChannelId',
-        :'is_enabled' => :'IsEnabled',
-        :'channel_name' => :'ChannelName'
+        :'content' => :'Content',
+        :'status_code' => :'StatusCode',
+        :'log_id' => :'LogId',
+        :'success' => :'Success',
+        :'message' => :'Message',
+        :'validation_errors' => :'ValidationErrors'
       }
     end
 
@@ -41,17 +47,21 @@ module ChannelEngineMerchantApiClient
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'channel_id' => :'Integer',
-        :'is_enabled' => :'Boolean',
-        :'channel_name' => :'String'
+        :'content' => :'MerchantSettingsResponse',
+        :'status_code' => :'Integer',
+        :'log_id' => :'Integer',
+        :'success' => :'Boolean',
+        :'message' => :'String',
+        :'validation_errors' => :'Hash<String, Array<String>>'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'channel_id',
-        :'channel_name'
+        :'log_id',
+        :'message',
+        :'validation_errors'
       ])
     end
 
@@ -59,27 +69,41 @@ module ChannelEngineMerchantApiClient
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `ChannelEngineMerchantApiClient::ChannelChannelResponse` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `ChannelEngineMerchantApiClient::SingleOfMerchantSettingsResponse` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `ChannelEngineMerchantApiClient::ChannelChannelResponse`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `ChannelEngineMerchantApiClient::SingleOfMerchantSettingsResponse`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'channel_id')
-        self.channel_id = attributes[:'channel_id']
+      if attributes.key?(:'content')
+        self.content = attributes[:'content']
       end
 
-      if attributes.key?(:'is_enabled')
-        self.is_enabled = attributes[:'is_enabled']
+      if attributes.key?(:'status_code')
+        self.status_code = attributes[:'status_code']
       end
 
-      if attributes.key?(:'channel_name')
-        self.channel_name = attributes[:'channel_name']
+      if attributes.key?(:'log_id')
+        self.log_id = attributes[:'log_id']
+      end
+
+      if attributes.key?(:'success')
+        self.success = attributes[:'success']
+      end
+
+      if attributes.key?(:'message')
+        self.message = attributes[:'message']
+      end
+
+      if attributes.key?(:'validation_errors')
+        if (value = attributes[:'validation_errors']).is_a?(Hash)
+          self.validation_errors = value
+        end
       end
     end
 
@@ -101,9 +125,12 @@ module ChannelEngineMerchantApiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          channel_id == o.channel_id &&
-          is_enabled == o.is_enabled &&
-          channel_name == o.channel_name
+          content == o.content &&
+          status_code == o.status_code &&
+          log_id == o.log_id &&
+          success == o.success &&
+          message == o.message &&
+          validation_errors == o.validation_errors
     end
 
     # @see the `==` method
@@ -115,7 +142,7 @@ module ChannelEngineMerchantApiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [channel_id, is_enabled, channel_name].hash
+      [content, status_code, log_id, success, message, validation_errors].hash
     end
 
     # Builds the object from hash
