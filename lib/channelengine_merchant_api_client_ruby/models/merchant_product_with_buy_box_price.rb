@@ -14,22 +14,30 @@ require 'date'
 require 'time'
 
 module ChannelEngineMerchantApiClient
-  class ChannelChannelResponse
-    # The ID of the Channel.
-    attr_accessor :channel_id
+  class MerchantProductWithBuyBoxPrice
+    # Product SKU number
+    attr_accessor :sku
 
-    # A boolean value indicating whether the Channel is enabled.
-    attr_accessor :is_enabled
+    # Product GTIN
+    attr_accessor :gtin
 
-    # The name of the Channel.
-    attr_accessor :channel_name
+    # Price of Buy box winner (excl. shipping cost)  Note: not all channels have a separate shipping cost field (e.g. bol.com), so can be the same as BuyBoxPriceInclShipping
+    attr_accessor :buy_box_price
+
+    # Price of Buy box winner (incl. shipping cost).  If null, then there is no data or no Buy box winner
+    attr_accessor :buy_box_price_incl_shipping
+
+    # Are you the Buy box winner or not?
+    attr_accessor :is_merchant_buy_box_winner
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'channel_id' => :'ChannelId',
-        :'is_enabled' => :'IsEnabled',
-        :'channel_name' => :'ChannelName'
+        :'sku' => :'Sku',
+        :'gtin' => :'Gtin',
+        :'buy_box_price' => :'BuyBoxPrice',
+        :'buy_box_price_incl_shipping' => :'BuyBoxPriceInclShipping',
+        :'is_merchant_buy_box_winner' => :'IsMerchantBuyBoxWinner'
       }
     end
 
@@ -41,17 +49,21 @@ module ChannelEngineMerchantApiClient
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'channel_id' => :'Integer',
-        :'is_enabled' => :'Boolean',
-        :'channel_name' => :'String'
+        :'sku' => :'String',
+        :'gtin' => :'String',
+        :'buy_box_price' => :'Float',
+        :'buy_box_price_incl_shipping' => :'Float',
+        :'is_merchant_buy_box_winner' => :'Boolean'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'channel_id',
-        :'channel_name'
+        :'sku',
+        :'gtin',
+        :'buy_box_price',
+        :'buy_box_price_incl_shipping',
       ])
     end
 
@@ -59,27 +71,35 @@ module ChannelEngineMerchantApiClient
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `ChannelEngineMerchantApiClient::ChannelChannelResponse` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `ChannelEngineMerchantApiClient::MerchantProductWithBuyBoxPrice` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `ChannelEngineMerchantApiClient::ChannelChannelResponse`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `ChannelEngineMerchantApiClient::MerchantProductWithBuyBoxPrice`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'channel_id')
-        self.channel_id = attributes[:'channel_id']
+      if attributes.key?(:'sku')
+        self.sku = attributes[:'sku']
       end
 
-      if attributes.key?(:'is_enabled')
-        self.is_enabled = attributes[:'is_enabled']
+      if attributes.key?(:'gtin')
+        self.gtin = attributes[:'gtin']
       end
 
-      if attributes.key?(:'channel_name')
-        self.channel_name = attributes[:'channel_name']
+      if attributes.key?(:'buy_box_price')
+        self.buy_box_price = attributes[:'buy_box_price']
+      end
+
+      if attributes.key?(:'buy_box_price_incl_shipping')
+        self.buy_box_price_incl_shipping = attributes[:'buy_box_price_incl_shipping']
+      end
+
+      if attributes.key?(:'is_merchant_buy_box_winner')
+        self.is_merchant_buy_box_winner = attributes[:'is_merchant_buy_box_winner']
       end
     end
 
@@ -101,9 +121,11 @@ module ChannelEngineMerchantApiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          channel_id == o.channel_id &&
-          is_enabled == o.is_enabled &&
-          channel_name == o.channel_name
+          sku == o.sku &&
+          gtin == o.gtin &&
+          buy_box_price == o.buy_box_price &&
+          buy_box_price_incl_shipping == o.buy_box_price_incl_shipping &&
+          is_merchant_buy_box_winner == o.is_merchant_buy_box_winner
     end
 
     # @see the `==` method
@@ -115,7 +137,7 @@ module ChannelEngineMerchantApiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [channel_id, is_enabled, channel_name].hash
+      [sku, gtin, buy_box_price, buy_box_price_incl_shipping, is_merchant_buy_box_winner].hash
     end
 
     # Builds the object from hash

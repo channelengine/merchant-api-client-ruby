@@ -13,31 +13,31 @@ OpenAPI Generator version: 5.1.1
 require 'cgi'
 
 module ChannelEngineMerchantApiClient
-  class ChannelsApi
+  class SettingsApi
     attr_accessor :api_client
 
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
-    # Get Channels.
-    # Get all channels (excluding deleted ones).<br />You can use the returned ids to query the listed products for this channel from the ListedProducts endpoint.
+    # Get settings.
+    # Get merchant base info, settings and vat number.
     # @param [Hash] opts the optional parameters
-    # @return [CollectionOfChannelGlobalChannelResponse]
-    def channel_plugins_get(opts = {})
-      data, _status_code, _headers = channel_plugins_get_with_http_info(opts)
+    # @return [SingleOfMerchantSettingsResponse]
+    def settings_get(opts = {})
+      data, _status_code, _headers = settings_get_with_http_info(opts)
       data
     end
 
-    # Get Channels.
-    # Get all channels (excluding deleted ones).&lt;br /&gt;You can use the returned ids to query the listed products for this channel from the ListedProducts endpoint.
+    # Get settings.
+    # Get merchant base info, settings and vat number.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(CollectionOfChannelGlobalChannelResponse, Integer, Hash)>] CollectionOfChannelGlobalChannelResponse data, response status code and response headers
-    def channel_plugins_get_with_http_info(opts = {})
+    # @return [Array<(SingleOfMerchantSettingsResponse, Integer, Hash)>] SingleOfMerchantSettingsResponse data, response status code and response headers
+    def settings_get_with_http_info(opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: ChannelsApi.channel_plugins_get ...'
+        @api_client.config.logger.debug 'Calling API: SettingsApi.settings_get ...'
       end
       # resource path
-      local_var_path = '/v2/channels'
+      local_var_path = '/v2/settings'
 
       # query parameters
       query_params = opts[:query_params] || {}
@@ -54,13 +54,13 @@ module ChannelEngineMerchantApiClient
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'CollectionOfChannelGlobalChannelResponse'
+      return_type = opts[:debug_return_type] || 'SingleOfMerchantSettingsResponse'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['apiKey']
 
       new_options = opts.merge(
-        :operation => :"ChannelsApi.channel_plugins_get",
+        :operation => :"SettingsApi.settings_get",
         :header_params => header_params,
         :query_params => query_params,
         :form_params => form_params,
@@ -71,7 +71,7 @@ module ChannelEngineMerchantApiClient
 
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: ChannelsApi#channel_plugins_get\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+        @api_client.config.logger.debug "API called: SettingsApi#settings_get\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
