@@ -14,18 +14,10 @@ require 'date'
 require 'time'
 
 module ChannelEngineMerchantApiClient
-  class OrderStatusView
-    IN_PROGRESS = "IN_PROGRESS".freeze
-    SHIPPED = "SHIPPED".freeze
-    IN_BACKORDER = "IN_BACKORDER".freeze
-    MANCO = "MANCO".freeze
-    CANCELED = "CANCELED".freeze
-    IN_COMBI = "IN_COMBI".freeze
-    CLOSED = "CLOSED".freeze
-    NEW = "NEW".freeze
-    RETURNED = "RETURNED".freeze
-    REQUIRES_CORRECTION = "REQUIRES_CORRECTION".freeze
-    AWAITING_PAYMENT = "AWAITING_PAYMENT".freeze
+  class ChannelCarrierRecommendationApi
+    NEUTRAL = "NEUTRAL".freeze
+    RECOMMENDED = "RECOMMENDED".freeze
+    DISCOMMENDED = "DISCOMMENDED".freeze
 
     # Builds the enum from string
     # @param [String] The enum value in the form of the string
@@ -38,8 +30,8 @@ module ChannelEngineMerchantApiClient
     # @param [String] The enum value in the form of the string
     # @return [String] The enum value
     def build_from_hash(value)
-      constantValues = OrderStatusView.constants.select { |c| OrderStatusView::const_get(c) == value }
-      raise "Invalid ENUM value #{value} for class #OrderStatusView" if constantValues.empty?
+      constantValues = ChannelCarrierRecommendationApi.constants.select { |c| ChannelCarrierRecommendationApi::const_get(c) == value }
+      raise "Invalid ENUM value #{value} for class #ChannelCarrierRecommendationApi" if constantValues.empty?
       value
     end
   end

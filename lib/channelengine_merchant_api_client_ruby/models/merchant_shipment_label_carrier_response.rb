@@ -14,28 +14,36 @@ require 'date'
 require 'time'
 
 module ChannelEngineMerchantApiClient
-  class SingleOfProductCreationResult
-    attr_accessor :content
+  class MerchantShipmentLabelCarrierResponse
+    # The channel's name for the shipping label carrier
+    attr_accessor :name
 
-    attr_accessor :status_code
+    # The channel's code for the shipping label carrier
+    attr_accessor :code
 
-    attr_accessor :log_id
+    # Optional. Any restrictions on this carriers, e.g. weight and/or dimensions
+    attr_accessor :restrictions
 
-    attr_accessor :success
+    # Optional. Price for this shipping label
+    attr_accessor :price
 
-    attr_accessor :message
+    attr_accessor :recommendation
 
-    attr_accessor :validation_errors
+    attr_accessor :collection_method
+
+    # Optional. When to handover the package to the carrier  It is in the ISO format including the timezone offset.  E.g. 2020-10-03T18:00:00+02:00  which is 3rd Oct 2020, at 18:00 PM in Amsterdam (Summer Time aka CEST: UTC +2:00 )
+    attr_accessor :handover_date_time
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'content' => :'Content',
-        :'status_code' => :'StatusCode',
-        :'log_id' => :'LogId',
-        :'success' => :'Success',
-        :'message' => :'Message',
-        :'validation_errors' => :'ValidationErrors'
+        :'name' => :'Name',
+        :'code' => :'Code',
+        :'restrictions' => :'Restrictions',
+        :'price' => :'Price',
+        :'recommendation' => :'Recommendation',
+        :'collection_method' => :'CollectionMethod',
+        :'handover_date_time' => :'HandoverDateTime'
       }
     end
 
@@ -47,21 +55,24 @@ module ChannelEngineMerchantApiClient
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'content' => :'ProductCreationResult',
-        :'status_code' => :'Integer',
-        :'log_id' => :'Integer',
-        :'success' => :'Boolean',
-        :'message' => :'String',
-        :'validation_errors' => :'Hash<String, Array<String>>'
+        :'name' => :'String',
+        :'code' => :'String',
+        :'restrictions' => :'String',
+        :'price' => :'Float',
+        :'recommendation' => :'ChannelCarrierRecommendationApi',
+        :'collection_method' => :'ChannelCarrierCollectionMethodApi',
+        :'handover_date_time' => :'Time'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'log_id',
-        :'message',
-        :'validation_errors'
+        :'name',
+        :'code',
+        :'restrictions',
+        :'price',
+        :'handover_date_time'
       ])
     end
 
@@ -69,41 +80,43 @@ module ChannelEngineMerchantApiClient
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `ChannelEngineMerchantApiClient::SingleOfProductCreationResult` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `ChannelEngineMerchantApiClient::MerchantShipmentLabelCarrierResponse` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `ChannelEngineMerchantApiClient::SingleOfProductCreationResult`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `ChannelEngineMerchantApiClient::MerchantShipmentLabelCarrierResponse`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'content')
-        self.content = attributes[:'content']
+      if attributes.key?(:'name')
+        self.name = attributes[:'name']
       end
 
-      if attributes.key?(:'status_code')
-        self.status_code = attributes[:'status_code']
+      if attributes.key?(:'code')
+        self.code = attributes[:'code']
       end
 
-      if attributes.key?(:'log_id')
-        self.log_id = attributes[:'log_id']
+      if attributes.key?(:'restrictions')
+        self.restrictions = attributes[:'restrictions']
       end
 
-      if attributes.key?(:'success')
-        self.success = attributes[:'success']
+      if attributes.key?(:'price')
+        self.price = attributes[:'price']
       end
 
-      if attributes.key?(:'message')
-        self.message = attributes[:'message']
+      if attributes.key?(:'recommendation')
+        self.recommendation = attributes[:'recommendation']
       end
 
-      if attributes.key?(:'validation_errors')
-        if (value = attributes[:'validation_errors']).is_a?(Hash)
-          self.validation_errors = value
-        end
+      if attributes.key?(:'collection_method')
+        self.collection_method = attributes[:'collection_method']
+      end
+
+      if attributes.key?(:'handover_date_time')
+        self.handover_date_time = attributes[:'handover_date_time']
       end
     end
 
@@ -125,12 +138,13 @@ module ChannelEngineMerchantApiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          content == o.content &&
-          status_code == o.status_code &&
-          log_id == o.log_id &&
-          success == o.success &&
-          message == o.message &&
-          validation_errors == o.validation_errors
+          name == o.name &&
+          code == o.code &&
+          restrictions == o.restrictions &&
+          price == o.price &&
+          recommendation == o.recommendation &&
+          collection_method == o.collection_method &&
+          handover_date_time == o.handover_date_time
     end
 
     # @see the `==` method
@@ -142,7 +156,7 @@ module ChannelEngineMerchantApiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [content, status_code, log_id, success, message, validation_errors].hash
+      [name, code, restrictions, price, recommendation, collection_method, handover_date_time].hash
     end
 
     # Builds the object from hash
