@@ -8,4 +8,4 @@ script:
   - bundle install --path vendor/bundle
   - bundle exec rspec
   - gem build channelengine_merchant_api_client_ruby.gemspec
-  - gem install ./channelengine_merchant_api_client_ruby-2.9.10.gem
+  - gem install ./channelengine_merchant_api_client_ruby-2.9.11.gem
