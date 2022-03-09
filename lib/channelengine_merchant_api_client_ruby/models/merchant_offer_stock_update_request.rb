@@ -14,18 +14,18 @@ require 'date'
 require 'time'
 
 module ChannelEngineMerchantApiClient
-  class MerchantCancellationLineRequest
+  class MerchantOfferStockUpdateRequest
     # The unique product reference used by the Merchant (sku).
     attr_accessor :merchant_product_no
 
-    # Quantity of the product to cancel.
-    attr_accessor :quantity
+    # Stock locations data
+    attr_accessor :stock_locations
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'merchant_product_no' => :'MerchantProductNo',
-        :'quantity' => :'Quantity'
+        :'stock_locations' => :'StockLocations'
       }
     end
 
@@ -38,7 +38,7 @@ module ChannelEngineMerchantApiClient
     def self.openapi_types
       {
         :'merchant_product_no' => :'String',
-        :'quantity' => :'Integer'
+        :'stock_locations' => :'Array<MerchantStockLocationUpdateRequest>'
       }
     end
 
@@ -52,13 +52,13 @@ module ChannelEngineMerchantApiClient
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `ChannelEngineMerchantApiClient::MerchantCancellationLineRequest` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `ChannelEngineMerchantApiClient::MerchantOfferStockUpdateRequest` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `ChannelEngineMerchantApiClient::MerchantCancellationLineRequest`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `ChannelEngineMerchantApiClient::MerchantOfferStockUpdateRequest`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
@@ -67,8 +67,10 @@ module ChannelEngineMerchantApiClient
         self.merchant_product_no = attributes[:'merchant_product_no']
       end
 
-      if attributes.key?(:'quantity')
-        self.quantity = attributes[:'quantity']
+      if attributes.key?(:'stock_locations')
+        if (value = attributes[:'stock_locations']).is_a?(Array)
+          self.stock_locations = value
+        end
       end
     end
 
@@ -88,12 +90,8 @@ module ChannelEngineMerchantApiClient
         invalid_properties.push('invalid value for "merchant_product_no", the character length must be great than or equal to 0.')
       end
 
-      if @quantity.nil?
-        invalid_properties.push('invalid value for "quantity", quantity cannot be nil.')
-      end
-
-      if @quantity < 0
-        invalid_properties.push('invalid value for "quantity", must be greater than or equal to 0.')
+      if @stock_locations.nil?
+        invalid_properties.push('invalid value for "stock_locations", stock_locations cannot be nil.')
       end
 
       invalid_properties
@@ -105,8 +103,7 @@ module ChannelEngineMerchantApiClient
       return false if @merchant_product_no.nil?
       return false if @merchant_product_no.to_s.length > 64
       return false if @merchant_product_no.to_s.length < 0
-      return false if @quantity.nil?
-      return false if @quantity < 0
+      return false if @stock_locations.nil?
       true
     end
 
@@ -128,27 +125,13 @@ module ChannelEngineMerchantApiClient
       @merchant_product_no = merchant_product_no
     end
 
-    # Custom attribute writer method with validation
-    # @param [Object] quantity Value to be assigned
-    def quantity=(quantity)
-      if quantity.nil?
-        fail ArgumentError, 'quantity cannot be nil'
-      end
-
-      if quantity < 0
-        fail ArgumentError, 'invalid value for "quantity", must be greater than or equal to 0.'
-      end
-
-      @quantity = quantity
-    end
-
     # Checks equality by comparing each attribute.
     # @param [Object] Object to be compared
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
           merchant_product_no == o.merchant_product_no &&
-          quantity == o.quantity
+          stock_locations == o.stock_locations
     end
 
     # @see the `==` method
@@ -160,7 +143,7 @@ module ChannelEngineMerchantApiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [merchant_product_no, quantity].hash
+      [merchant_product_no, stock_locations].hash
     end
 
     # Builds the object from hash
