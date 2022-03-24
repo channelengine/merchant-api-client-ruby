@@ -14,30 +14,57 @@ require 'date'
 require 'time'
 
 module ChannelEngineMerchantApiClient
-  class MerchantShipmentTrackingRequest
-    # Shipment method (carrier).
-    attr_accessor :method
+  class MerchantShipmentResponse
+    # The unique shipment reference used by the Merchant.
+    attr_accessor :merchant_shipment_no
 
-    # The unique shipping reference used by the Shipping carrier (track & trace number).
+    # The unique order reference used by the Merchant.
+    attr_accessor :merchant_order_no
+
+    attr_accessor :lines
+
+    # The date at which the shipment was created in ChannelEngine.
+    attr_accessor :created_at
+
+    # The date at which the shipment was last modified in ChannelEngine.
+    attr_accessor :updated_at
+
+    # Extra data on the order. Each item must have an unqiue key
+    attr_accessor :extra_data
+
+    # The unique shipping reference used by the Shipping carrier (track&trace number).
     attr_accessor :track_trace_no
-
-    # The unique return shipping reference that may be used by the Shipping carrier (track & trace number) if the shipment is returned.
-    attr_accessor :return_track_trace_no
 
     # A link to a page of the carrier where the customer can track the shipping of her package.
     attr_accessor :track_trace_url
 
+    # The unique return shipping reference that may be used by the Shipping carrier (track & trace number) if the shipment is returned.
+    attr_accessor :return_track_trace_no
+
+    # Shipment method: the carrier used for shipping the package. E.g. DHL, postNL.
+    attr_accessor :method
+
     # The code of the country from where the package is being shipped.
     attr_accessor :shipped_from_country_code
+
+    # The date at which the shipment was originally created in the source system (if available).
+    attr_accessor :shipment_date
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'method' => :'Method',
+        :'merchant_shipment_no' => :'MerchantShipmentNo',
+        :'merchant_order_no' => :'MerchantOrderNo',
+        :'lines' => :'Lines',
+        :'created_at' => :'CreatedAt',
+        :'updated_at' => :'UpdatedAt',
+        :'extra_data' => :'ExtraData',
         :'track_trace_no' => :'TrackTraceNo',
-        :'return_track_trace_no' => :'ReturnTrackTraceNo',
         :'track_trace_url' => :'TrackTraceUrl',
-        :'shipped_from_country_code' => :'ShippedFromCountryCode'
+        :'return_track_trace_no' => :'ReturnTrackTraceNo',
+        :'method' => :'Method',
+        :'shipped_from_country_code' => :'ShippedFromCountryCode',
+        :'shipment_date' => :'ShipmentDate'
       }
     end
 
@@ -49,20 +76,33 @@ module ChannelEngineMerchantApiClient
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'method' => :'String',
+        :'merchant_shipment_no' => :'String',
+        :'merchant_order_no' => :'String',
+        :'lines' => :'Array<MerchantShipmentLineResponse>',
+        :'created_at' => :'Time',
+        :'updated_at' => :'Time',
+        :'extra_data' => :'Hash<String, String>',
         :'track_trace_no' => :'String',
-        :'return_track_trace_no' => :'String',
         :'track_trace_url' => :'String',
-        :'shipped_from_country_code' => :'String'
+        :'return_track_trace_no' => :'String',
+        :'method' => :'String',
+        :'shipped_from_country_code' => :'String',
+        :'shipment_date' => :'Time'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'return_track_trace_no',
+        :'merchant_order_no',
+        :'lines',
+        :'extra_data',
+        :'track_trace_no',
         :'track_trace_url',
-        :'shipped_from_country_code'
+        :'return_track_trace_no',
+        :'method',
+        :'shipped_from_country_code',
+        :'shipment_date'
       ])
     end
 
@@ -70,35 +110,67 @@ module ChannelEngineMerchantApiClient
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `ChannelEngineMerchantApiClient::MerchantShipmentTrackingRequest` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `ChannelEngineMerchantApiClient::MerchantShipmentResponse` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `ChannelEngineMerchantApiClient::MerchantShipmentTrackingRequest`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `ChannelEngineMerchantApiClient::MerchantShipmentResponse`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'method')
-        self.method = attributes[:'method']
+      if attributes.key?(:'merchant_shipment_no')
+        self.merchant_shipment_no = attributes[:'merchant_shipment_no']
+      end
+
+      if attributes.key?(:'merchant_order_no')
+        self.merchant_order_no = attributes[:'merchant_order_no']
+      end
+
+      if attributes.key?(:'lines')
+        if (value = attributes[:'lines']).is_a?(Array)
+          self.lines = value
+        end
+      end
+
+      if attributes.key?(:'created_at')
+        self.created_at = attributes[:'created_at']
+      end
+
+      if attributes.key?(:'updated_at')
+        self.updated_at = attributes[:'updated_at']
+      end
+
+      if attributes.key?(:'extra_data')
+        if (value = attributes[:'extra_data']).is_a?(Hash)
+          self.extra_data = value
+        end
       end
 
       if attributes.key?(:'track_trace_no')
         self.track_trace_no = attributes[:'track_trace_no']
       end
 
-      if attributes.key?(:'return_track_trace_no')
-        self.return_track_trace_no = attributes[:'return_track_trace_no']
-      end
-
       if attributes.key?(:'track_trace_url')
         self.track_trace_url = attributes[:'track_trace_url']
       end
 
+      if attributes.key?(:'return_track_trace_no')
+        self.return_track_trace_no = attributes[:'return_track_trace_no']
+      end
+
+      if attributes.key?(:'method')
+        self.method = attributes[:'method']
+      end
+
       if attributes.key?(:'shipped_from_country_code')
         self.shipped_from_country_code = attributes[:'shipped_from_country_code']
+      end
+
+      if attributes.key?(:'shipment_date')
+        self.shipment_date = attributes[:'shipment_date']
       end
     end
 
@@ -106,28 +178,24 @@ module ChannelEngineMerchantApiClient
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @method.nil?
-        invalid_properties.push('invalid value for "method", method cannot be nil.')
+      if @merchant_shipment_no.nil?
+        invalid_properties.push('invalid value for "merchant_shipment_no", merchant_shipment_no cannot be nil.')
       end
 
-      if @method.to_s.length > 50
-        invalid_properties.push('invalid value for "method", the character length must be smaller than or equal to 50.')
-      end
-
-      if @method.to_s.length < 0
-        invalid_properties.push('invalid value for "method", the character length must be great than or equal to 0.')
-      end
-
-      if @track_trace_no.nil?
-        invalid_properties.push('invalid value for "track_trace_no", track_trace_no cannot be nil.')
-      end
-
-      if @track_trace_no.to_s.length > 50
+      if !@track_trace_no.nil? && @track_trace_no.to_s.length > 50
         invalid_properties.push('invalid value for "track_trace_no", the character length must be smaller than or equal to 50.')
       end
 
-      if @track_trace_no.to_s.length < 0
+      if !@track_trace_no.nil? && @track_trace_no.to_s.length < 0
         invalid_properties.push('invalid value for "track_trace_no", the character length must be great than or equal to 0.')
+      end
+
+      if !@track_trace_url.nil? && @track_trace_url.to_s.length > 250
+        invalid_properties.push('invalid value for "track_trace_url", the character length must be smaller than or equal to 250.')
+      end
+
+      if !@track_trace_url.nil? && @track_trace_url.to_s.length < 0
+        invalid_properties.push('invalid value for "track_trace_url", the character length must be great than or equal to 0.')
       end
 
       if !@return_track_trace_no.nil? && @return_track_trace_no.to_s.length > 50
@@ -138,12 +206,12 @@ module ChannelEngineMerchantApiClient
         invalid_properties.push('invalid value for "return_track_trace_no", the character length must be great than or equal to 0.')
       end
 
-      if !@track_trace_url.nil? && @track_trace_url.to_s.length > 250
-        invalid_properties.push('invalid value for "track_trace_url", the character length must be smaller than or equal to 250.')
+      if !@method.nil? && @method.to_s.length > 50
+        invalid_properties.push('invalid value for "method", the character length must be smaller than or equal to 50.')
       end
 
-      if !@track_trace_url.nil? && @track_trace_url.to_s.length < 0
-        invalid_properties.push('invalid value for "track_trace_url", the character length must be great than or equal to 0.')
+      if !@method.nil? && @method.to_s.length < 0
+        invalid_properties.push('invalid value for "method", the character length must be great than or equal to 0.')
       end
 
       if !@shipped_from_country_code.nil? && @shipped_from_country_code.to_s.length > 3
@@ -160,55 +228,46 @@ module ChannelEngineMerchantApiClient
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @method.nil?
-      return false if @method.to_s.length > 50
-      return false if @method.to_s.length < 0
-      return false if @track_trace_no.nil?
-      return false if @track_trace_no.to_s.length > 50
-      return false if @track_trace_no.to_s.length < 0
-      return false if !@return_track_trace_no.nil? && @return_track_trace_no.to_s.length > 50
-      return false if !@return_track_trace_no.nil? && @return_track_trace_no.to_s.length < 0
+      return false if @merchant_shipment_no.nil?
+      return false if !@track_trace_no.nil? && @track_trace_no.to_s.length > 50
+      return false if !@track_trace_no.nil? && @track_trace_no.to_s.length < 0
       return false if !@track_trace_url.nil? && @track_trace_url.to_s.length > 250
       return false if !@track_trace_url.nil? && @track_trace_url.to_s.length < 0
+      return false if !@return_track_trace_no.nil? && @return_track_trace_no.to_s.length > 50
+      return false if !@return_track_trace_no.nil? && @return_track_trace_no.to_s.length < 0
+      return false if !@method.nil? && @method.to_s.length > 50
+      return false if !@method.nil? && @method.to_s.length < 0
       return false if !@shipped_from_country_code.nil? && @shipped_from_country_code.to_s.length > 3
       return false if !@shipped_from_country_code.nil? && @shipped_from_country_code.to_s.length < 0
       true
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] method Value to be assigned
-    def method=(method)
-      if method.nil?
-        fail ArgumentError, 'method cannot be nil'
-      end
-
-      if method.to_s.length > 50
-        fail ArgumentError, 'invalid value for "method", the character length must be smaller than or equal to 50.'
-      end
-
-      if method.to_s.length < 0
-        fail ArgumentError, 'invalid value for "method", the character length must be great than or equal to 0.'
-      end
-
-      @method = method
-    end
-
-    # Custom attribute writer method with validation
     # @param [Object] track_trace_no Value to be assigned
     def track_trace_no=(track_trace_no)
-      if track_trace_no.nil?
-        fail ArgumentError, 'track_trace_no cannot be nil'
-      end
-
-      if track_trace_no.to_s.length > 50
+      if !track_trace_no.nil? && track_trace_no.to_s.length > 50
         fail ArgumentError, 'invalid value for "track_trace_no", the character length must be smaller than or equal to 50.'
       end
 
-      if track_trace_no.to_s.length < 0
+      if !track_trace_no.nil? && track_trace_no.to_s.length < 0
         fail ArgumentError, 'invalid value for "track_trace_no", the character length must be great than or equal to 0.'
       end
 
       @track_trace_no = track_trace_no
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] track_trace_url Value to be assigned
+    def track_trace_url=(track_trace_url)
+      if !track_trace_url.nil? && track_trace_url.to_s.length > 250
+        fail ArgumentError, 'invalid value for "track_trace_url", the character length must be smaller than or equal to 250.'
+      end
+
+      if !track_trace_url.nil? && track_trace_url.to_s.length < 0
+        fail ArgumentError, 'invalid value for "track_trace_url", the character length must be great than or equal to 0.'
+      end
+
+      @track_trace_url = track_trace_url
     end
 
     # Custom attribute writer method with validation
@@ -226,17 +285,17 @@ module ChannelEngineMerchantApiClient
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] track_trace_url Value to be assigned
-    def track_trace_url=(track_trace_url)
-      if !track_trace_url.nil? && track_trace_url.to_s.length > 250
-        fail ArgumentError, 'invalid value for "track_trace_url", the character length must be smaller than or equal to 250.'
+    # @param [Object] method Value to be assigned
+    def method=(method)
+      if !method.nil? && method.to_s.length > 50
+        fail ArgumentError, 'invalid value for "method", the character length must be smaller than or equal to 50.'
       end
 
-      if !track_trace_url.nil? && track_trace_url.to_s.length < 0
-        fail ArgumentError, 'invalid value for "track_trace_url", the character length must be great than or equal to 0.'
+      if !method.nil? && method.to_s.length < 0
+        fail ArgumentError, 'invalid value for "method", the character length must be great than or equal to 0.'
       end
 
-      @track_trace_url = track_trace_url
+      @method = method
     end
 
     # Custom attribute writer method with validation
@@ -258,11 +317,18 @@ module ChannelEngineMerchantApiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          method == o.method &&
+          merchant_shipment_no == o.merchant_shipment_no &&
+          merchant_order_no == o.merchant_order_no &&
+          lines == o.lines &&
+          created_at == o.created_at &&
+          updated_at == o.updated_at &&
+          extra_data == o.extra_data &&
           track_trace_no == o.track_trace_no &&
-          return_track_trace_no == o.return_track_trace_no &&
           track_trace_url == o.track_trace_url &&
-          shipped_from_country_code == o.shipped_from_country_code
+          return_track_trace_no == o.return_track_trace_no &&
+          method == o.method &&
+          shipped_from_country_code == o.shipped_from_country_code &&
+          shipment_date == o.shipment_date
     end
 
     # @see the `==` method
@@ -274,7 +340,7 @@ module ChannelEngineMerchantApiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [method, track_trace_no, return_track_trace_no, track_trace_url, shipped_from_country_code].hash
+      [merchant_shipment_no, merchant_order_no, lines, created_at, updated_at, extra_data, track_trace_no, track_trace_url, return_track_trace_no, method, shipped_from_country_code, shipment_date].hash
     end
 
     # Builds the object from hash

@@ -14,37 +14,32 @@ require 'date'
 require 'time'
 
 module ChannelEngineMerchantApiClient
-  class CollectionOfMerchantStockLocationResponse
-    attr_accessor :content
+  class MerchantShipmentLineResponse
+    # The unique product reference used by the Merchant.
+    attr_accessor :merchant_product_no
 
-    attr_accessor :count
+    # The unique product reference used by the Channel.
+    attr_accessor :channel_product_no
 
-    attr_accessor :total_count
+    attr_accessor :order_line
 
-    attr_accessor :items_per_page
+    attr_accessor :shipment_status
 
-    attr_accessor :status_code
+    # Extra data on the shipment line. Each item must have an unqiue key
+    attr_accessor :extra_data
 
-    attr_accessor :log_id
-
-    attr_accessor :success
-
-    attr_accessor :message
-
-    attr_accessor :validation_errors
+    # Number of items of the product in the shipment.
+    attr_accessor :quantity
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'content' => :'Content',
-        :'count' => :'Count',
-        :'total_count' => :'TotalCount',
-        :'items_per_page' => :'ItemsPerPage',
-        :'status_code' => :'StatusCode',
-        :'log_id' => :'LogId',
-        :'success' => :'Success',
-        :'message' => :'Message',
-        :'validation_errors' => :'ValidationErrors'
+        :'merchant_product_no' => :'MerchantProductNo',
+        :'channel_product_no' => :'ChannelProductNo',
+        :'order_line' => :'OrderLine',
+        :'shipment_status' => :'ShipmentStatus',
+        :'extra_data' => :'ExtraData',
+        :'quantity' => :'Quantity'
       }
     end
 
@@ -56,25 +51,20 @@ module ChannelEngineMerchantApiClient
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'content' => :'Array<MerchantStockLocationResponse>',
-        :'count' => :'Integer',
-        :'total_count' => :'Integer',
-        :'items_per_page' => :'Integer',
-        :'status_code' => :'Integer',
-        :'log_id' => :'Integer',
-        :'success' => :'Boolean',
-        :'message' => :'String',
-        :'validation_errors' => :'Hash<String, Array<String>>'
+        :'merchant_product_no' => :'String',
+        :'channel_product_no' => :'String',
+        :'order_line' => :'MerchantOrderLineResponse',
+        :'shipment_status' => :'ShipmentLineStatus',
+        :'extra_data' => :'Hash<String, String>',
+        :'quantity' => :'Integer'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'content',
-        :'log_id',
-        :'message',
-        :'validation_errors'
+        :'channel_product_no',
+        :'extra_data',
       ])
     end
 
@@ -82,55 +72,41 @@ module ChannelEngineMerchantApiClient
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `ChannelEngineMerchantApiClient::CollectionOfMerchantStockLocationResponse` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `ChannelEngineMerchantApiClient::MerchantShipmentLineResponse` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `ChannelEngineMerchantApiClient::CollectionOfMerchantStockLocationResponse`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `ChannelEngineMerchantApiClient::MerchantShipmentLineResponse`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'content')
-        if (value = attributes[:'content']).is_a?(Array)
-          self.content = value
+      if attributes.key?(:'merchant_product_no')
+        self.merchant_product_no = attributes[:'merchant_product_no']
+      end
+
+      if attributes.key?(:'channel_product_no')
+        self.channel_product_no = attributes[:'channel_product_no']
+      end
+
+      if attributes.key?(:'order_line')
+        self.order_line = attributes[:'order_line']
+      end
+
+      if attributes.key?(:'shipment_status')
+        self.shipment_status = attributes[:'shipment_status']
+      end
+
+      if attributes.key?(:'extra_data')
+        if (value = attributes[:'extra_data']).is_a?(Hash)
+          self.extra_data = value
         end
       end
 
-      if attributes.key?(:'count')
-        self.count = attributes[:'count']
-      end
-
-      if attributes.key?(:'total_count')
-        self.total_count = attributes[:'total_count']
-      end
-
-      if attributes.key?(:'items_per_page')
-        self.items_per_page = attributes[:'items_per_page']
-      end
-
-      if attributes.key?(:'status_code')
-        self.status_code = attributes[:'status_code']
-      end
-
-      if attributes.key?(:'log_id')
-        self.log_id = attributes[:'log_id']
-      end
-
-      if attributes.key?(:'success')
-        self.success = attributes[:'success']
-      end
-
-      if attributes.key?(:'message')
-        self.message = attributes[:'message']
-      end
-
-      if attributes.key?(:'validation_errors')
-        if (value = attributes[:'validation_errors']).is_a?(Hash)
-          self.validation_errors = value
-        end
+      if attributes.key?(:'quantity')
+        self.quantity = attributes[:'quantity']
       end
     end
 
@@ -138,13 +114,42 @@ module ChannelEngineMerchantApiClient
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
+      if @merchant_product_no.nil?
+        invalid_properties.push('invalid value for "merchant_product_no", merchant_product_no cannot be nil.')
+      end
+
+      if @quantity.nil?
+        invalid_properties.push('invalid value for "quantity", quantity cannot be nil.')
+      end
+
+      if @quantity < 0
+        invalid_properties.push('invalid value for "quantity", must be greater than or equal to 0.')
+      end
+
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      return false if @merchant_product_no.nil?
+      return false if @quantity.nil?
+      return false if @quantity < 0
       true
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] quantity Value to be assigned
+    def quantity=(quantity)
+      if quantity.nil?
+        fail ArgumentError, 'quantity cannot be nil'
+      end
+
+      if quantity < 0
+        fail ArgumentError, 'invalid value for "quantity", must be greater than or equal to 0.'
+      end
+
+      @quantity = quantity
     end
 
     # Checks equality by comparing each attribute.
@@ -152,15 +157,12 @@ module ChannelEngineMerchantApiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          content == o.content &&
-          count == o.count &&
-          total_count == o.total_count &&
-          items_per_page == o.items_per_page &&
-          status_code == o.status_code &&
-          log_id == o.log_id &&
-          success == o.success &&
-          message == o.message &&
-          validation_errors == o.validation_errors
+          merchant_product_no == o.merchant_product_no &&
+          channel_product_no == o.channel_product_no &&
+          order_line == o.order_line &&
+          shipment_status == o.shipment_status &&
+          extra_data == o.extra_data &&
+          quantity == o.quantity
     end
 
     # @see the `==` method
@@ -172,7 +174,7 @@ module ChannelEngineMerchantApiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [content, count, total_count, items_per_page, status_code, log_id, success, message, validation_errors].hash
+      [merchant_product_no, channel_product_no, order_line, shipment_status, extra_data, quantity].hash
     end
 
     # Builds the object from hash

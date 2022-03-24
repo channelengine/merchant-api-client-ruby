@@ -14,7 +14,7 @@ require 'date'
 require 'time'
 
 module ChannelEngineMerchantApiClient
-  class CollectionOfMerchantStockLocationResponse
+  class CollectionOfMerchantShipmentResponse
     attr_accessor :content
 
     attr_accessor :count
@@ -56,7 +56,7 @@ module ChannelEngineMerchantApiClient
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'content' => :'Array<MerchantStockLocationResponse>',
+        :'content' => :'Array<MerchantShipmentResponse>',
         :'count' => :'Integer',
         :'total_count' => :'Integer',
         :'items_per_page' => :'Integer',
@@ -82,13 +82,13 @@ module ChannelEngineMerchantApiClient
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `ChannelEngineMerchantApiClient::CollectionOfMerchantStockLocationResponse` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `ChannelEngineMerchantApiClient::CollectionOfMerchantShipmentResponse` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `ChannelEngineMerchantApiClient::CollectionOfMerchantStockLocationResponse`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `ChannelEngineMerchantApiClient::CollectionOfMerchantShipmentResponse`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
