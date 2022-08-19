@@ -43,6 +43,9 @@ module ChannelEngineMerchantApiClient
     # Indicating whether the order is a business order.
     attr_accessor :is_business_order
 
+    # The date the order was acknowledged in ChannelEngine.
+    attr_accessor :acknowledged_date
+
     # The date the order was created in ChannelEngine.
     attr_accessor :created_at
 
@@ -136,6 +139,7 @@ module ChannelEngineMerchantApiClient
         :'merchant_order_no' => :'MerchantOrderNo',
         :'status' => :'Status',
         :'is_business_order' => :'IsBusinessOrder',
+        :'acknowledged_date' => :'AcknowledgedDate',
         :'created_at' => :'CreatedAt',
         :'updated_at' => :'UpdatedAt',
         :'merchant_comment' => :'MerchantComment',
@@ -185,6 +189,7 @@ module ChannelEngineMerchantApiClient
         :'merchant_order_no' => :'String',
         :'status' => :'OrderStatusView',
         :'is_business_order' => :'Boolean',
+        :'acknowledged_date' => :'Time',
         :'created_at' => :'Time',
         :'updated_at' => :'Time',
         :'merchant_comment' => :'String',
@@ -225,6 +230,7 @@ module ChannelEngineMerchantApiClient
         :'global_channel_id',
         :'channel_order_no',
         :'merchant_order_no',
+        :'acknowledged_date',
         :'created_at',
         :'updated_at',
         :'merchant_comment',
@@ -302,6 +308,10 @@ module ChannelEngineMerchantApiClient
 
       if attributes.key?(:'is_business_order')
         self.is_business_order = attributes[:'is_business_order']
+      end
+
+      if attributes.key?(:'acknowledged_date')
+        self.acknowledged_date = attributes[:'acknowledged_date']
       end
 
       if attributes.key?(:'created_at')
@@ -655,6 +665,7 @@ module ChannelEngineMerchantApiClient
           merchant_order_no == o.merchant_order_no &&
           status == o.status &&
           is_business_order == o.is_business_order &&
+          acknowledged_date == o.acknowledged_date &&
           created_at == o.created_at &&
           updated_at == o.updated_at &&
           merchant_comment == o.merchant_comment &&
@@ -694,7 +705,7 @@ module ChannelEngineMerchantApiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, channel_name, channel_id, global_channel_name, global_channel_id, channel_order_support, channel_order_no, merchant_order_no, status, is_business_order, created_at, updated_at, merchant_comment, billing_address, shipping_address, sub_total_incl_vat, sub_total_vat, shipping_costs_vat, total_incl_vat, total_vat, original_sub_total_incl_vat, original_sub_total_vat, original_shipping_costs_incl_vat, original_shipping_costs_vat, original_total_incl_vat, original_total_vat, lines, shipping_costs_incl_vat, phone, email, company_registration_no, vat_no, payment_method, payment_reference_no, currency_code, order_date, channel_customer_no, extra_data].hash
+      [id, channel_name, channel_id, global_channel_name, global_channel_id, channel_order_support, channel_order_no, merchant_order_no, status, is_business_order, acknowledged_date, created_at, updated_at, merchant_comment, billing_address, shipping_address, sub_total_incl_vat, sub_total_vat, shipping_costs_vat, total_incl_vat, total_vat, original_sub_total_incl_vat, original_sub_total_vat, original_shipping_costs_incl_vat, original_shipping_costs_vat, original_total_incl_vat, original_total_vat, lines, shipping_costs_incl_vat, phone, email, company_registration_no, vat_no, payment_method, payment_reference_no, currency_code, order_date, channel_customer_no, extra_data].hash
     end
 
     # Builds the object from hash

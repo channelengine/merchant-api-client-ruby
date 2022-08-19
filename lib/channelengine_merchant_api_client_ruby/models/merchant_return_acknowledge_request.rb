@@ -14,36 +14,16 @@ require 'date'
 require 'time'
 
 module ChannelEngineMerchantApiClient
-  class MerchantSingleOrderReturnLineResponse
-    # The unique product reference used by the Merchant (sku).
-    attr_accessor :merchant_product_no
+  class MerchantReturnAcknowledgeRequest
+    attr_accessor :return_id
 
-    # The accepted quantity of returned products in this orderline.
-    attr_accessor :accepted_quantity
-
-    # The rejected quantity of returned products in this orderline.
-    attr_accessor :rejected_quantity
-
-    attr_accessor :order_line
-
-    attr_accessor :shipment_status
-
-    # Number of items of the product in this return.
-    attr_accessor :quantity
-
-    # Extra data on the returnline. Each item must have an unqiue key
-    attr_accessor :extra_data
+    attr_accessor :merchant_return_no
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'merchant_product_no' => :'MerchantProductNo',
-        :'accepted_quantity' => :'AcceptedQuantity',
-        :'rejected_quantity' => :'RejectedQuantity',
-        :'order_line' => :'OrderLine',
-        :'shipment_status' => :'ShipmentStatus',
-        :'quantity' => :'Quantity',
-        :'extra_data' => :'ExtraData'
+        :'return_id' => :'ReturnId',
+        :'merchant_return_no' => :'MerchantReturnNo'
       }
     end
 
@@ -55,23 +35,14 @@ module ChannelEngineMerchantApiClient
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'merchant_product_no' => :'String',
-        :'accepted_quantity' => :'Integer',
-        :'rejected_quantity' => :'Integer',
-        :'order_line' => :'MerchantOrderLineResponse',
-        :'shipment_status' => :'ShipmentLineStatus',
-        :'quantity' => :'Integer',
-        :'extra_data' => :'Hash<String, String>'
+        :'return_id' => :'Integer',
+        :'merchant_return_no' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'merchant_product_no',
-        :'accepted_quantity',
-        :'rejected_quantity',
-        :'extra_data'
       ])
     end
 
@@ -79,45 +50,23 @@ module ChannelEngineMerchantApiClient
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `ChannelEngineMerchantApiClient::MerchantSingleOrderReturnLineResponse` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `ChannelEngineMerchantApiClient::MerchantReturnAcknowledgeRequest` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `ChannelEngineMerchantApiClient::MerchantSingleOrderReturnLineResponse`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `ChannelEngineMerchantApiClient::MerchantReturnAcknowledgeRequest`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'merchant_product_no')
-        self.merchant_product_no = attributes[:'merchant_product_no']
+      if attributes.key?(:'return_id')
+        self.return_id = attributes[:'return_id']
       end
 
-      if attributes.key?(:'accepted_quantity')
-        self.accepted_quantity = attributes[:'accepted_quantity']
-      end
-
-      if attributes.key?(:'rejected_quantity')
-        self.rejected_quantity = attributes[:'rejected_quantity']
-      end
-
-      if attributes.key?(:'order_line')
-        self.order_line = attributes[:'order_line']
-      end
-
-      if attributes.key?(:'shipment_status')
-        self.shipment_status = attributes[:'shipment_status']
-      end
-
-      if attributes.key?(:'quantity')
-        self.quantity = attributes[:'quantity']
-      end
-
-      if attributes.key?(:'extra_data')
-        if (value = attributes[:'extra_data']).is_a?(Hash)
-          self.extra_data = value
-        end
+      if attributes.key?(:'merchant_return_no')
+        self.merchant_return_no = attributes[:'merchant_return_no']
       end
     end
 
@@ -125,12 +74,8 @@ module ChannelEngineMerchantApiClient
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @quantity.nil?
-        invalid_properties.push('invalid value for "quantity", quantity cannot be nil.')
-      end
-
-      if @quantity < 0
-        invalid_properties.push('invalid value for "quantity", must be greater than or equal to 0.')
+      if @merchant_return_no.nil?
+        invalid_properties.push('invalid value for "merchant_return_no", merchant_return_no cannot be nil.')
       end
 
       invalid_properties
@@ -139,23 +84,8 @@ module ChannelEngineMerchantApiClient
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @quantity.nil?
-      return false if @quantity < 0
+      return false if @merchant_return_no.nil?
       true
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] quantity Value to be assigned
-    def quantity=(quantity)
-      if quantity.nil?
-        fail ArgumentError, 'quantity cannot be nil'
-      end
-
-      if quantity < 0
-        fail ArgumentError, 'invalid value for "quantity", must be greater than or equal to 0.'
-      end
-
-      @quantity = quantity
     end
 
     # Checks equality by comparing each attribute.
@@ -163,13 +93,8 @@ module ChannelEngineMerchantApiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          merchant_product_no == o.merchant_product_no &&
-          accepted_quantity == o.accepted_quantity &&
-          rejected_quantity == o.rejected_quantity &&
-          order_line == o.order_line &&
-          shipment_status == o.shipment_status &&
-          quantity == o.quantity &&
-          extra_data == o.extra_data
+          return_id == o.return_id &&
+          merchant_return_no == o.merchant_return_no
     end
 
     # @see the `==` method
@@ -181,7 +106,7 @@ module ChannelEngineMerchantApiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [merchant_product_no, accepted_quantity, rejected_quantity, order_line, shipment_status, quantity, extra_data].hash
+      [return_id, merchant_return_no].hash
     end
 
     # Builds the object from hash

@@ -11,5 +11,5 @@ OpenAPI Generator version: 6.0.0-SNAPSHOT
 =end
 
 module ChannelEngineMerchantApiClient
-  VERSION = '2.11.0'
+  VERSION = '2.12.0'
 end

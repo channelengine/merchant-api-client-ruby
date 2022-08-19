@@ -25,13 +25,17 @@ module ChannelEngineMerchantApiClient
     # Number of items of the product in this return.
     attr_accessor :quantity
 
+    # Extra data on the returnline. Each item must have an unqiue key
+    attr_accessor :extra_data
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'merchant_product_no' => :'MerchantProductNo',
         :'order_line' => :'OrderLine',
         :'shipment_status' => :'ShipmentStatus',
-        :'quantity' => :'Quantity'
+        :'quantity' => :'Quantity',
+        :'extra_data' => :'ExtraData'
       }
     end
 
@@ -46,7 +50,8 @@ module ChannelEngineMerchantApiClient
         :'merchant_product_no' => :'String',
         :'order_line' => :'MerchantOrderLineResponse',
         :'shipment_status' => :'ShipmentLineStatus',
-        :'quantity' => :'Integer'
+        :'quantity' => :'Integer',
+        :'extra_data' => :'Hash<String, String>'
       }
     end
 
@@ -54,6 +59,7 @@ module ChannelEngineMerchantApiClient
     def self.openapi_nullable
       Set.new([
         :'merchant_product_no',
+        :'extra_data'
       ])
     end
 
@@ -86,6 +92,12 @@ module ChannelEngineMerchantApiClient
 
       if attributes.key?(:'quantity')
         self.quantity = attributes[:'quantity']
+      end
+
+      if attributes.key?(:'extra_data')
+        if (value = attributes[:'extra_data']).is_a?(Hash)
+          self.extra_data = value
+        end
       end
     end
 
@@ -134,7 +146,8 @@ module ChannelEngineMerchantApiClient
           merchant_product_no == o.merchant_product_no &&
           order_line == o.order_line &&
           shipment_status == o.shipment_status &&
-          quantity == o.quantity
+          quantity == o.quantity &&
+          extra_data == o.extra_data
     end
 
     # @see the `==` method
@@ -146,7 +159,7 @@ module ChannelEngineMerchantApiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [merchant_product_no, order_line, shipment_status, quantity].hash
+      [merchant_product_no, order_line, shipment_status, quantity, extra_data].hash
     end
 
     # Builds the object from hash

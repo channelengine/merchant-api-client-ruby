@@ -101,7 +101,9 @@ module ChannelEngineMerchantApiClient
     # @option opts [Array<Integer>] :stock_location_ids Filter on stock locations
     # @option opts [Boolean] :is_acknowledged Filter on acknowledged value
     # @option opts [Time] :from_updated_at_date Filter on the order update date, starting from this date. This date is inclusive.
-    # @option opts [Time] :to_updated_at_date Filter on the order update date, unitl from this date. This date is exclusive.
+    # @option opts [Time] :to_updated_at_date Filter on the order update date, unitl this date. This date is exclusive.
+    # @option opts [Time] :from_acknowledged_date Filter on the order acknowledged date, starting from this date. This date is inclusive.
+    # @option opts [Time] :to_acknowledged_date Filter on the order acknowledged date, unitl this date. This date is exclusive.
     # @option opts [Integer] :page The page to filter on. Starts at 1.
     # @return [CollectionOfMerchantOrderResponse]
     def order_get_by_filter(opts = {})
@@ -127,7 +129,9 @@ module ChannelEngineMerchantApiClient
     # @option opts [Array<Integer>] :stock_location_ids Filter on stock locations
     # @option opts [Boolean] :is_acknowledged Filter on acknowledged value
     # @option opts [Time] :from_updated_at_date Filter on the order update date, starting from this date. This date is inclusive.
-    # @option opts [Time] :to_updated_at_date Filter on the order update date, unitl from this date. This date is exclusive.
+    # @option opts [Time] :to_updated_at_date Filter on the order update date, unitl this date. This date is exclusive.
+    # @option opts [Time] :from_acknowledged_date Filter on the order acknowledged date, starting from this date. This date is inclusive.
+    # @option opts [Time] :to_acknowledged_date Filter on the order acknowledged date, unitl this date. This date is exclusive.
     # @option opts [Integer] :page The page to filter on. Starts at 1.
     # @return [Array<(CollectionOfMerchantOrderResponse, Integer, Hash)>] CollectionOfMerchantOrderResponse data, response status code and response headers
     def order_get_by_filter_with_http_info(opts = {})
@@ -155,6 +159,8 @@ module ChannelEngineMerchantApiClient
       query_params[:'isAcknowledged'] = opts[:'is_acknowledged'] if !opts[:'is_acknowledged'].nil?
       query_params[:'fromUpdatedAtDate'] = opts[:'from_updated_at_date'] if !opts[:'from_updated_at_date'].nil?
       query_params[:'toUpdatedAtDate'] = opts[:'to_updated_at_date'] if !opts[:'to_updated_at_date'].nil?
+      query_params[:'fromAcknowledgedDate'] = opts[:'from_acknowledged_date'] if !opts[:'from_acknowledged_date'].nil?
+      query_params[:'toAcknowledgedDate'] = opts[:'to_acknowledged_date'] if !opts[:'to_acknowledged_date'].nil?
       query_params[:'page'] = opts[:'page'] if !opts[:'page'].nil?
 
       # header parameters

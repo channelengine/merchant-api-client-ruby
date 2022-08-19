@@ -46,6 +46,9 @@ module ChannelEngineMerchantApiClient
 
     attr_accessor :status
 
+    # Date of acknowledgement
+    attr_accessor :acknowledged_date
+
     # The unique return reference used by ChannelEngine.
     attr_accessor :id
 
@@ -66,6 +69,9 @@ module ChannelEngineMerchantApiClient
     # The date at which the return was originally created in the source system (if available).
     attr_accessor :return_date
 
+    # Extra data on the return. Each item must have an unqiue key
+    attr_accessor :extra_data
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -80,13 +86,15 @@ module ChannelEngineMerchantApiClient
         :'merchant_return_no' => :'MerchantReturnNo',
         :'channel_return_no' => :'ChannelReturnNo',
         :'status' => :'Status',
+        :'acknowledged_date' => :'AcknowledgedDate',
         :'id' => :'Id',
         :'reason' => :'Reason',
         :'customer_comment' => :'CustomerComment',
         :'merchant_comment' => :'MerchantComment',
         :'refund_incl_vat' => :'RefundInclVat',
         :'refund_excl_vat' => :'RefundExclVat',
-        :'return_date' => :'ReturnDate'
+        :'return_date' => :'ReturnDate',
+        :'extra_data' => :'ExtraData'
       }
     end
 
@@ -109,13 +117,15 @@ module ChannelEngineMerchantApiClient
         :'merchant_return_no' => :'String',
         :'channel_return_no' => :'String',
         :'status' => :'ReturnStatus',
+        :'acknowledged_date' => :'Time',
         :'id' => :'Integer',
         :'reason' => :'ReturnReason',
         :'customer_comment' => :'String',
         :'merchant_comment' => :'String',
         :'refund_incl_vat' => :'Float',
         :'refund_excl_vat' => :'Float',
-        :'return_date' => :'Time'
+        :'return_date' => :'Time',
+        :'extra_data' => :'Hash<String, String>'
       }
     end
 
@@ -130,9 +140,11 @@ module ChannelEngineMerchantApiClient
         :'lines',
         :'merchant_return_no',
         :'channel_return_no',
+        :'acknowledged_date',
         :'customer_comment',
         :'merchant_comment',
-        :'return_date'
+        :'return_date',
+        :'extra_data'
       ])
     end
 
@@ -197,6 +209,10 @@ module ChannelEngineMerchantApiClient
         self.status = attributes[:'status']
       end
 
+      if attributes.key?(:'acknowledged_date')
+        self.acknowledged_date = attributes[:'acknowledged_date']
+      end
+
       if attributes.key?(:'id')
         self.id = attributes[:'id']
       end
@@ -223,6 +239,12 @@ module ChannelEngineMerchantApiClient
 
       if attributes.key?(:'return_date')
         self.return_date = attributes[:'return_date']
+      end
+
+      if attributes.key?(:'extra_data')
+        if (value = attributes[:'extra_data']).is_a?(Hash)
+          self.extra_data = value
+        end
       end
     end
 
@@ -333,13 +355,15 @@ module ChannelEngineMerchantApiClient
           merchant_return_no == o.merchant_return_no &&
           channel_return_no == o.channel_return_no &&
           status == o.status &&
+          acknowledged_date == o.acknowledged_date &&
           id == o.id &&
           reason == o.reason &&
           customer_comment == o.customer_comment &&
           merchant_comment == o.merchant_comment &&
           refund_incl_vat == o.refund_incl_vat &&
           refund_excl_vat == o.refund_excl_vat &&
-          return_date == o.return_date
+          return_date == o.return_date &&
+          extra_data == o.extra_data
     end
 
     # @see the `==` method
@@ -351,7 +375,7 @@ module ChannelEngineMerchantApiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [merchant_order_no, channel_order_no, channel_id, global_channel_id, global_channel_name, lines, created_at, updated_at, merchant_return_no, channel_return_no, status, id, reason, customer_comment, merchant_comment, refund_incl_vat, refund_excl_vat, return_date].hash
+      [merchant_order_no, channel_order_no, channel_id, global_channel_id, global_channel_name, lines, created_at, updated_at, merchant_return_no, channel_return_no, status, acknowledged_date, id, reason, customer_comment, merchant_comment, refund_incl_vat, refund_excl_vat, return_date, extra_data].hash
     end
 
     # Builds the object from hash

@@ -21,11 +21,15 @@ module ChannelEngineMerchantApiClient
     # Number of items of the product in this return.
     attr_accessor :quantity
 
+    # Extra data on the returnline. Each item must have an unqiue key
+    attr_accessor :extra_data
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'merchant_product_no' => :'MerchantProductNo',
-        :'quantity' => :'Quantity'
+        :'quantity' => :'Quantity',
+        :'extra_data' => :'ExtraData'
       }
     end
 
@@ -38,13 +42,15 @@ module ChannelEngineMerchantApiClient
     def self.openapi_types
       {
         :'merchant_product_no' => :'String',
-        :'quantity' => :'Integer'
+        :'quantity' => :'Integer',
+        :'extra_data' => :'Hash<String, String>'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'extra_data'
       ])
     end
 
@@ -69,6 +75,12 @@ module ChannelEngineMerchantApiClient
 
       if attributes.key?(:'quantity')
         self.quantity = attributes[:'quantity']
+      end
+
+      if attributes.key?(:'extra_data')
+        if (value = attributes[:'extra_data']).is_a?(Hash)
+          self.extra_data = value
+        end
       end
     end
 
@@ -148,7 +160,8 @@ module ChannelEngineMerchantApiClient
       return true if self.equal?(o)
       self.class == o.class &&
           merchant_product_no == o.merchant_product_no &&
-          quantity == o.quantity
+          quantity == o.quantity &&
+          extra_data == o.extra_data
     end
 
     # @see the `==` method
@@ -160,7 +173,7 @@ module ChannelEngineMerchantApiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [merchant_product_no, quantity].hash
+      [merchant_product_no, quantity, extra_data].hash
     end
 
     # Builds the object from hash
