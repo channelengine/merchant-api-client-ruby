@@ -14,69 +14,31 @@ require 'date'
 require 'time'
 
 module ChannelEngineMerchantApiClient
-  class MerchantAddressResponse
-    # The first address line, use this field if address validation is disabled in ChannelEngine.
-    attr_accessor :line1
-
-    # The second address line, use this field if address validation is disabled in ChannelEngine.
-    attr_accessor :line2
-
-    # The third address line, use this field if address validation is disabled in ChannelEngine.
-    attr_accessor :line3
-
-    attr_accessor :gender
-
-    # Optional. Company addressed too.
-    attr_accessor :company_name
-
-    # The first name of the customer.
-    attr_accessor :first_name
-
-    # The last name of the customer (includes the surname prefix [tussenvoegsel] like 'de', 'van', 'du').
-    attr_accessor :last_name
-
-    # The name of the street (without house number information)  This field might be empty if address validation is disabled in ChannelEngine.
-    attr_accessor :street_name
-
-    # The house number  This field might be empty if address validation is disabled in ChannelEngine.
-    attr_accessor :house_nr
-
-    # Optional. Addition to the house number  If the address is: Groenhazengracht 2c, the address will be:  StreetName: Groenhazengracht  HouseNo: 2  HouseNrAddition: c  This field might be empty if address validation is disabled in ChannelEngine.
-    attr_accessor :house_nr_addition
-
-    # The zip or postal code.
-    attr_accessor :zip_code
-
-    # The name of the city.
-    attr_accessor :city
-
-    # Optional. State/province/region.
-    attr_accessor :region
-
-    # For example: NL, BE, FR.
+  class MerchantStockLocationAddressRequest
     attr_accessor :country_iso
 
-    # Optional. The address as a single string: use in case the address lines are entered  as single lines and later parsed into street, house number and house number addition.
-    attr_accessor :original
+    attr_accessor :street_name
+
+    attr_accessor :zip_code
+
+    attr_accessor :house_nr
+
+    attr_accessor :house_nr_addition
+
+    attr_accessor :city
+
+    attr_accessor :region
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'line1' => :'Line1',
-        :'line2' => :'Line2',
-        :'line3' => :'Line3',
-        :'gender' => :'Gender',
-        :'company_name' => :'CompanyName',
-        :'first_name' => :'FirstName',
-        :'last_name' => :'LastName',
+        :'country_iso' => :'CountryIso',
         :'street_name' => :'StreetName',
+        :'zip_code' => :'ZipCode',
         :'house_nr' => :'HouseNr',
         :'house_nr_addition' => :'HouseNrAddition',
-        :'zip_code' => :'ZipCode',
         :'city' => :'City',
-        :'region' => :'Region',
-        :'country_iso' => :'CountryIso',
-        :'original' => :'Original'
+        :'region' => :'Region'
       }
     end
 
@@ -88,41 +50,25 @@ module ChannelEngineMerchantApiClient
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'line1' => :'String',
-        :'line2' => :'String',
-        :'line3' => :'String',
-        :'gender' => :'Gender',
-        :'company_name' => :'String',
-        :'first_name' => :'String',
-        :'last_name' => :'String',
+        :'country_iso' => :'String',
         :'street_name' => :'String',
+        :'zip_code' => :'String',
         :'house_nr' => :'String',
         :'house_nr_addition' => :'String',
-        :'zip_code' => :'String',
         :'city' => :'String',
-        :'region' => :'String',
-        :'country_iso' => :'String',
-        :'original' => :'String'
+        :'region' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'line1',
-        :'line2',
-        :'line3',
-        :'company_name',
-        :'first_name',
-        :'last_name',
         :'street_name',
+        :'zip_code',
         :'house_nr',
         :'house_nr_addition',
-        :'zip_code',
         :'city',
-        :'region',
-        :'country_iso',
-        :'original'
+        :'region'
       ])
     end
 
@@ -130,47 +76,27 @@ module ChannelEngineMerchantApiClient
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `ChannelEngineMerchantApiClient::MerchantAddressResponse` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `ChannelEngineMerchantApiClient::MerchantStockLocationAddressRequest` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `ChannelEngineMerchantApiClient::MerchantAddressResponse`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `ChannelEngineMerchantApiClient::MerchantStockLocationAddressRequest`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'line1')
-        self.line1 = attributes[:'line1']
-      end
-
-      if attributes.key?(:'line2')
-        self.line2 = attributes[:'line2']
-      end
-
-      if attributes.key?(:'line3')
-        self.line3 = attributes[:'line3']
-      end
-
-      if attributes.key?(:'gender')
-        self.gender = attributes[:'gender']
-      end
-
-      if attributes.key?(:'company_name')
-        self.company_name = attributes[:'company_name']
-      end
-
-      if attributes.key?(:'first_name')
-        self.first_name = attributes[:'first_name']
-      end
-
-      if attributes.key?(:'last_name')
-        self.last_name = attributes[:'last_name']
+      if attributes.key?(:'country_iso')
+        self.country_iso = attributes[:'country_iso']
       end
 
       if attributes.key?(:'street_name')
         self.street_name = attributes[:'street_name']
+      end
+
+      if attributes.key?(:'zip_code')
+        self.zip_code = attributes[:'zip_code']
       end
 
       if attributes.key?(:'house_nr')
@@ -181,10 +107,6 @@ module ChannelEngineMerchantApiClient
         self.house_nr_addition = attributes[:'house_nr_addition']
       end
 
-      if attributes.key?(:'zip_code')
-        self.zip_code = attributes[:'zip_code']
-      end
-
       if attributes.key?(:'city')
         self.city = attributes[:'city']
       end
@@ -192,42 +114,14 @@ module ChannelEngineMerchantApiClient
       if attributes.key?(:'region')
         self.region = attributes[:'region']
       end
-
-      if attributes.key?(:'country_iso')
-        self.country_iso = attributes[:'country_iso']
-      end
-
-      if attributes.key?(:'original')
-        self.original = attributes[:'original']
-      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if !@company_name.nil? && @company_name.to_s.length > 50
-        invalid_properties.push('invalid value for "company_name", the character length must be smaller than or equal to 50.')
-      end
-
-      if !@company_name.nil? && @company_name.to_s.length < 0
-        invalid_properties.push('invalid value for "company_name", the character length must be great than or equal to 0.')
-      end
-
-      if !@first_name.nil? && @first_name.to_s.length > 50
-        invalid_properties.push('invalid value for "first_name", the character length must be smaller than or equal to 50.')
-      end
-
-      if !@first_name.nil? && @first_name.to_s.length < 0
-        invalid_properties.push('invalid value for "first_name", the character length must be great than or equal to 0.')
-      end
-
-      if !@last_name.nil? && @last_name.to_s.length > 50
-        invalid_properties.push('invalid value for "last_name", the character length must be smaller than or equal to 50.')
-      end
-
-      if !@last_name.nil? && @last_name.to_s.length < 0
-        invalid_properties.push('invalid value for "last_name", the character length must be great than or equal to 0.')
+      if @country_iso.nil?
+        invalid_properties.push('invalid value for "country_iso", country_iso cannot be nil.')
       end
 
       if !@street_name.nil? && @street_name.to_s.length > 50
@@ -270,34 +164,13 @@ module ChannelEngineMerchantApiClient
         invalid_properties.push('invalid value for "region", the character length must be great than or equal to 0.')
       end
 
-      if !@country_iso.nil? && @country_iso.to_s.length > 2
-        invalid_properties.push('invalid value for "country_iso", the character length must be smaller than or equal to 2.')
-      end
-
-      if !@country_iso.nil? && @country_iso.to_s.length < 0
-        invalid_properties.push('invalid value for "country_iso", the character length must be great than or equal to 0.')
-      end
-
-      if !@original.nil? && @original.to_s.length > 256
-        invalid_properties.push('invalid value for "original", the character length must be smaller than or equal to 256.')
-      end
-
-      if !@original.nil? && @original.to_s.length < 0
-        invalid_properties.push('invalid value for "original", the character length must be great than or equal to 0.')
-      end
-
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if !@company_name.nil? && @company_name.to_s.length > 50
-      return false if !@company_name.nil? && @company_name.to_s.length < 0
-      return false if !@first_name.nil? && @first_name.to_s.length > 50
-      return false if !@first_name.nil? && @first_name.to_s.length < 0
-      return false if !@last_name.nil? && @last_name.to_s.length > 50
-      return false if !@last_name.nil? && @last_name.to_s.length < 0
+      return false if @country_iso.nil?
       return false if !@street_name.nil? && @street_name.to_s.length > 50
       return false if !@street_name.nil? && @street_name.to_s.length < 0
       return false if !@house_nr.nil? && @house_nr.to_s.length > 50
@@ -308,53 +181,7 @@ module ChannelEngineMerchantApiClient
       return false if !@city.nil? && @city.to_s.length < 0
       return false if !@region.nil? && @region.to_s.length > 50
       return false if !@region.nil? && @region.to_s.length < 0
-      return false if !@country_iso.nil? && @country_iso.to_s.length > 2
-      return false if !@country_iso.nil? && @country_iso.to_s.length < 0
-      return false if !@original.nil? && @original.to_s.length > 256
-      return false if !@original.nil? && @original.to_s.length < 0
       true
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] company_name Value to be assigned
-    def company_name=(company_name)
-      if !company_name.nil? && company_name.to_s.length > 50
-        fail ArgumentError, 'invalid value for "company_name", the character length must be smaller than or equal to 50.'
-      end
-
-      if !company_name.nil? && company_name.to_s.length < 0
-        fail ArgumentError, 'invalid value for "company_name", the character length must be great than or equal to 0.'
-      end
-
-      @company_name = company_name
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] first_name Value to be assigned
-    def first_name=(first_name)
-      if !first_name.nil? && first_name.to_s.length > 50
-        fail ArgumentError, 'invalid value for "first_name", the character length must be smaller than or equal to 50.'
-      end
-
-      if !first_name.nil? && first_name.to_s.length < 0
-        fail ArgumentError, 'invalid value for "first_name", the character length must be great than or equal to 0.'
-      end
-
-      @first_name = first_name
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] last_name Value to be assigned
-    def last_name=(last_name)
-      if !last_name.nil? && last_name.to_s.length > 50
-        fail ArgumentError, 'invalid value for "last_name", the character length must be smaller than or equal to 50.'
-      end
-
-      if !last_name.nil? && last_name.to_s.length < 0
-        fail ArgumentError, 'invalid value for "last_name", the character length must be great than or equal to 0.'
-      end
-
-      @last_name = last_name
     end
 
     # Custom attribute writer method with validation
@@ -427,54 +254,18 @@ module ChannelEngineMerchantApiClient
       @region = region
     end
 
-    # Custom attribute writer method with validation
-    # @param [Object] country_iso Value to be assigned
-    def country_iso=(country_iso)
-      if !country_iso.nil? && country_iso.to_s.length > 2
-        fail ArgumentError, 'invalid value for "country_iso", the character length must be smaller than or equal to 2.'
-      end
-
-      if !country_iso.nil? && country_iso.to_s.length < 0
-        fail ArgumentError, 'invalid value for "country_iso", the character length must be great than or equal to 0.'
-      end
-
-      @country_iso = country_iso
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] original Value to be assigned
-    def original=(original)
-      if !original.nil? && original.to_s.length > 256
-        fail ArgumentError, 'invalid value for "original", the character length must be smaller than or equal to 256.'
-      end
-
-      if !original.nil? && original.to_s.length < 0
-        fail ArgumentError, 'invalid value for "original", the character length must be great than or equal to 0.'
-      end
-
-      @original = original
-    end
-
     # Checks equality by comparing each attribute.
     # @param [Object] Object to be compared
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          line1 == o.line1 &&
-          line2 == o.line2 &&
-          line3 == o.line3 &&
-          gender == o.gender &&
-          company_name == o.company_name &&
-          first_name == o.first_name &&
-          last_name == o.last_name &&
+          country_iso == o.country_iso &&
           street_name == o.street_name &&
+          zip_code == o.zip_code &&
           house_nr == o.house_nr &&
           house_nr_addition == o.house_nr_addition &&
-          zip_code == o.zip_code &&
           city == o.city &&
-          region == o.region &&
-          country_iso == o.country_iso &&
-          original == o.original
+          region == o.region
     end
 
     # @see the `==` method
@@ -486,7 +277,7 @@ module ChannelEngineMerchantApiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [line1, line2, line3, gender, company_name, first_name, last_name, street_name, house_nr, house_nr_addition, zip_code, city, region, country_iso, original].hash
+      [country_iso, street_name, zip_code, house_nr, house_nr_addition, city, region].hash
     end
 
     # Builds the object from hash

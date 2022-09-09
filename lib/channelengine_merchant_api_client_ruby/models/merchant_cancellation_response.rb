@@ -14,25 +14,36 @@ require 'date'
 require 'time'
 
 module ChannelEngineMerchantApiClient
-  class MerchantProductExtraDataItemResponse
-    # Name of the extra data field.
-    attr_accessor :key
+  class MerchantCancellationResponse
+    # The unique cancellation reference used by the Merchant (sku).
+    attr_accessor :merchant_cancellation_no
 
-    # Value of the extra data field.
-    attr_accessor :value
+    # The unique order reference used by the Merchant.
+    attr_accessor :merchant_order_no
 
-    attr_accessor :type
+    # The unique order reference used by the Channel.
+    attr_accessor :channel_order_no
 
-    # Add this field to the export of the product feed to the channel.
-    attr_accessor :is_public
+    attr_accessor :lines
+
+    # The date at which the cancellation was created in ChannelEngine.
+    attr_accessor :created_at
+
+    # Reason for cancellation (text).
+    attr_accessor :reason
+
+    attr_accessor :reason_code
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'key' => :'Key',
-        :'value' => :'Value',
-        :'type' => :'Type',
-        :'is_public' => :'IsPublic'
+        :'merchant_cancellation_no' => :'MerchantCancellationNo',
+        :'merchant_order_no' => :'MerchantOrderNo',
+        :'channel_order_no' => :'ChannelOrderNo',
+        :'lines' => :'Lines',
+        :'created_at' => :'CreatedAt',
+        :'reason' => :'Reason',
+        :'reason_code' => :'ReasonCode'
       }
     end
 
@@ -44,17 +55,21 @@ module ChannelEngineMerchantApiClient
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'key' => :'String',
-        :'value' => :'String',
-        :'type' => :'ExtraDataType',
-        :'is_public' => :'Boolean'
+        :'merchant_cancellation_no' => :'String',
+        :'merchant_order_no' => :'String',
+        :'channel_order_no' => :'String',
+        :'lines' => :'Array<MerchantCancellationLineResponse>',
+        :'created_at' => :'Time',
+        :'reason' => :'String',
+        :'reason_code' => :'MancoReason'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'value',
+        :'channel_order_no',
+        :'reason',
       ])
     end
 
@@ -62,31 +77,45 @@ module ChannelEngineMerchantApiClient
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `ChannelEngineMerchantApiClient::MerchantProductExtraDataItemResponse` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `ChannelEngineMerchantApiClient::MerchantCancellationResponse` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `ChannelEngineMerchantApiClient::MerchantProductExtraDataItemResponse`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `ChannelEngineMerchantApiClient::MerchantCancellationResponse`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'key')
-        self.key = attributes[:'key']
+      if attributes.key?(:'merchant_cancellation_no')
+        self.merchant_cancellation_no = attributes[:'merchant_cancellation_no']
       end
 
-      if attributes.key?(:'value')
-        self.value = attributes[:'value']
+      if attributes.key?(:'merchant_order_no')
+        self.merchant_order_no = attributes[:'merchant_order_no']
       end
 
-      if attributes.key?(:'type')
-        self.type = attributes[:'type']
+      if attributes.key?(:'channel_order_no')
+        self.channel_order_no = attributes[:'channel_order_no']
       end
 
-      if attributes.key?(:'is_public')
-        self.is_public = attributes[:'is_public']
+      if attributes.key?(:'lines')
+        if (value = attributes[:'lines']).is_a?(Array)
+          self.lines = value
+        end
+      end
+
+      if attributes.key?(:'created_at')
+        self.created_at = attributes[:'created_at']
+      end
+
+      if attributes.key?(:'reason')
+        self.reason = attributes[:'reason']
+      end
+
+      if attributes.key?(:'reason_code')
+        self.reason_code = attributes[:'reason_code']
       end
     end
 
@@ -94,16 +123,24 @@ module ChannelEngineMerchantApiClient
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @key.nil?
-        invalid_properties.push('invalid value for "key", key cannot be nil.')
+      if @merchant_cancellation_no.nil?
+        invalid_properties.push('invalid value for "merchant_cancellation_no", merchant_cancellation_no cannot be nil.')
       end
 
-      if @key.to_s.length > 100
-        invalid_properties.push('invalid value for "key", the character length must be smaller than or equal to 100.')
+      if @merchant_cancellation_no.to_s.length > 250
+        invalid_properties.push('invalid value for "merchant_cancellation_no", the character length must be smaller than or equal to 250.')
       end
 
-      if @key.to_s.length < 0
-        invalid_properties.push('invalid value for "key", the character length must be great than or equal to 0.')
+      if @merchant_cancellation_no.to_s.length < 0
+        invalid_properties.push('invalid value for "merchant_cancellation_no", the character length must be great than or equal to 0.')
+      end
+
+      if @merchant_order_no.nil?
+        invalid_properties.push('invalid value for "merchant_order_no", merchant_order_no cannot be nil.')
+      end
+
+      if @lines.nil?
+        invalid_properties.push('invalid value for "lines", lines cannot be nil.')
       end
 
       invalid_properties
@@ -112,28 +149,30 @@ module ChannelEngineMerchantApiClient
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @key.nil?
-      return false if @key.to_s.length > 100
-      return false if @key.to_s.length < 0
+      return false if @merchant_cancellation_no.nil?
+      return false if @merchant_cancellation_no.to_s.length > 250
+      return false if @merchant_cancellation_no.to_s.length < 0
+      return false if @merchant_order_no.nil?
+      return false if @lines.nil?
       true
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] key Value to be assigned
-    def key=(key)
-      if key.nil?
-        fail ArgumentError, 'key cannot be nil'
+    # @param [Object] merchant_cancellation_no Value to be assigned
+    def merchant_cancellation_no=(merchant_cancellation_no)
+      if merchant_cancellation_no.nil?
+        fail ArgumentError, 'merchant_cancellation_no cannot be nil'
       end
 
-      if key.to_s.length > 100
-        fail ArgumentError, 'invalid value for "key", the character length must be smaller than or equal to 100.'
+      if merchant_cancellation_no.to_s.length > 250
+        fail ArgumentError, 'invalid value for "merchant_cancellation_no", the character length must be smaller than or equal to 250.'
       end
 
-      if key.to_s.length < 0
-        fail ArgumentError, 'invalid value for "key", the character length must be great than or equal to 0.'
+      if merchant_cancellation_no.to_s.length < 0
+        fail ArgumentError, 'invalid value for "merchant_cancellation_no", the character length must be great than or equal to 0.'
       end
 
-      @key = key
+      @merchant_cancellation_no = merchant_cancellation_no
     end
 
     # Checks equality by comparing each attribute.
@@ -141,10 +180,13 @@ module ChannelEngineMerchantApiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          key == o.key &&
-          value == o.value &&
-          type == o.type &&
-          is_public == o.is_public
+          merchant_cancellation_no == o.merchant_cancellation_no &&
+          merchant_order_no == o.merchant_order_no &&
+          channel_order_no == o.channel_order_no &&
+          lines == o.lines &&
+          created_at == o.created_at &&
+          reason == o.reason &&
+          reason_code == o.reason_code
     end
 
     # @see the `==` method
@@ -156,7 +198,7 @@ module ChannelEngineMerchantApiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [key, value, type, is_public].hash
+      [merchant_cancellation_no, merchant_order_no, channel_order_no, lines, created_at, reason, reason_code].hash
     end
 
     # Builds the object from hash

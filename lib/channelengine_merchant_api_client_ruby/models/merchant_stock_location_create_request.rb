@@ -14,25 +14,23 @@ require 'date'
 require 'time'
 
 module ChannelEngineMerchantApiClient
-  class MerchantProductExtraDataItemResponse
-    # Name of the extra data field.
-    attr_accessor :key
+  class MerchantStockLocationCreateRequest
+    attr_accessor :name
 
-    # Value of the extra data field.
-    attr_accessor :value
+    attr_accessor :is_default
 
-    attr_accessor :type
+    # If false: only use fulfillment by channel, else (also) use merchant fulfillment.
+    attr_accessor :fall_back_to_default
 
-    # Add this field to the export of the product feed to the channel.
-    attr_accessor :is_public
+    attr_accessor :address
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'key' => :'Key',
-        :'value' => :'Value',
-        :'type' => :'Type',
-        :'is_public' => :'IsPublic'
+        :'name' => :'Name',
+        :'is_default' => :'IsDefault',
+        :'fall_back_to_default' => :'FallBackToDefault',
+        :'address' => :'Address'
       }
     end
 
@@ -44,17 +42,16 @@ module ChannelEngineMerchantApiClient
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'key' => :'String',
-        :'value' => :'String',
-        :'type' => :'ExtraDataType',
-        :'is_public' => :'Boolean'
+        :'name' => :'String',
+        :'is_default' => :'Boolean',
+        :'fall_back_to_default' => :'Boolean',
+        :'address' => :'MerchantStockLocationAddressRequest'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'value',
       ])
     end
 
@@ -62,31 +59,31 @@ module ChannelEngineMerchantApiClient
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `ChannelEngineMerchantApiClient::MerchantProductExtraDataItemResponse` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `ChannelEngineMerchantApiClient::MerchantStockLocationCreateRequest` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `ChannelEngineMerchantApiClient::MerchantProductExtraDataItemResponse`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `ChannelEngineMerchantApiClient::MerchantStockLocationCreateRequest`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'key')
-        self.key = attributes[:'key']
+      if attributes.key?(:'name')
+        self.name = attributes[:'name']
       end
 
-      if attributes.key?(:'value')
-        self.value = attributes[:'value']
+      if attributes.key?(:'is_default')
+        self.is_default = attributes[:'is_default']
       end
 
-      if attributes.key?(:'type')
-        self.type = attributes[:'type']
+      if attributes.key?(:'fall_back_to_default')
+        self.fall_back_to_default = attributes[:'fall_back_to_default']
       end
 
-      if attributes.key?(:'is_public')
-        self.is_public = attributes[:'is_public']
+      if attributes.key?(:'address')
+        self.address = attributes[:'address']
       end
     end
 
@@ -94,16 +91,8 @@ module ChannelEngineMerchantApiClient
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @key.nil?
-        invalid_properties.push('invalid value for "key", key cannot be nil.')
-      end
-
-      if @key.to_s.length > 100
-        invalid_properties.push('invalid value for "key", the character length must be smaller than or equal to 100.')
-      end
-
-      if @key.to_s.length < 0
-        invalid_properties.push('invalid value for "key", the character length must be great than or equal to 0.')
+      if @name.nil?
+        invalid_properties.push('invalid value for "name", name cannot be nil.')
       end
 
       invalid_properties
@@ -112,28 +101,8 @@ module ChannelEngineMerchantApiClient
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @key.nil?
-      return false if @key.to_s.length > 100
-      return false if @key.to_s.length < 0
+      return false if @name.nil?
       true
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] key Value to be assigned
-    def key=(key)
-      if key.nil?
-        fail ArgumentError, 'key cannot be nil'
-      end
-
-      if key.to_s.length > 100
-        fail ArgumentError, 'invalid value for "key", the character length must be smaller than or equal to 100.'
-      end
-
-      if key.to_s.length < 0
-        fail ArgumentError, 'invalid value for "key", the character length must be great than or equal to 0.'
-      end
-
-      @key = key
     end
 
     # Checks equality by comparing each attribute.
@@ -141,10 +110,10 @@ module ChannelEngineMerchantApiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          key == o.key &&
-          value == o.value &&
-          type == o.type &&
-          is_public == o.is_public
+          name == o.name &&
+          is_default == o.is_default &&
+          fall_back_to_default == o.fall_back_to_default &&
+          address == o.address
     end
 
     # @see the `==` method
@@ -156,7 +125,7 @@ module ChannelEngineMerchantApiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [key, value, type, is_public].hash
+      [name, is_default, fall_back_to_default, address].hash
     end
 
     # Builds the object from hash

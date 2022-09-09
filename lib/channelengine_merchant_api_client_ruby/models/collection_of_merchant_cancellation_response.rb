@@ -14,25 +14,40 @@ require 'date'
 require 'time'
 
 module ChannelEngineMerchantApiClient
-  class MerchantProductExtraDataItemResponse
-    # Name of the extra data field.
-    attr_accessor :key
+  class CollectionOfMerchantCancellationResponse
+    attr_accessor :content
 
-    # Value of the extra data field.
-    attr_accessor :value
+    attr_accessor :count
 
-    attr_accessor :type
+    attr_accessor :total_count
 
-    # Add this field to the export of the product feed to the channel.
-    attr_accessor :is_public
+    attr_accessor :items_per_page
+
+    attr_accessor :status_code
+
+    attr_accessor :request_id
+
+    attr_accessor :log_id
+
+    attr_accessor :success
+
+    attr_accessor :message
+
+    attr_accessor :validation_errors
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'key' => :'Key',
-        :'value' => :'Value',
-        :'type' => :'Type',
-        :'is_public' => :'IsPublic'
+        :'content' => :'Content',
+        :'count' => :'Count',
+        :'total_count' => :'TotalCount',
+        :'items_per_page' => :'ItemsPerPage',
+        :'status_code' => :'StatusCode',
+        :'request_id' => :'RequestId',
+        :'log_id' => :'LogId',
+        :'success' => :'Success',
+        :'message' => :'Message',
+        :'validation_errors' => :'ValidationErrors'
       }
     end
 
@@ -44,17 +59,27 @@ module ChannelEngineMerchantApiClient
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'key' => :'String',
-        :'value' => :'String',
-        :'type' => :'ExtraDataType',
-        :'is_public' => :'Boolean'
+        :'content' => :'Array<MerchantCancellationResponse>',
+        :'count' => :'Integer',
+        :'total_count' => :'Integer',
+        :'items_per_page' => :'Integer',
+        :'status_code' => :'Integer',
+        :'request_id' => :'String',
+        :'log_id' => :'String',
+        :'success' => :'Boolean',
+        :'message' => :'String',
+        :'validation_errors' => :'Hash<String, Array<String>>'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'value',
+        :'content',
+        :'request_id',
+        :'log_id',
+        :'message',
+        :'validation_errors'
       ])
     end
 
@@ -62,31 +87,59 @@ module ChannelEngineMerchantApiClient
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `ChannelEngineMerchantApiClient::MerchantProductExtraDataItemResponse` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `ChannelEngineMerchantApiClient::CollectionOfMerchantCancellationResponse` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `ChannelEngineMerchantApiClient::MerchantProductExtraDataItemResponse`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `ChannelEngineMerchantApiClient::CollectionOfMerchantCancellationResponse`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'key')
-        self.key = attributes[:'key']
+      if attributes.key?(:'content')
+        if (value = attributes[:'content']).is_a?(Array)
+          self.content = value
+        end
       end
 
-      if attributes.key?(:'value')
-        self.value = attributes[:'value']
+      if attributes.key?(:'count')
+        self.count = attributes[:'count']
       end
 
-      if attributes.key?(:'type')
-        self.type = attributes[:'type']
+      if attributes.key?(:'total_count')
+        self.total_count = attributes[:'total_count']
       end
 
-      if attributes.key?(:'is_public')
-        self.is_public = attributes[:'is_public']
+      if attributes.key?(:'items_per_page')
+        self.items_per_page = attributes[:'items_per_page']
+      end
+
+      if attributes.key?(:'status_code')
+        self.status_code = attributes[:'status_code']
+      end
+
+      if attributes.key?(:'request_id')
+        self.request_id = attributes[:'request_id']
+      end
+
+      if attributes.key?(:'log_id')
+        self.log_id = attributes[:'log_id']
+      end
+
+      if attributes.key?(:'success')
+        self.success = attributes[:'success']
+      end
+
+      if attributes.key?(:'message')
+        self.message = attributes[:'message']
+      end
+
+      if attributes.key?(:'validation_errors')
+        if (value = attributes[:'validation_errors']).is_a?(Hash)
+          self.validation_errors = value
+        end
       end
     end
 
@@ -94,46 +147,13 @@ module ChannelEngineMerchantApiClient
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @key.nil?
-        invalid_properties.push('invalid value for "key", key cannot be nil.')
-      end
-
-      if @key.to_s.length > 100
-        invalid_properties.push('invalid value for "key", the character length must be smaller than or equal to 100.')
-      end
-
-      if @key.to_s.length < 0
-        invalid_properties.push('invalid value for "key", the character length must be great than or equal to 0.')
-      end
-
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @key.nil?
-      return false if @key.to_s.length > 100
-      return false if @key.to_s.length < 0
       true
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] key Value to be assigned
-    def key=(key)
-      if key.nil?
-        fail ArgumentError, 'key cannot be nil'
-      end
-
-      if key.to_s.length > 100
-        fail ArgumentError, 'invalid value for "key", the character length must be smaller than or equal to 100.'
-      end
-
-      if key.to_s.length < 0
-        fail ArgumentError, 'invalid value for "key", the character length must be great than or equal to 0.'
-      end
-
-      @key = key
     end
 
     # Checks equality by comparing each attribute.
@@ -141,10 +161,16 @@ module ChannelEngineMerchantApiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          key == o.key &&
-          value == o.value &&
-          type == o.type &&
-          is_public == o.is_public
+          content == o.content &&
+          count == o.count &&
+          total_count == o.total_count &&
+          items_per_page == o.items_per_page &&
+          status_code == o.status_code &&
+          request_id == o.request_id &&
+          log_id == o.log_id &&
+          success == o.success &&
+          message == o.message &&
+          validation_errors == o.validation_errors
     end
 
     # @see the `==` method
@@ -156,7 +182,7 @@ module ChannelEngineMerchantApiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [key, value, type, is_public].hash
+      [content, count, total_count, items_per_page, status_code, request_id, log_id, success, message, validation_errors].hash
     end
 
     # Builds the object from hash
